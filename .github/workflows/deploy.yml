@@ -22,23 +22,22 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
-          cache-dependency-path: web/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        working-directory: web
         run: npm ci
 
       - name: Build
-        working-directory: web
         run: npm run build
 
       - uses: actions/configure-pages@v5
 
+      # `next build` con `output: "export"` genera la cartella `out/`.
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: web/dist
+          path: ./out
 
   deploy:
     needs: build
