@@ -201,11 +201,36 @@ export const projects: Project[] = [
     stack: ["Java", "JavaFX", "SQLite", "Maven"],
     cover: {
       src: "/projects/wavely/cover.webp",
-      alt: "Schermata di accesso di WAVE.LY",
-      caption: "Accesso",
+      alt: "Home di WAVE.LY con il saluto all'utente, gli album in tendenza e il player in basso",
+      caption: "Home con gli album in tendenza e il player",
       frame: "window",
     },
-    gallery: [],
+    gallery: [
+      {
+        src: "/projects/wavely/artista.webp",
+        alt: "Pagina dell'artista Sfera Ebbasta con i brani popolari e quello in corso evidenziato",
+        caption: "Pagina artista con i brani popolari",
+        frame: "window",
+      },
+      {
+        src: "/projects/wavely/album.webp",
+        alt: "Pagina dell'album YE di Kanye West con la tracklist",
+        caption: "Album con tracklist e durata totale",
+        frame: "window",
+      },
+      {
+        src: "/projects/wavely/impostazioni.webp",
+        alt: "Impostazioni con riproduzione automatica, ripresa dell'ascolto ed equalizzatore a 6 bande con preset",
+        caption: "Impostazioni ed equalizzatore a 6 bande",
+        frame: "window",
+      },
+      {
+        src: "/projects/wavely/ricerca.webp",
+        alt: "Ricerca nel catalogo con il risultato migliore, i brani e gli artisti",
+        caption: "Ricerca nel catalogo",
+        frame: "window",
+      },
+    ],
   },
   {
     slug: "tripify",
