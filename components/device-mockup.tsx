@@ -13,8 +13,8 @@ type DeviceMockupProps = {
  * "phone" per le app mobile, "browser" per le web app: la cornice sbagliata
  * darebbe un'idea sbagliata di cos'è il progetto.
  *
- * Pensata per stare dentro un contenitore `relative`: appare in hover,
- * la logica di visibilità sta nel componente che la usa.
+ * Va messa dentro un contenitore che ne definisce le dimensioni: il telefono
+ * si adatta in altezza, la finestra browser in larghezza.
  */
 export function DeviceMockup({ src, alt, frame }: DeviceMockupProps) {
   if (frame === "phone") {

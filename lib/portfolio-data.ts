@@ -5,15 +5,12 @@
 
 export const profile = {
   name: "Matteo Iazzolino",
-  role: "Full-Stack Engineer",
+  role: "Software Engineer",
   location: "Cosenza, Italia",
-  // Il titolo hero stile Proxio: prima parte accesa (bianca), seconda parte tenue (grigia).
-  headlineLead: "Full-stack engineer",
-  headlineMuted: "che costruisce software solido & curato",
-  // Usato come seconda metà del titolo in "Chi sono": tienilo corto.
+  // Segue il ruolo nella prima schermata: tienila corta.
   tagline: "Dal modello dati all'interfaccia, curo tutto il percorso.",
   intro:
-    "Sono uno sviluppatore full-stack con base a Cosenza. Mi muovo con naturalezza tra frontend e backend: dal disegno dell'API e del modello dati fino all'ultimo dettaglio dell'interfaccia. Attualmente sto completando la laurea in Informatica all'Università della Calabria (UniCal).",
+    "Studente al terzo anno di Informatica all'Università della Calabria, con laurea prevista a dicembre 2026. Ho maturato esperienza pratica costruendo progetti universitari e personali in ambito web e mobile: sviluppo full-stack, applicazioni Android e architetture enterprise. Cerco un ruolo part-time da sviluppatore per portare queste competenze su codice di produzione, in parallelo alla laurea magistrale.",
 }
 
 export type Project = {
@@ -35,8 +32,10 @@ export const projects: Project[] = [
   {
     title: "Tripify",
     year: "2026",
+    // Il ruolo è esplicitato: il progetto è di gruppo, il contributo personale
+    // è il modulo catalogo dell'app Android (come dichiarato nel CV).
     description:
-      "Piattaforma di prenotazione viaggi (voli, hotel, attività) costruita a microservizi: sei servizi Spring Boot con un database Postgres ciascuno, autenticazione Keycloak, messaggistica RabbitMQ e un API gateway con rate limiting. Include un'app Android nativa in Kotlin e Jetpack Compose. L'intero stack gira in Docker.",
+      "App Android per la ricerca e prenotazione di viaggi, voli, hotel ed escursioni, parte di una piattaforma a microservizi sviluppata per il corso di Enterprise Architecture: servizi Spring Boot con un database Postgres ciascuno, Keycloak, RabbitMQ e API gateway, il tutto in Docker. Mio contributo: il modulo catalogo dell'app, in Kotlin e Jetpack Compose.",
     stack: ["Spring Boot", "Kotlin", "Jetpack Compose", "PostgreSQL", "Keycloak", "RabbitMQ", "Docker"],
     repo: "https://github.com/Matteoiazz/Enterprise-Project",
     image: "/projects/tripify-home.webp",
@@ -47,7 +46,7 @@ export const projects: Project[] = [
     title: "MoneyMind",
     year: "2026",
     description:
-      "Piattaforma web per la gestione delle finanze personali e degli investimenti. Frontend Angular con grafici interattivi, backend Spring Boot con persistenza Hibernate su PostgreSQL. Progetto di gruppo universitario.",
+      "Piattaforma web per la gestione delle finanze personali e degli investimenti: dashboard con grafici, sezione mercati con azioni ed ETF. Progetto di gruppo (4 persone); mio contributo full-stack, dal backend Spring Boot con persistenza Hibernate su PostgreSQL fino al frontend Angular.",
     stack: ["Angular", "TypeScript", "Spring Boot", "Java", "PostgreSQL", "Chart.js"],
     repo: "https://github.com/Matteoiazz/MoneyMind-WebApplication",
     image: "/projects/moneymind-market.webp",
@@ -73,7 +72,7 @@ export const projects: Project[] = [
     title: "Portfolio",
     year: "2026",
     description:
-      "Questo sito: portfolio statico in Next.js con export su GitHub Pages, animazioni Motion e interfaccia costruita con v0 e rifinita a mano.",
+      "Questo sito: portfolio statico in Next.js con export su GitHub Pages. Animazioni legate allo scorrimento in CSS, interfaccia in vetro e contenuti separati dal markup in un unico file di dati.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Motion"],
     repo: "https://github.com/Matteoiazz/Matteoiazz.github.io",
     demo: "https://matteoiazz.github.io",
@@ -81,10 +80,10 @@ export const projects: Project[] = [
 ]
 
 export const stack: { group: string; items: string[] }[] = [
-  { group: "Linguaggi", items: ["Java", "Kotlin", "Python", "TypeScript", "JavaScript"] },
-  { group: "Frontend", items: ["React", "Angular", "JavaFX"] },
-  { group: "Backend", items: ["Spring", "Node.js"] },
-  { group: "Database", items: ["PostgreSQL", "MySQL"] },
+  { group: "Linguaggi", items: ["Java", "Kotlin", "Python", "C++", "C"] },
+  { group: "Frontend", items: ["Angular", "React", "Tailwind CSS"] },
+  { group: "Backend e database", items: ["Spring Boot", "Node.js", "PostgreSQL", "MySQL"] },
+  { group: "Mobile e desktop", items: ["Kotlin", "Jetpack Compose", "JavaFX", "Electron"] },
 ]
 
 export type Experience = {
@@ -94,32 +93,33 @@ export type Experience = {
   description: string
 }
 
-// TODO: timeline fittizia — riempi con le tue esperienze reali.
 export const experiences: Experience[] = [
   {
-    role: "Full-Stack Engineer",
-    company: "Nome Azienda",
-    period: "2024 — Presente",
-    description: "Una riga sul ruolo, le responsabilità e i risultati principali.",
+    role: "Laurea Triennale in Informatica",
+    company: "Università della Calabria",
+    period: "In corso · prevista dic. 2026",
+    description:
+      "Terzo anno. Progetti universitari in ambito web, mobile e architetture enterprise, affiancati da progetti personali.",
   },
   {
-    role: "Backend Developer",
-    company: "Nome Azienda",
-    period: "2023 — 2024",
-    description: "Una riga sul ruolo, le responsabilità e i risultati principali.",
+    role: "Sommelier / Cameriere",
+    company: "Sale ricevimenti",
+    period: "Dal 2024",
+    description:
+      "Servizio di sala e sommellerie in eventi e ricevimenti: gestione del cliente, lavoro in team sotto pressione e cura del dettaglio.",
   },
   {
-    role: "Software Developer (Stage)",
-    company: "Nome Azienda",
-    period: "2022 — 2023",
-    description: "Una riga sul ruolo, le responsabilità e i risultati principali.",
+    role: "Diploma Scientifico — Scienze Applicate",
+    company: "Liceo Scientifico \"Scorza\", Cosenza",
+    period: "2023 · 97/100",
+    description:
+      "Percorso con indirizzo Scienze Applicate, primo contatto strutturato con la programmazione.",
   },
 ]
 
 export const contact = {
-  // TODO: quale indirizzo vuoi mostrare pubblicamente? (non l'ho messo io di mia iniziativa)
-  email: "tua@email.com",
+  email: "matteo.iazzolino@gmail.com",
   github: "https://github.com/Matteoiazz",
-  linkedin: "#", // TODO: link al tuo profilo LinkedIn
+  linkedin: "https://www.linkedin.com/in/matteoiazzolino",
   x: "#", // TODO: link al tuo profilo X (o rimuovilo da components/contact.tsx)
 }

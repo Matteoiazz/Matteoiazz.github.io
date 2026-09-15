@@ -1,54 +1,52 @@
-"use client"
-
 import { profile, stack } from "@/lib/portfolio-data"
-import { Reveal, Stagger, StaggerItem } from "@/components/reveal"
 import { TechIcon } from "@/components/tech-icon"
-import { SpotlightCard } from "@/components/spotlight-card"
+import { SectionShell } from "@/components/section-shell"
 
 export function About() {
   return (
-    <section id="about" className="mx-auto max-w-6xl px-6 py-32 sm:py-44">
-      <Reveal>
-        <span className="inline-flex items-center rounded-full border border-border bg-secondary/60 px-6 py-2.5 text-base">
-          Chi sono
-        </span>
-      </Reveal>
-      <div className="mt-12 grid gap-16 lg:grid-cols-[1.2fr_1fr]">
-        <Reveal delay={0.05}>
-          <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-            <span className="text-foreground">Chi sono. </span>
-            <span className="text-muted-foreground">{profile.tagline}</span>
-          </h2>
-          <p className="mt-8 text-pretty text-xl leading-relaxed text-muted-foreground sm:text-2xl">
-            {profile.intro}
-          </p>
-        </Reveal>
-
-        <Stagger className="grid gap-5" stagger={0.08}>
-          {stack.map((group) => (
-            <StaggerItem key={group.group}>
-              <SpotlightCard className="rounded-3xl" radius={260}>
-              <div className="rounded-3xl border border-border bg-card p-7 transition-colors duration-500 hover:border-foreground/20">
-                <p className="font-mono text-sm uppercase tracking-wider text-muted-foreground">
-                  {group.group}
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2.5">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-base text-secondary-foreground"
-                    >
-                      <TechIcon name={item} className="size-5 shrink-0" />
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              </SpotlightCard>
-            </StaggerItem>
-          ))}
-        </Stagger>
+    <SectionShell id="about" label="Profilo" title="Chi sono" description={profile.intro}>
+      <div className="grid gap-5 sm:grid-cols-2">
+        {stack.map((group) => (
+          <div
+            key={group.group}
+            className="glass-flat glass-edge surface-hover story-in relative rounded-xl p-6"
+          >
+            <p className="eyebrow uppercase">{group.group}</p>
+            <ul className="mt-5 space-y-3.5">
+              {group.items.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-3 text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                >
+                  <TechIcon name={item} className="size-4 shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
-    </section>
+
+      {/* Solo informazioni che il resto della pagina non mostra già: prima
+          questa griglia ripeteva ruolo, sede e numero di progetti dell'hero. */}
+      <div className="glass-flat glass-edge story-in relative mt-5 grid grid-cols-1 overflow-hidden rounded-xl sm:grid-cols-3">
+        {[
+          { k: "Italiano", v: "Madrelingua" },
+          { k: "Inglese", v: "B2" },
+          { k: "Cerco", v: "Ruolo part-time" },
+        ].map((row, i) => (
+          <div
+            key={row.k}
+            className={[
+              "p-5 border-[var(--hairline)]",
+              i < 2 ? "border-b sm:border-b-0 sm:border-r" : "",
+            ].join(" ")}
+          >
+            <p className="eyebrow uppercase">{row.k}</p>
+            <p className="mt-2 text-sm font-medium">{row.v}</p>
+          </div>
+        ))}
+      </div>
+    </SectionShell>
   )
 }

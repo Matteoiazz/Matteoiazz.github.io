@@ -5,17 +5,19 @@ import { Projects } from "@/components/projects"
 import { Experience } from "@/components/experience"
 import { Contact } from "@/components/contact"
 import { TechMarquee } from "@/components/tech-marquee"
+import { SectionIsland } from "@/components/section-island"
 
 export default function Page() {
   return (
-    <main className="relative">
+    <main className="relative overflow-x-clip">
       <Nav />
       <Hero />
-      <About />
-      <TechMarquee />
       <Projects />
+      <TechMarquee />
+      <About />
       <Experience />
       <Contact />
+      <SectionIsland />
     </main>
   )
 }

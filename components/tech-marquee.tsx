@@ -4,22 +4,22 @@ import { TechIcon } from "@/components/tech-icon"
 const items = stack.flatMap((group) => group.items)
 
 /**
- * Nastro scorrevole con i loghi dello stack.
- * La lista è duplicata: quando la prima metà è uscita di scena, la seconda è
- * già in posizione e l'animazione riparte senza salto visibile.
+ * Striscia dello stack, sobria: solo loghi in scala di grigi che scorrono.
+ * overflow-hidden è obbligatorio — il nastro è largo migliaia di pixel e
+ * senza clipping allargherebbe il documento.
  */
 export function TechMarquee() {
   return (
-    <div className="marquee-mask relative overflow-hidden py-10">
-      <div className="marquee-track flex w-max gap-16">
+    <div className="edge-fade relative overflow-hidden border-y border-[var(--hairline)] py-8">
+      <div className="ticker-track flex w-max items-center gap-12">
         {[0, 1].map((copy) => (
-          <div key={copy} className="flex shrink-0 gap-16" aria-hidden={copy === 1}>
+          <div key={copy} className="flex shrink-0 items-center gap-12" aria-hidden={copy === 1}>
             {items.map((item) => (
               <span
                 key={`${copy}-${item}`}
-                className="flex items-center gap-3 text-xl font-medium text-muted-foreground/60 transition-colors hover:text-foreground"
+                className="flex items-center gap-2.5 text-sm text-muted-foreground/50"
               >
-                <TechIcon name={item} className="size-7 shrink-0" />
+                <TechIcon name={item} className="size-5 shrink-0" />
                 {item}
               </span>
             ))}

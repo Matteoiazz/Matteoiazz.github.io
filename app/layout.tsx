@@ -8,11 +8,29 @@ import { ScrollProgress } from '@/components/scroll-progress'
 const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
+const descrizione =
+  'Portfolio di Matteo Iazzolino, software engineer e studente di Informatica all’Università della Calabria. Progetti web, mobile e architetture enterprise.'
+
 export const metadata: Metadata = {
-  title: 'Matteo Iazzolino — Full-Stack Engineer',
-  description:
-    'Portfolio di Matteo Iazzolino, full-stack engineer di Cosenza. Sistemi backend solidi e interfacce curate, dal database al frontend.',
+  // Serve a rendere assoluti gli URL delle anteprime: senza, i link condivisi
+  // su WhatsApp o LinkedIn non mostrano l'immagine.
+  metadataBase: new URL('https://matteoiazz.github.io'),
+  title: 'Matteo Iazzolino — Software Engineer',
+  description: descrizione,
   icons: { icon: '/icon.svg', apple: '/apple-icon.png' },
+  openGraph: {
+    type: 'website',
+    locale: 'it_IT',
+    url: 'https://matteoiazz.github.io',
+    siteName: 'Matteo Iazzolino',
+    title: 'Matteo Iazzolino — Software Engineer',
+    description: descrizione,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Matteo Iazzolino — Software Engineer',
+    description: descrizione,
+  },
 }
 
 export const viewport: Viewport = {

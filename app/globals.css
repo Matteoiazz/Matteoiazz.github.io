@@ -264,3 +264,345 @@
   }
   .text-sheen { color: var(--foreground); }
 }
+
+/* ============================================================
+   REDESIGN — "editoriale cinetico"
+   Accento derivato dal segno del favicon (viola → ciano):
+   il colore lega il sito al marchio già esistente.
+   ============================================================ */
+
+@theme inline {
+  --color-brand: var(--brand);
+  --color-brand-2: var(--brand-2);
+}
+
+:root {
+  --brand: oklch(0.62 0.24 295);
+  --brand-2: oklch(0.80 0.13 215);
+}
+
+@keyframes rise-in {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+@keyframes accent-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 color-mix(in oklch, var(--brand) 55%, transparent); }
+  70%  { box-shadow: 0 0 0 10px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* Titoli che salgono da dietro una linea di taglio. */
+.clip-line { overflow: hidden; display: block; }
+.clip-rise { display: block; animation: rise-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Testo con gradiente d'accento in lento movimento. */
+.accent-text {
+  background-image: linear-gradient(100deg, var(--brand) 0%, var(--brand-2) 45%, var(--brand) 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: accent-shift 9s ease-in-out infinite;
+}
+
+/* Contorno tipografico: usato per le cifre giganti dei capitoli. */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in oklch, var(--foreground) 26%, transparent);
+}
+
+.dot-live {
+  animation: pulse-ring 2.4s ease-out infinite;
+}
+
+.ticker-track { animation: ticker 38s linear infinite; }
+
+.edge-fade {
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Riga progetto: la traccia d'accento cresce da sinistra al passaggio del mouse. */
+.row-underline::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 1px; width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--brand), var(--brand-2), transparent);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.group\/row:hover .row-underline::after { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .clip-rise, .accent-text, .dot-live, .ticker-track { animation: none !important; }
+  .accent-text { color: var(--brand); }
+}
+
+/* ============================================================
+   DIREZIONE: Linear / Vercel — premium sobrio.
+   Niente accento colorato: il contrasto lo fanno i bianchi, i bordi
+   sottilissimi e i gradienti appena percettibili.
+   ============================================================ */
+
+:root {
+  /* L'"accento" torna monocromatico: bianco e un grigio appena freddo. */
+  --brand: oklch(0.95 0 0);
+  --brand-2: oklch(0.72 0.015 240);
+
+  --hairline: color-mix(in oklch, var(--foreground) 10%, transparent);
+  --hairline-strong: color-mix(in oklch, var(--foreground) 18%, transparent);
+}
+
+/* Filo di luce orizzontale che sfuma ai lati: firma dello stile Linear. */
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--hairline-strong), transparent);
+}
+
+/* Superficie elevata: bordo sottile + luce interna dall'alto. */
+.surface {
+  background: color-mix(in oklch, var(--foreground) 3%, var(--background));
+  border: 1px solid var(--hairline);
+  box-shadow: inset 0 1px 0 0 color-mix(in oklch, var(--foreground) 7%, transparent);
+}
+.surface-hover {
+  transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+}
+.surface-hover:hover {
+  border-color: var(--hairline-strong);
+  background: color-mix(in oklch, var(--foreground) 5%, var(--background));
+}
+
+/* Testo con sfumatura verticale: i titoli sembrano incisi. */
+.title-fade {
+  background-image: linear-gradient(
+    180deg,
+    var(--foreground) 30%,
+    color-mix(in oklch, var(--foreground) 62%, transparent) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Etichette piccole in monospace, cifra stilistica dello stile. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--muted-foreground);
+}
+
+/* Entrata in scena con CSS puro: parte al parsing, senza attendere
+   l'idratazione di React. Se il JS è lento o assente, il contenuto si vede
+   comunque — e l'hero non spedisce JavaScript per animarsi. */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.fade-up { animation: fade-up 0.75s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { animation: none !important; }
+}
+
+/* ============================================================
+   LIQUID GLASS
+   Due livelli, per non ripetere l'errore di prestazioni:
+
+   .glass       → vetro vero (backdrop-filter). Solo per elementi che
+                  fluttuano sopra il contenuto: nav, pillole, pulsanti.
+                  Pochi e piccoli, altrimenti il costo esplode.
+   .glass-flat  → stessa resa ottica senza backdrop-filter, per le molte
+                  card: su fondo scuro la differenza non si nota.
+   ============================================================ */
+
+.glass {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--foreground) 11%, transparent),
+    color-mix(in oklch, var(--foreground) 4%, transparent)
+  );
+  /* Generato via Tailwind: scritto a mano, Lightning CSS elimina la
+     proprietà standard e lascia solo il prefisso -webkit, che non basta. */
+  @apply backdrop-blur-xl backdrop-saturate-150;
+  border: 1px solid color-mix(in oklch, var(--foreground) 14%, transparent);
+  box-shadow:
+    inset 0 1px 0 0 color-mix(in oklch, var(--foreground) 30%, transparent),
+    inset 0 -1px 0 0 color-mix(in oklch, var(--foreground) 6%, transparent),
+    0 8px 32px -8px rgb(0 0 0 / 0.55);
+}
+
+.glass-flat {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--foreground) 7%, var(--background)),
+    color-mix(in oklch, var(--foreground) 2.5%, var(--background))
+  );
+  border: 1px solid color-mix(in oklch, var(--foreground) 12%, transparent);
+  box-shadow:
+    inset 0 1px 0 0 color-mix(in oklch, var(--foreground) 22%, transparent),
+    0 8px 32px -12px rgb(0 0 0 / 0.5);
+}
+
+/* Riflesso speculare che attraversa lentamente la superficie: è ciò che
+   rende il vetro "liquido" invece che una lastra opaca. */
+.glass-sheen { position: relative; overflow: hidden; }
+.glass-sheen::after {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  background: linear-gradient(
+    115deg,
+    transparent 42%,
+    color-mix(in oklch, var(--foreground) 12%, transparent) 50%,
+    transparent 58%
+  );
+  transform: translateX(-40%);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.glass-sheen:hover::after { transform: translateX(40%); }
+
+/* Bordo superiore luminoso: il taglio di luce tipico del vetro. */
+.glass-edge::before {
+  content: "";
+  position: absolute;
+  inset-inline: 12%;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklch, var(--foreground) 45%, transparent),
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* ============================================================
+   VETRO DINAMICO + ISOLETTE
+   Il riflesso non è più fisso: segue il puntatore tramite due variabili
+   CSS (--gx/--gy) scritte direttamente sull'elemento, senza re-render.
+   ============================================================ */
+
+.glass-dyn { position: relative; }
+
+/* Riflesso speculare che insegue il mouse sulla lastra. */
+.glass-dyn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    140px circle at var(--gx, 50%) var(--gy, 0%),
+    color-mix(in oklch, var(--foreground) 28%, transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.glass-dyn:hover::after { opacity: 1; }
+
+/* Rifrazione ai bordi: il vetro piega la luce dove finisce. */
+.glass-dyn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  padding: 1px;
+  background: radial-gradient(
+    180px circle at var(--gx, 50%) var(--gy, 0%),
+    color-mix(in oklch, var(--foreground) 65%, transparent),
+    transparent 65%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.glass-dyn:hover::before { opacity: 1; }
+
+/* L'isoletta: capsula sospesa che cambia forma con una molla. */
+.island {
+  transition:
+    width 0.55s cubic-bezier(0.34, 1.4, 0.5, 1),
+    padding 0.55s cubic-bezier(0.34, 1.4, 0.5, 1),
+    border-radius 0.55s cubic-bezier(0.34, 1.4, 0.5, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .island { transition: none; }
+}
+
+/* Cambio di contenuto dell'isoletta: l'elemento viene rimontato (key) e
+   l'animazione riparte da sola, senza dipendere dal loop JS. */
+@keyframes island-swap {
+  from { opacity: 0; transform: translateY(9px); }
+  to   { opacity: 1; transform: none; }
+}
+.island-swap { animation: island-swap 0.32s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .island-swap { animation: none !important; }
+}
+
+/* ============================================================
+   NARRAZIONE ALLO SCORRIMENTO
+   Animazioni legate alla posizione della pagina, non a un innesco singolo:
+   scorrendo all'indietro si riavvolgono. Girano sul compositor, senza JS.
+   Dove non supportate, il contenuto resta semplicemente visibile.
+   ============================================================ */
+
+@keyframes story-in {
+  from { opacity: 0; transform: translateY(30px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes story-out {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0.25; transform: translateY(-22px) scale(0.99); }
+}
+@keyframes thread-grow {
+  from { transform: scaleY(0); opacity: 0; }
+  35%  { opacity: 1; }
+  to   { transform: scaleY(1); opacity: 1; }
+}
+
+@supports (animation-timeline: view()) {
+  /* Entra salendo, poi si ritira uscendo: dà profondità alla sequenza. */
+  .story {
+    animation: story-in linear both, story-out linear both;
+    animation-timeline: view(), view();
+    animation-range: entry 4% entry 52%, exit 15% exit 95%;
+  }
+
+  /* Solo entrata: per gli elementi che devono restare leggibili a lungo. */
+  .story-in {
+    animation: story-in linear both;
+    animation-timeline: view();
+    animation-range: entry 2% entry 46%;
+  }
+
+  /* Il filo che si riempie mentre il capitolo scorre. */
+  .story-thread {
+    transform-origin: top;
+    animation: thread-grow linear both;
+    animation-timeline: view();
+    animation-range: entry 30% exit 40%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story, .story-in, .story-thread { animation: none !important; opacity: 1 !important; transform: none !important; }
+}

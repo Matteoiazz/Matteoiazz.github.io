@@ -3,16 +3,20 @@
 import { useEffect, useRef, useState } from "react"
 
 /**
- * Anello che insegue il puntatore con un ritardo morbido, accanto al cursore
- * di sistema. `mix-blend-mode: difference` lo rende leggibile sia sul fondo
- * scuro sia sui pulsanti chiari, senza doverne cambiare il colore.
+ * Anello attorno al puntatore.
  *
- * Si disattiva su dispositivi touch e con prefers-reduced-motion, dove un
- * cursore finto non aggiunge nulla.
+ * Due elementi separati, uno per la posizione e uno per l'ingrandimento.
+ * Prima erano lo stesso elemento: la proprietà CSS `scale` si applica dopo il
+ * `transform`, quindi moltiplicava anche la traslazione e sopra i link l'anello
+ * finiva a 1.7 volte le coordinate del mouse (misurato: mouse 904,481 → anello
+ * 1527,808).
+ *
+ * Resta invisibile finché il mouse non si muove: altrimenti rimaneva
+ * parcheggiato nell'angolo in alto a sinistra.
  */
 export function Cursor() {
-
-  const ring = useRef<HTMLDivElement>(null)
+  const posizione = useRef<HTMLDivElement>(null)
+  const anello = useRef<HTMLDivElement>(null)
   const [enabled, setEnabled] = useState(false)
 
   useEffect(() => {
@@ -21,46 +25,33 @@ export function Cursor() {
     if (!fine || calm) return
     setEnabled(true)
 
-    let x = window.innerWidth / 2
-    let y = window.innerHeight / 2
-    let rx = x
-    let ry = y
-    let raf = 0
-
     const onMove = (e: PointerEvent) => {
-      x = e.clientX
-      y = e.clientY
-      const interactive = (e.target as Element)?.closest?.("a, button")
-      ring.current?.classList.toggle("scale-[2.2]", Boolean(interactive))
-      ring.current?.classList.toggle("opacity-60", Boolean(interactive))
+      const pos = posizione.current
+      const ring = anello.current
+      if (!pos || !ring) return
+      pos.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`
+      ring.classList.remove("opacity-0")
+      const interattivo = (e.target as Element)?.closest?.("a, button")
+      ring.classList.toggle("scale-[1.7]", Boolean(interattivo))
     }
 
-    const loop = () => {
-      rx += (x - rx) * 0.15
-      ry += (y - ry) * 0.15
-      if (ring.current) {
-        ring.current.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`
-      }
-      raf = requestAnimationFrame(loop)
-    }
+    const nascondi = () => anello.current?.classList.add("opacity-0")
 
     window.addEventListener("pointermove", onMove, { passive: true })
-    raf = requestAnimationFrame(loop)
+    document.documentElement.addEventListener("pointerleave", nascondi)
     return () => {
       window.removeEventListener("pointermove", onMove)
-      cancelAnimationFrame(raf)
+      document.documentElement.removeEventListener("pointerleave", nascondi)
     }
   }, [])
 
   if (!enabled) return null
 
   return (
-    // Solo l'anello che insegue: il cursore di sistema resta visibile, così
-    // l'accento non compromette la leggibilità del puntatore.
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-[70] mix-blend-difference">
+    <div ref={posizione} aria-hidden className="pointer-events-none fixed left-0 top-0 z-[70]">
       <div
-        ref={ring}
-        className="absolute left-0 top-0 size-8 rounded-full border border-white/70 opacity-30 transition-[transform,opacity] duration-300 ease-out"
+        ref={anello}
+        className="size-7 -translate-x-1/2 -translate-y-1/2 rounded-full border border-foreground/40 opacity-0 transition-[scale,opacity] duration-200 ease-out"
       />
     </div>
   )

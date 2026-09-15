@@ -1,63 +1,72 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion } from "motion/react"
+import { GlassIsland } from "@/components/glass-island"
 
 const links = [
-  { href: "#about", label: "Chi sono" },
   { href: "#projects", label: "Progetti" },
-  { href: "#experience", label: "Esperienza" },
-  { href: "#contact", label: "Contatti" },
+  { href: "#about", label: "Profilo" },
+  { href: "#experience", label: "Percorso" },
 ]
 
+/**
+ * Nav come isoletta sospesa: capsula di vetro centrata che si contrae quando
+ * scorri, invece della classica barra a tutta larghezza.
+ */
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const onScroll = () => setScrolled(window.scrollY > 40)
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
   return (
-    <motion.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-      className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4"
-    >
-      <nav
-        className={`flex w-full max-w-4xl items-center justify-between rounded-full border px-4 py-3 pl-6 transition-all duration-300 ${
-          scrolled
-            ? "border-border bg-card/80 shadow-lg shadow-primary/5 backdrop-blur-md"
-            : "border-transparent bg-transparent"
+    <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
+      <GlassIsland
+        className={`flex items-center rounded-full ${
+          scrolled ? "gap-5 py-1.5 pl-3 pr-1.5" : "gap-8 py-2 pl-5 pr-2"
         }`}
       >
-        <a href="#top" className="flex items-center gap-2.5 text-base font-medium tracking-tight">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-foreground text-sm font-semibold text-background">
+        <a href="#top" className="flex items-center gap-2.5 text-sm font-medium tracking-tight">
+          <span
+            className={`island flex items-center justify-center rounded-full bg-foreground font-semibold text-background ${
+              scrolled ? "size-6 text-[0.68rem]" : "size-7 text-[0.72rem]"
+            }`}
+          >
             MI
           </span>
-          Matteo Iazzolino
+          {/* Il nome si ritira quando la capsula si contrae */}
+          <span
+            className={`island overflow-hidden whitespace-nowrap ${
+              scrolled ? "max-w-0 opacity-0" : "max-w-[12rem] opacity-100"
+            }`}
+          >
+            Matteo Iazzolino
+          </span>
         </a>
-        <div className="hidden items-center gap-1 sm:flex">
+
+        <div className="hidden items-center gap-6 md:flex">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="rounded-full px-4 py-2 text-base text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               {l.label}
             </a>
           ))}
         </div>
+
         <a
           href="#contact"
-          className="rounded-full bg-primary px-6 py-2.5 text-base font-medium text-primary-foreground transition-transform hover:scale-105"
+          className="rounded-full bg-foreground px-4 py-1.5 text-sm font-medium text-background transition-opacity hover:opacity-90"
         >
           Contattami
         </a>
-      </nav>
-    </motion.header>
+      </GlassIsland>
+    </header>
   )
 }

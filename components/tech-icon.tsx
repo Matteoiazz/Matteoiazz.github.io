@@ -2,8 +2,11 @@ import type { ComponentType } from "react"
 import { FaJava } from "react-icons/fa"
 import {
   SiAngular,
+  SiC,
+  SiCplusplus,
   SiChartdotjs,
   SiDocker,
+  SiElectron,
   SiFramer,
   SiJavascript,
   SiJetpackcompose,
@@ -32,6 +35,9 @@ type IconComponent = ComponentType<{ className?: string }>
 const ICONS: Record<string, IconComponent> = {
   java: FaJava,
   javafx: FaJava,
+  c: SiC,
+  "c++": SiCplusplus,
+  electron: SiElectron,
   kotlin: SiKotlin,
   python: SiPython,
   typescript: SiTypescript,
