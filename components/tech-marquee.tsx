@@ -1,7 +1,9 @@
 import { stack } from "@/lib/portfolio-data"
 import { TechIcon } from "@/components/tech-icon"
 
-const items = stack.flatMap((group) => group.items)
+// Una tecnologia può stare in più gruppi (Kotlin è sia linguaggio sia mobile):
+// nel nastro va una volta sola, altrimenti si ripete e le chiavi collidono.
+const items = [...new Set(stack.flatMap((group) => group.items))]
 
 /**
  * Striscia dello stack, sobria: solo loghi in scala di grigi che scorrono.
