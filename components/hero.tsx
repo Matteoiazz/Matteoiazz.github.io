@@ -233,7 +233,7 @@ export function Hero() {
         {animato ? (
           <motion.div
             style={{ opacity: lineFade, y: lineY }}
-            className="pointer-events-none absolute inset-0 z-10 mx-auto flex max-w-6xl items-end justify-center px-6 pb-[18vh] text-center sm:px-10 lg:items-center lg:justify-start lg:pb-0 lg:text-left"
+            className="pointer-events-none absolute inset-0 z-10 mx-auto flex max-w-6xl items-end justify-center px-6 pb-[24vh] text-center sm:px-10 lg:items-center lg:justify-start lg:pb-0 lg:text-left"
           >
             <p className="max-w-xl text-balance text-[clamp(1.6rem,4.2vw,3rem)] font-semibold leading-[1.1] tracking-[-0.03em]">
               <span className="text-foreground">Backend solidi,</span>{" "}

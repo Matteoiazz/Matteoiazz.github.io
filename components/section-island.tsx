@@ -9,7 +9,7 @@ const sezioni = [
   { id: "projects", label: "Progetti", nota: `${projects.length} lavori selezionati` },
   { id: "about", label: "Profilo", nota: "Competenze e lingue" },
   { id: "experience", label: "Percorso", nota: "UniCal · dic. 2026" },
-  { id: "contact", label: "Contatti", nota: "Scrivimi pure" },
+  // Niente voce per i contatti: lì l'isoletta è già ritirata.
 ]
 
 /**
@@ -31,6 +31,7 @@ export function SectionIsland() {
     // senza leggere il layout e senza requestAnimationFrame (che viene
     // strozzato nelle schede in secondo piano).
     let posizioni: { id: string; top: number }[] = []
+    let topContatti = Infinity
 
     const misura = () => {
       posizioni = sezioni
@@ -39,6 +40,7 @@ export function SectionIsland() {
           return el ? { id: s.id, top: el.offsetTop } : null
         })
         .filter((v): v is { id: string; top: number } => v !== null)
+      topContatti = document.getElementById("contact")?.offsetTop ?? Infinity
       aggiorna()
     }
 
@@ -52,10 +54,13 @@ export function SectionIsland() {
       const corrente = sezioni.find((s) => s.id === correnteId) ?? sezioni[0]
 
       setAttiva((prec) => (prec.id === corrente.id ? prec : corrente))
-      // Nei contatti si ritira: lì copriva i pulsanti GitHub e LinkedIn su
-      // telefono, e poi il nome finale. Un'etichetta "Contatti" sopra la
-      // sezione dei contatti non aggiunge nulla.
-      setVisibile(window.scrollY > window.innerHeight * 0.6 && corrente.id !== "contact")
+      // Si ritira appena la card dei contatti sta per entrare dal basso, non
+      // quando la sezione arriva al centro dello schermo: nel frattempo copriva
+      // il testo della card e, su telefono, i pulsanti GitHub e LinkedIn.
+      // La card inizia 112px sotto la sezione (144px da sm): con 96 l'isoletta
+      // parte un attimo prima che la card compaia.
+      const arrivanoContatti = window.scrollY + window.innerHeight > topContatti + 96
+      setVisibile(window.scrollY > window.innerHeight * 0.6 && !arrivanoContatti)
     }
 
     misura()

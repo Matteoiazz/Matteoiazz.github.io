@@ -20,7 +20,8 @@ const lettere = [
  */
 export function Wordmark() {
   return (
-    <div id="firma" aria-hidden className="firma relative px-4 sm:px-6">
+    // pb: sul telefono il nome, piccolo, finiva a filo del bordo dello schermo
+    <div id="firma" aria-hidden className="firma relative px-4 pb-[clamp(0.5rem,1.2vw,1rem)] sm:px-6">
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-[140%]"
         style={{
