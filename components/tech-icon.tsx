@@ -2,27 +2,36 @@ import type { ComponentType } from "react"
 import { FaJava } from "react-icons/fa"
 import {
   SiAngular,
+  SiApachemaven,
   SiC,
   SiCplusplus,
   SiChartdotjs,
   SiDocker,
   SiElectron,
+  SiExpress,
   SiFramer,
+  SiGradle,
+  SiHibernate,
   SiJavascript,
   SiJetpackcompose,
+  SiJsonwebtokens,
   SiKeycloak,
   SiKotlin,
   SiMysql,
   SiNextdotjs,
   SiNodedotjs,
   SiPostgresql,
+  SiPrisma,
   SiPython,
   SiRabbitmq,
   SiReact,
   SiSpring,
   SiSpringboot,
+  SiSpringsecurity,
+  SiSqlite,
   SiTailwindcss,
   SiTypescript,
+  SiVite,
 } from "react-icons/si"
 
 type IconComponent = ComponentType<{ className?: string }>
@@ -57,6 +66,16 @@ const ICONS: Record<string, IconComponent> = {
   "chart.js": SiChartdotjs,
   "jetpack compose": SiJetpackcompose,
   motion: SiFramer,
+  "framer motion": SiFramer,
+  vite: SiVite,
+  express: SiExpress,
+  prisma: SiPrisma,
+  sqlite: SiSqlite,
+  maven: SiApachemaven,
+  gradle: SiGradle,
+  jwt: SiJsonwebtokens,
+  "spring security": SiSpringsecurity,
+  hibernate: SiHibernate,
 }
 
 export function TechIcon({ name, className }: { name: string; className?: string }) {

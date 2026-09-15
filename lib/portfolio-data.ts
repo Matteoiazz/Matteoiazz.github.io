@@ -13,69 +13,226 @@ export const profile = {
     "Studente al terzo anno di Informatica all'Università della Calabria, con laurea prevista a dicembre 2026. Ho maturato esperienza pratica costruendo progetti universitari e personali in ambito web e mobile: sviluppo full-stack, applicazioni Android e architetture enterprise. Cerco un ruolo part-time da sviluppatore per portare queste competenze su codice di produzione, in parallelo alla laurea magistrale.",
 }
 
-export type Project = {
-  title: string
-  year: string
-  description: string
-  stack: string[]
-  repo: string
-  demo?: string
-  /** Screenshot in /public. Se assente, la card mostra i loghi dello stack. */
-  image?: string
-  imageAlt?: string
-  /** Cornice attorno allo screenshot: "phone" per app mobile, "browser" per web app. */
-  frame?: "phone" | "browser"
+export type Shot = {
+  src: string
+  alt: string
+  /** Didascalia sotto la schermata, nella scheda del progetto. */
+  caption?: string
+  /** "browser" per le web app, "phone" per le app mobile, "window" per le app desktop. */
+  frame: "browser" | "phone" | "window"
 }
 
-// Progetti reali, ricavati dai repository GitHub pubblici.
+export type Project = {
+  slug: string
+  title: string
+  year: string
+  /** Tipo di progetto, mostrato sulla copertina della card. */
+  kind: string
+  team: string
+  /** Una o due righe: è il testo della card nella home. */
+  tagline: string
+  /** Descrizione completa, nella scheda che si apre cliccando la card. */
+  description: string
+  highlights: string[]
+  stack: string[]
+  /** Link al codice su GitHub. Se manca, la scheda mostra "Codice privato". */
+  repo?: string
+  /** Link al sito online (es. Vercel). Se manca, il pulsante Visit non compare. */
+  demo?: string
+  cover: Shot
+  /** Cattura a tutta pagina: nella card scorre al passaggio del mouse. */
+  coverTall?: string
+  /** Schermate successive alla copertina, nella scheda del progetto. */
+  gallery: Shot[]
+}
+
+// Progetti reali: descrizioni ricavate dal codice dei singoli repository.
+// L'ordine conta: i primi due occupano la prima riga del mosaico.
 export const projects: Project[] = [
   {
-    title: "Tripify",
-    year: "2026",
-    // Il ruolo è esplicitato: il progetto è di gruppo, il contributo personale
-    // è il modulo catalogo dell'app Android (come dichiarato nel CV).
-    description:
-      "App Android per la ricerca e prenotazione di viaggi, voli, hotel ed escursioni, parte di una piattaforma a microservizi sviluppata per il corso di Enterprise Architecture: servizi Spring Boot con un database Postgres ciascuno, Keycloak, RabbitMQ e API gateway, il tutto in Docker. Mio contributo: il modulo catalogo dell'app, in Kotlin e Jetpack Compose.",
-    stack: ["Spring Boot", "Kotlin", "Jetpack Compose", "PostgreSQL", "Keycloak", "RabbitMQ", "Docker"],
-    repo: "https://github.com/Matteoiazz/Enterprise-Project",
-    image: "/projects/tripify-home.webp",
-    imageAlt: "Schermata home dell'app Android Tripify, con ricerca di voli, hotel ed esperienze",
-    frame: "phone",
-  },
-  {
-    title: "MoneyMind",
-    year: "2026",
-    description:
-      "Piattaforma web per la gestione delle finanze personali e degli investimenti: dashboard con grafici, sezione mercati con azioni ed ETF. Progetto di gruppo (4 persone); mio contributo full-stack, dal backend Spring Boot con persistenza Hibernate su PostgreSQL fino al frontend Angular.",
-    stack: ["Angular", "TypeScript", "Spring Boot", "Java", "PostgreSQL", "Chart.js"],
-    repo: "https://github.com/Matteoiazz/MoneyMind-WebApplication",
-    image: "/projects/moneymind-market.webp",
-    imageAlt:
-      "Sezione Mercati di MoneyMind: panoramica con notizie finanziarie e quotazioni di azioni ed ETF",
-    frame: "browser",
-  },
-  {
-    // TODO: descrizione ricavata dallo screenshot. Da confermare: stack e anno,
-    // e il link al repository (non è tra quelli pubblici del profilo).
+    slug: "goldenstay",
     title: "GoldenStay",
     year: "2026",
+    kind: "Web app",
+    team: "Progetto in coppia · corso di Web Application, UniCal",
+    tagline:
+      "Prenotazioni per un resort sul mare di Tropea: ricerca per date, camere e suite, pagamento e back office.",
     description:
-      "Sito di prenotazione per una struttura ricettiva a Tropea: ricerca per date e numero di ospiti, presentazione delle camere e area di back office riservata alla gestione.",
-    stack: [],
-    repo: "#",
-    image: "/projects/goldenstay-home.webp",
-    imageAlt:
-      "Home di GoldenStay: immagine della struttura sul mare con barra di ricerca per date e ospiti",
-    frame: "browser",
+      "Web app di prenotazione per una struttura affacciata sul mare a Tropea. L'ospite sceglie date e numero di ospiti, confronta camere e suite con il totale del soggiorno già calcolato, apre la scheda della camera e prenota dalla finestra di pagamento, ricevendo la ricevuta in PDF. Un'area riservata permette all'amministratore di creare camere e gestire le prenotazioni.",
+    highlights: [
+      "Tariffe con il pattern Strategy: listino, alta stagione di agosto e weekend (+20%), sconto oltre le sette notti (−15%), applicate in ordine di priorità",
+      "Pattern Factory nel backend per creare camere Standard, Deluxe e Suite",
+      "API REST in Spring Boot per camere, prenotazioni e utenti, con persistenza JPA su PostgreSQL",
+      "Frontend Angular organizzato per funzionalità, con guard sulle rotte dell'area riservata e ricevuta generata in PDF con jsPDF",
+    ],
+    stack: ["Angular", "TypeScript", "Spring Boot", "Java", "PostgreSQL"],
+    repo: "https://github.com/piergully/GoldenStay",
+    cover: {
+      src: "/projects/goldenstay/cover.webp",
+      alt: "Home di GoldenStay: la struttura sul mare al tramonto e il modulo di ricerca per date e ospiti",
+      caption: "Home con ricerca per date e numero di ospiti",
+      frame: "browser",
+    },
+    coverTall: "/projects/goldenstay/cover-tall.webp",
+    gallery: [
+      {
+        src: "/projects/goldenstay/camera.webp",
+        alt: "Scheda della Suite Vista Mare con foto, capienza, letto e prezzo a notte",
+        caption: "Scheda della camera",
+        frame: "browser",
+      },
+      {
+        src: "/projects/goldenstay/prezzi.webp",
+        alt: "Sezione Come si compone il prezzo: listino, maggiorazioni per weekend e alta stagione, sconto per lungo soggiorno",
+        caption: "Le regole di prezzo, spiegate all'ospite",
+        frame: "browser",
+      },
+      {
+        src: "/projects/goldenstay/esperienza.webp",
+        alt: "Sezione L'esperienza con le foto di una camera e della piscina sul mare",
+        caption: "Presentazione della struttura",
+        frame: "browser",
+      },
+      {
+        src: "/projects/goldenstay/mobile.webp",
+        alt: "Home di GoldenStay su telefono con il modulo di ricerca",
+        caption: "Versione mobile",
+        frame: "phone",
+      },
+    ],
   },
   {
-    title: "Portfolio",
+    slug: "moneymind",
+    title: "MoneyMind",
     year: "2026",
+    kind: "Web app",
+    team: "Progetto di gruppo · 4 persone, mio contributo full-stack",
+    tagline: "Finanze personali e investimenti: wallet condivisi, budget, movimenti e mercati.",
     description:
-      "Questo sito: portfolio statico in Next.js con export su GitHub Pages. Animazioni legate allo scorrimento in CSS, interfaccia in vetro e contenuti separati dal markup in un unico file di dati.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Motion"],
-    repo: "https://github.com/Matteoiazz/Matteoiazz.github.io",
-    demo: "https://matteoiazz.github.io",
+      "Piattaforma web per gestire le finanze personali e seguire gli investimenti. Entrate e uscite sono organizzate in wallet, anche condivisi con altre persone tramite invito o codice, con budget e trasferimenti tra wallet; la dashboard riassume saldo e andamento con i grafici. Nella sezione mercati si consultano azioni, ETF e crypto, il grafico di ogni titolo e le notizie finanziarie, e si simulano operazioni sul proprio portafoglio.",
+    highlights: [
+      "Wallet condivisi con inviti, codice di accesso, budget, passaggio di proprietà e trasferimenti tra wallet",
+      "Quotazioni e notizie da Finnhub, con le notizie in cache aggiornate da uno scheduler per non esaurire la quota dell'API",
+      "Backend Spring Boot con Spring Security e JPA/Hibernate su PostgreSQL, pattern Proxy per utenti e portafogli",
+      "Frontend Angular ricostruito su un design system condiviso, con grafici Chart.js",
+    ],
+    stack: ["Angular", "TypeScript", "Chart.js", "Spring Boot", "Java", "PostgreSQL"],
+    repo: "https://github.com/Matteoiazz/MoneyMind-WebApplication",
+    cover: {
+      src: "/projects/moneymind/cover.webp",
+      alt: "Sezione Mercati di MoneyMind con notizie in evidenza e quotazioni di azioni ed ETF",
+      caption: "Panoramica dei mercati",
+      frame: "browser",
+    },
+    gallery: [
+      {
+        src: "/projects/moneymind/grafico.webp",
+        alt: "Grafico a candele del titolo Apple con statistiche chiave",
+        caption: "Grafico e statistiche di un titolo",
+        frame: "browser",
+      },
+      {
+        src: "/projects/moneymind/chi-siamo.webp",
+        alt: "Pagina Chi siamo di MoneyMind con i punti di forza della piattaforma",
+        caption: "Presentazione della piattaforma",
+        frame: "browser",
+      },
+    ],
+  },
+  {
+    slug: "muscle-fitness",
+    title: "Muscle & Fitness",
+    year: "2026",
+    kind: "Sito e area soci",
+    team: "Progetto personale",
+    tagline: "Sito per una palestra smart con area soci: abbonamenti, badge QR e certificati medici.",
+    description:
+      "Sito per la palestra A.S.D. Muscle & Fitness di Spezzano Piccolo, con un'area riservata ai soci e un pannello di amministrazione. Dalla home si scoprono corsi e abbonamenti e si acquista il piano dal checkout, con pagamento simulato. Il socio ritrova nella dashboard il badge QR per entrare, lo stato dell'abbonamento, il certificato medico e lo storico delle attività: l'ingresso è consentito solo con un accesso valido e un certificato approvato. L'amministratore gestisce gli iscritti, approva o rifiuta i certificati e consulta le statistiche.",
+    highlights: [
+      "API Express con autenticazione JWT, password cifrate con bcrypt, rate limiting su login e registrazione, header di sicurezza con Helmet",
+      "Validazione degli input con Zod e upload dei certificati che verifica il tipo reale del file, non solo l'estensione",
+      "Dati con Prisma su SQLite: utenti, abbonamenti con rinnovo e disdetta, certificati e storico delle attività",
+      "Frontend React con Vite, Tailwind CSS e Framer Motion, con rotte protette per soci e amministratori",
+    ],
+    stack: ["React", "Vite", "Tailwind CSS", "Node.js", "Express", "Prisma", "SQLite"],
+    cover: {
+      src: "/projects/muscle-fitness/cover.webp",
+      alt: "Home del sito Muscle & Fitness con il titolo Allenati quando vuoi. Come vuoi tu.",
+      caption: "Home",
+      frame: "browser",
+    },
+    coverTall: "/projects/muscle-fitness/cover-tall.webp",
+    gallery: [
+      {
+        src: "/projects/muscle-fitness/abbonamenti.webp",
+        alt: "Sezione abbonamenti con ingresso singolo, piano mensile e annuale",
+        caption: "Abbonamenti e prezzi",
+        frame: "browser",
+      },
+      {
+        src: "/projects/muscle-fitness/servizi.webp",
+        alt: "Sezione Perché sceglierci con i servizi della palestra",
+        caption: "Servizi della palestra",
+        frame: "browser",
+      },
+      {
+        src: "/projects/muscle-fitness/mobile.webp",
+        alt: "Home del sito Muscle & Fitness su telefono",
+        caption: "Versione mobile",
+        frame: "phone",
+      },
+    ],
+  },
+  {
+    slug: "wavely",
+    title: "WAVE.LY",
+    year: "2025",
+    kind: "App desktop",
+    team: "Progetto d'esame in tre · rifattorizzato da me nel 2026",
+    tagline: "Lettore musicale desktop in JavaFX: playlist, artisti, equalizzatore e temi.",
+    description:
+      "Applicazione desktop per ascoltare e organizzare musica, nata come progetto d'esame in un gruppo di tre e poi rifattorizzata interamente da me. Dopo l'accesso si esplorano brani e artisti, si creano playlist e preferiti, si cerca nel catalogo e si personalizzano profilo e tema; il player gestisce la coda e riprende l'ascolto da dove era stato interrotto.",
+    highlights: [
+      "Player con coda di riproduzione, equalizzatore a 6 bande e ripresa dell'ultimo ascolto",
+      "Architettura a livelli: repository su SQLite, servizi per sessione, player e temi, controller FXML che osservano lo stato tramite le proprietà JavaFX",
+      "Password cifrate con BCrypt e termini d'uso esportati in PDF con PDFBox",
+      "Cinque temi colore e componenti grafici personalizzati, come lo sfondo animato «aurora»",
+    ],
+    stack: ["Java", "JavaFX", "SQLite", "Maven"],
+    cover: {
+      src: "/projects/wavely/cover.webp",
+      alt: "Schermata di accesso di WAVE.LY",
+      caption: "Accesso",
+      frame: "window",
+    },
+    gallery: [],
+  },
+  {
+    slug: "tripify",
+    title: "Tripify",
+    year: "2026",
+    kind: "App Android",
+    // Il ruolo è esplicitato: il progetto è di gruppo, il contributo personale
+    // è il modulo catalogo dell'app Android (come dichiarato nel CV).
+    team: "Progetto di gruppo · corso di Enterprise Architecture, mio il modulo catalogo",
+    tagline: "App Android di una piattaforma di viaggi a microservizi: voli, hotel ed escursioni.",
+    description:
+      "App Android per cercare e prenotare viaggi, voli, hotel ed escursioni, parte di una piattaforma a microservizi sviluppata per il corso di Enterprise Architecture. Il mio contributo è il modulo catalogo dell'app, in Kotlin e Jetpack Compose.",
+    highlights: [
+      "Modulo catalogo dell'app Android in Kotlin e Jetpack Compose",
+      "Backend a microservizi Spring Boot, ognuno con il proprio database PostgreSQL",
+      "Autenticazione con Keycloak, messaggi asincroni con RabbitMQ e API gateway",
+      "Intera piattaforma avviabile in Docker",
+    ],
+    stack: ["Kotlin", "Jetpack Compose", "Spring Boot", "PostgreSQL", "Keycloak", "RabbitMQ", "Docker"],
+    repo: "https://github.com/Matteoiazz/Enterprise-Project",
+    cover: {
+      src: "/projects/tripify-home.webp",
+      alt: "Schermata home dell'app Android Tripify, con ricerca di voli, hotel ed esperienze",
+      caption: "Home con ricerca di voli, hotel ed esperienze",
+      frame: "phone",
+    },
+    gallery: [],
   },
 ]
 
