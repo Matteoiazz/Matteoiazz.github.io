@@ -20,9 +20,11 @@ import { DeviceMockup } from "@/components/device-mockup"
  */
 export function ProjectGrid({ projects }: { projects: Project[] }) {
   const dialog = useRef<HTMLDialogElement>(null)
+  const origine = useRef<HTMLElement | null>(null)
   const [mostrato, setMostrato] = useState<Project | null>(null)
 
-  const apri = useCallback((project: Project) => {
+  const apri = useCallback((project: Project, card: HTMLElement) => {
+    origine.current = card
     // Il contenuto deve esistere prima di showModal, altrimenti il focus
     // iniziale finisce sul dialog vuoto.
     flushSync(() => setMostrato(project))
@@ -48,7 +50,12 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
       <dialog
         ref={dialog}
         aria-labelledby="dettaglio-titolo"
-        onClose={() => document.documentElement.classList.remove("dialog-aperto")}
+        onClose={() => {
+          document.documentElement.classList.remove("dialog-aperto")
+          // Safari non dà il focus ai pulsanti cliccati col mouse, quindi il
+          // browser non sa dove riportarlo: senza questo finiva sul body.
+          origine.current?.focus({ preventScroll: true })
+        }}
         // Clic sullo sfondo: il bersaglio è il dialog stesso, non il contenuto.
         onClick={(e) => {
           if (e.target === e.currentTarget) e.currentTarget.close()
@@ -74,7 +81,7 @@ function ProjectCard({
 }: {
   project: Project
   className: string
-  onOpen: (p: Project) => void
+  onOpen: (p: Project, card: HTMLElement) => void
 }) {
   return (
     <article
@@ -111,7 +118,7 @@ function ProjectCard({
         type="button"
         aria-haspopup="dialog"
         aria-label={`Apri i dettagli di ${project.title}`}
-        onClick={() => onOpen(project)}
+        onClick={(e) => onOpen(project, e.currentTarget)}
         className="absolute inset-0 z-10 rounded-2xl outline-offset-2 focus-visible:outline-2 focus-visible:outline-foreground"
       />
     </article>
