@@ -78,6 +78,20 @@ const ICONS: Record<string, IconComponent> = {
   hibernate: SiHibernate,
 }
 
+/**
+ * Tecnologie con un logo, senza ripetere lo stesso logo: Java e JavaFX, per
+ * esempio, condividono l'icona e affiancate sembrano un doppione.
+ */
+export function conLogoDistinto(nomi: string[]): string[] {
+  const visti = new Set<IconComponent>()
+  return nomi.filter((nome) => {
+    const icona = ICONS[nome.toLowerCase()]
+    if (!icona || visti.has(icona)) return false
+    visti.add(icona)
+    return true
+  })
+}
+
 export function TechIcon({ name, className }: { name: string; className?: string }) {
   const Icon = ICONS[name.toLowerCase()]
   if (!Icon) return null

@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from "react"
 import { flushSync } from "react-dom"
 import Image from "next/image"
 import type { Project } from "@/lib/portfolio-data"
-import { TechIcon } from "@/components/tech-icon"
+import { TechIcon, conLogoDistinto } from "@/components/tech-icon"
 import { DeviceMockup } from "@/components/device-mockup"
 
 /**
@@ -100,9 +100,11 @@ function ProjectCard({
 
         <div className="mt-auto pt-5">
           <div className="flex items-center gap-3 border-t border-[var(--hairline)] pt-4 text-muted-foreground/70 transition-colors duration-300 group-hover:text-muted-foreground">
-            {project.stack.slice(0, 5).map((tech) => (
-              <TechIcon key={tech} name={tech} className="size-4" />
-            ))}
+            {conLogoDistinto(project.stack)
+              .slice(0, 5)
+              .map((tech) => (
+                <TechIcon key={tech} name={tech} className="size-4" />
+              ))}
             <span className="ml-auto flex items-center gap-1.5 text-sm text-foreground/80">
               Dettagli
               <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5">
