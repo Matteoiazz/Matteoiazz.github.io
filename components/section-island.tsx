@@ -52,15 +52,21 @@ export function SectionIsland() {
       const corrente = sezioni.find((s) => s.id === correnteId) ?? sezioni[0]
 
       setAttiva((prec) => (prec.id === corrente.id ? prec : corrente))
-      setVisibile(window.scrollY > window.innerHeight * 0.6)
+      // Nei contatti si ritira: lì copriva i pulsanti GitHub e LinkedIn su
+      // telefono, e poi il nome finale. Un'etichetta "Contatti" sopra la
+      // sezione dei contatti non aggiunge nulla.
+      setVisibile(window.scrollY > window.innerHeight * 0.6 && corrente.id !== "contact")
     }
 
     misura()
     window.addEventListener("scroll", aggiorna, { passive: true })
-    window.addEventListener("resize", misura, { passive: true })
+    // Rimisura anche quando cambia l'altezza della pagina (font, immagini),
+    // non solo al ridimensionamento della finestra.
+    const osservatore = new ResizeObserver(misura)
+    osservatore.observe(document.body)
     return () => {
       window.removeEventListener("scroll", aggiorna)
-      window.removeEventListener("resize", misura)
+      osservatore.disconnect()
     }
   }, [])
 

@@ -92,7 +92,7 @@ export function Hero() {
         <motion.div
           aria-hidden
           style={animato ? { opacity: sceneFade } : undefined}
-          className="pointer-events-none absolute left-1/2 top-1/2 z-0 aspect-square w-[min(58vh,94vw)] -translate-x-1/2 -translate-y-1/2 scale-[2] sm:w-[min(66vh,82vw)] lg:left-auto lg:right-[-8%] lg:w-[min(88vh,52vw)] lg:translate-x-0"
+          className="pointer-events-none absolute left-1/2 top-[27%] z-0 aspect-square w-[min(118vw,60svh)] -translate-x-1/2 -translate-y-1/2 scale-[2] sm:top-[26%] sm:w-[min(92vw,56svh)] lg:left-auto lg:right-[-8%] lg:top-1/2 lg:w-[min(88vh,52vw)] lg:translate-x-0"
         >
           <div
             className="absolute inset-0"
@@ -103,18 +103,19 @@ export function Hero() {
           />
         </motion.div>
 
-        {/* Oggetto cromato: centrato dietro al testo sui piccoli schermi,
-            affiancato a destra dove c'è spazio. */}
+        {/* Oggetto cromato. Sotto lg sta in alto, grande, come su un poster:
+            il nome è ancorato in basso e ci si sovrappone appena. Da lg è
+            affiancato a destra. */}
         <motion.div
           style={
             animato
               ? { y: flowerY, scale: flowerScale, rotate: flowerRotate, opacity: flowerFade }
               : undefined
           }
-          className="pointer-events-none absolute left-1/2 top-1/2 z-0 aspect-square w-[min(58vh,94vw)] -translate-x-1/2 -translate-y-1/2 will-change-transform sm:w-[min(66vh,82vw)] lg:left-auto lg:right-[-8%] lg:w-[min(88vh,52vw)] lg:translate-x-0"
+          className="pointer-events-none absolute left-1/2 top-[27%] z-0 aspect-square w-[min(118vw,60svh)] -translate-x-1/2 -translate-y-1/2 will-change-transform sm:top-[26%] sm:w-[min(92vw,56svh)] lg:left-auto lg:right-[-8%] lg:top-1/2 lg:w-[min(88vh,52vw)] lg:translate-x-0"
         >
-          {/* Sotto lg passa dietro al testo: attenuato per non disturbare la
-              lettura. Da lg in poi è affiancato, quindi pieno.
+          {/* Quasi pieno anche sotto lg: il testo ci passa sopra solo nel
+              bordo basso, protetto dalla velatura.
               `priority` è deprecato da Next 16: per l'immagine più grande
               sopra la piega la documentazione indica loading/fetchPriority. */}
           <Image
@@ -124,7 +125,7 @@ export function Hero() {
             loading="eager"
             fetchPriority="high"
             sizes="(max-width: 1024px) 80vw, 50vw"
-            className="object-contain opacity-45 sm:opacity-60 lg:opacity-100"
+            className="object-contain opacity-90 lg:opacity-100"
             style={{
               maskImage: "radial-gradient(circle at center, #000 50%, transparent 74%)",
               WebkitMaskImage: "radial-gradient(circle at center, #000 50%, transparent 74%)",
@@ -132,54 +133,52 @@ export function Hero() {
           />
         </motion.div>
 
-        {/* Velatura: sotto lg il testo passa sopra al cromo e va protetto. */}
+        {/* Velatura dal basso, solo sotto lg: scurisce dove il nome incontra il
+            fiore e lascia il fiore libero in alto. */}
         <motion.div
           aria-hidden
           style={{
             opacity: animato ? introFade : 1,
             background:
-              "linear-gradient(180deg, color-mix(in oklch, var(--background) 82%, transparent) 15%, color-mix(in oklch, var(--background) 55%, transparent) 70%, transparent)",
+              "linear-gradient(180deg, transparent 22%, color-mix(in oklch, var(--background) 55%, transparent) 42%, color-mix(in oklch, var(--background) 86%, transparent) 60%, color-mix(in oklch, var(--background) 92%, transparent) 100%)",
           }}
           className="pointer-events-none absolute inset-0 z-[5] lg:hidden"
         />
 
         <motion.div
           style={animato ? { y: introY, opacity: introFade } : undefined}
-          className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-center px-6 sm:px-10"
+          className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-6 pb-20 sm:px-10 sm:pb-24 lg:justify-center lg:pb-0"
         >
           <div className="fade-up text-xs text-muted-foreground sm:text-sm">
             {profile.location}
           </div>
 
-          {/* Il nome, soggetto della scena */}
-          <h1 className="mt-6 font-semibold leading-[0.88] tracking-[-0.04em]">
+          {/* Il nome, soggetto della scena. La dimensione sta sull'h1 e non
+              sulle righe: il tracking in em si calcola sul font dell'elemento
+              che lo dichiara, e prima valeva quello dei 16px di base (quasi
+              nullo). Dimensioni per schermo in .hero-nome, globals.css. */}
+          <h1 className="hero-nome mt-5 font-semibold leading-[0.88] tracking-[-0.04em] lg:mt-6">
             <span className="clip-line">
-              <span
-                className="clip-rise title-fade block text-[clamp(3rem,11vw,7rem)]"
-                style={{ animationDelay: "0.1s" }}
-              >
+              <span className="clip-rise title-fade block" style={{ animationDelay: "0.1s" }}>
                 Matteo
               </span>
             </span>
             <span className="clip-line">
-              <span
-                className="clip-rise title-fade block text-[clamp(3rem,11vw,7rem)]"
-                style={{ animationDelay: "0.22s" }}
-              >
+              <span className="clip-rise title-fade block" style={{ animationDelay: "0.22s" }}>
                 Iazzolino
               </span>
             </span>
           </h1>
 
           <p
-            className="fade-up mt-6 max-w-lg text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
+            className="fade-up mt-5 max-w-lg text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg lg:mt-6"
             style={{ animationDelay: "0.34s" }}
           >
             <span className="text-foreground">{profile.role}.</span> {profile.tagline}
           </p>
 
           <div
-            className="fade-up mt-8 flex flex-wrap items-center gap-3"
+            className="fade-up mt-7 flex flex-wrap items-center gap-3 lg:mt-8"
             style={{ animationDelay: "0.42s" }}
           >
             <a
@@ -196,23 +195,20 @@ export function Hero() {
             </a>
           </div>
 
-          {/* Striscia dati */}
+          {/* Striscia dati e loghi solo da sm: sul telefono ruolo e sede sono
+              già sopra, e senza di loro il nome ha lo spazio per essere il
+              protagonista della schermata. */}
           <div
-            className="fade-up mt-12 grid max-w-2xl grid-cols-2 border-t border-[var(--hairline)] sm:grid-cols-4"
+            className="fade-up mt-12 hidden max-w-2xl grid-cols-4 border-t border-[var(--hairline)] sm:grid"
             style={{ animationDelay: "0.5s" }}
           >
             {dati.map((d, i) => (
               <div
                 key={d.k}
-                // Una sola classe per proprietà per cella: se su un elemento
-                // finiscono pl-0 e pl-4 insieme vince l'ordine del CSS, non il
-                // nostro, e la cella risulta rientrata.
                 className={[
                   "py-4 pr-4 border-[var(--hairline)]",
-                  i === 0 ? "pl-0" : i === 2 ? "pl-0 sm:pl-4" : "pl-4",
-                  i % 2 === 0 ? "border-r" : "",
-                  i === 3 ? "sm:border-r-0" : "sm:border-r",
-                  i < 2 ? "border-b sm:border-b-0" : "",
+                  i === 0 ? "pl-0" : "pl-4",
+                  i < dati.length - 1 ? "border-r" : "",
                 ].join(" ")}
               >
                 <p className="eyebrow uppercase">{d.k}</p>
@@ -222,7 +218,7 @@ export function Hero() {
           </div>
 
           <div
-            className="fade-up mt-8 flex flex-wrap items-center gap-5 text-muted-foreground/60"
+            className="fade-up mt-8 hidden flex-wrap items-center gap-5 text-muted-foreground/60 sm:flex"
             style={{ animationDelay: "0.58s" }}
           >
             {principali.map((t) => (

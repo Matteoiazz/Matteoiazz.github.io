@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { contact, profile } from "@/lib/portfolio-data"
+import { Wordmark } from "@/components/wordmark"
 
 // Solo i profili con un indirizzo vero: un pulsante che non porta da nessuna
 // parte fa sembrare il sito incompiuto. Compila i campi in portfolio-data.ts
@@ -20,10 +21,7 @@ const socials = [
  */
 export function Contact() {
   return (
-    // overflow-x-clip: il fiore scalato non deve allargare la pagina (su mobile
-    // spostava fuori centro la nav). "clip" e non "hidden": non crea un
-    // contenitore di scorrimento e lascia il fiore sporgere sopra la sezione.
-    <section id="contact" className="relative overflow-x-clip">
+    <section id="contact" className="relative">
       {/* Sfumatura che riporta il fondo al nero verso il basso */}
       <div
         aria-hidden
@@ -34,40 +32,44 @@ export function Contact() {
         }}
       />
 
-      {/* Vignettatura dello sfondo sotto l'oggetto: porta la pagina allo stesso
-          nero del fondo dipinto nel PNG, così il suo riquadro non si stacca. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 z-0 aspect-square w-[min(70vh,90%)] -translate-x-1/2 -translate-y-[24%] scale-[1.9]"
-        style={{
-          background:
-            "radial-gradient(circle at center, rgb(0 0 0 / 0.92) 0%, rgb(0 0 0 / 0.85) 26%, rgb(0 0 0 / 0.5) 40%, rgb(0 0 0 / 0) 66%)",
-        }}
-      />
-
-      {/* L'oggetto riemerge da dietro il riquadro */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 z-0 aspect-square w-[min(70vh,90%)] -translate-x-1/2 -translate-y-[24%]"
-      >
-        <Image
-          src="/hero-chrome.png"
-          alt=""
-          fill
-          sizes="(max-width: 1024px) 90vw, 700px"
-          // Stesso file dell'hero, già caricato con priorità: "eager" non costa
-          // nulla. Da lazy, Next (che indicizza le immagini per src) lo
-          // scambiava per l'immagine LCP e segnalava un warning.
-          loading="eager"
-          className="rotate-[24deg] object-contain opacity-40 sm:opacity-55"
+      {/* Scena del fiore. Il fiore e la sua vignettatura sporgono sopra la
+          sezione e, scalati, oltre i lati: vanno ritagliati in larghezza ma non
+          in altezza. Un tempo lo faceva `overflow-x: clip` sulla sezione, ma
+          Safari su iPhone ritaglia anche in verticale e tagliava il fiore con
+          una riga netta. Qui il ritaglio è su entrambi gli assi, su un livello
+          che parte 45vh più in alto: abbastanza perché nulla tocchi il bordo. */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 -top-[45vh] bottom-0 z-0 overflow-hidden">
+        {/* Vignettatura dello sfondo sotto l'oggetto: porta la pagina allo
+            stesso nero del fondo dipinto nel PNG, così il riquadro non si stacca. */}
+        <div
+          className="absolute left-1/2 top-[45vh] aspect-square w-[min(70vh,90%)] -translate-x-1/2 -translate-y-[24%] scale-[1.9]"
           style={{
-            maskImage: "radial-gradient(circle at center, #000 46%, transparent 72%)",
-            WebkitMaskImage: "radial-gradient(circle at center, #000 46%, transparent 72%)",
+            background:
+              "radial-gradient(circle at center, rgb(0 0 0 / 0.92) 0%, rgb(0 0 0 / 0.85) 26%, rgb(0 0 0 / 0.5) 40%, rgb(0 0 0 / 0) 66%)",
           }}
         />
+
+        {/* L'oggetto riemerge da dietro il riquadro */}
+        <div className="absolute left-1/2 top-[45vh] aspect-square w-[min(70vh,90%)] -translate-x-1/2 -translate-y-[24%]">
+          <Image
+            src="/hero-chrome.png"
+            alt=""
+            fill
+            sizes="(max-width: 1024px) 90vw, 700px"
+            // Stesso file dell'hero, già caricato con priorità: "eager" non costa
+            // nulla. Da lazy, Next (che indicizza le immagini per src) lo
+            // scambiava per l'immagine LCP e segnalava un warning.
+            loading="eager"
+            className="rotate-[24deg] object-contain opacity-40 sm:opacity-55"
+            style={{
+              maskImage: "radial-gradient(circle at center, #000 46%, transparent 72%)",
+              WebkitMaskImage: "radial-gradient(circle at center, #000 46%, transparent 72%)",
+            }}
+          />
+        </div>
       </div>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-24 pt-28 sm:px-10 sm:pt-36">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-12 pt-28 sm:px-10 sm:pb-16 sm:pt-36">
         <div className="glass-flat glass-edge story-in relative overflow-hidden rounded-2xl px-6 py-20 text-center sm:px-16">
           <div
             aria-hidden
@@ -117,6 +119,8 @@ export function Contact() {
           <span className="eyebrow">{profile.location} · Next.js</span>
         </footer>
       </div>
+
+      <Wordmark />
     </section>
   )
 }

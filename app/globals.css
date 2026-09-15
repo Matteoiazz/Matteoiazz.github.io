@@ -392,6 +392,18 @@
   color: transparent;
 }
 
+/* Nome in prima schermata. Sotto lg riempie la larghezza utile (schermo
+   meno il padding laterale): 3.95em è la larghezza misurata di "Iazzolino"
+   con questo font e tracking. Da sm ha un tetto, da lg torna affiancato
+   al fiore. */
+.hero-nome { font-size: calc((100vw - 3rem) / 3.95); }
+@media (width >= 40rem) {
+  .hero-nome { font-size: min(calc((100vw - 5rem) / 3.95), 9rem); }
+}
+@media (width >= 64rem) {
+  .hero-nome { font-size: clamp(3rem, 11vw, 7rem); }
+}
+
 /* Etichette piccole in monospace, cifra stilistica dello stile. */
 .eyebrow {
   font-family: var(--font-mono);
@@ -605,4 +617,64 @@
 
 @media (prefers-reduced-motion: reduce) {
   .story, .story-in, .story-thread { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
+
+/* ============================================================
+   FIRMA DI CHIUSURA
+   Il nome a tutta larghezza in fondo alla pagina, cromato come il fiore.
+   ============================================================ */
+
+.firma { container-type: inline-size; }
+
+.firma-riga {
+  /* Misurato: a 10.6cqi le lettere superavano la riga di qualche pixel.
+     Il margine che resta lo distribuisce justify-between. */
+  font-size: 10.2cqi;
+  line-height: 1;
+  /* La riga va tagliata con clip, mai con hidden: hidden la rende un
+     contenitore di scorrimento, e view() delle lettere si agganciava alla
+     riga (che non scorre) invece che alla pagina: l'animazione non partiva. */
+}
+
+.firma-lettera {
+  display: inline-block;
+  /* Tracking stretto con i margini e non con letter-spacing: il fondo
+     ritagliato sul testo copre solo il riquadro della lettera, e un
+     letter-spacing negativo lascerebbe fuori il bordo del glifo. */
+  margin-inline: -0.018em;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.firma-chiaro {
+  background-image: linear-gradient(180deg, oklch(0.99 0 0) 22%, oklch(0.82 0 0) 48%, oklch(0.5 0 0) 74%, oklch(0.3 0 0) 92%);
+}
+.firma-scuro {
+  background-image: linear-gradient(180deg, oklch(0.72 0 0) 22%, oklch(0.52 0 0) 48%, oklch(0.32 0 0) 74%, oklch(0.2 0 0) 92%);
+}
+
+@keyframes firma-sale {
+  from { transform: translateY(105%); }
+  to   { transform: none; }
+}
+
+@supports (animation-timeline: view()) {
+  /* Le lettere salgono una dopo l'altra mentre la pagina arriva in fondo. */
+  .firma-lettera {
+    animation: firma-sale cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-timeline: view();
+    animation-range: entry calc(var(--i) * 2.5%) entry calc(55% + var(--i) * 3%);
+  }
+}
+
+@media (hover: hover) {
+  /* `translate` e non `transform`: si somma all'animazione invece di
+     esserne sovrascritto. */
+  .firma-lettera { transition: translate 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease; }
+  .firma-lettera:hover { translate: 0 -5%; filter: brightness(1.45); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .firma-lettera { animation: none !important; transform: none !important; transition: none; }
 }
