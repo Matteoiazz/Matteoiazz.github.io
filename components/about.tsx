@@ -2,9 +2,34 @@ import { profile, stack } from "@/lib/portfolio-data"
 import { TechIcon } from "@/components/tech-icon"
 import { SectionShell } from "@/components/section-shell"
 
+// Solo informazioni che il resto della pagina non mostra già: ruolo, sede e
+// numero di progetti sono nella prima schermata.
+const dati = [
+  { k: "Italiano", v: "Madrelingua" },
+  { k: "Inglese", v: "B2" },
+  { k: "Cerco", v: "Ruolo part-time" },
+]
+
 export function About() {
   return (
-    <SectionShell id="about" label="Profilo" title="Chi sono" description={profile.intro}>
+    <SectionShell
+      id="about"
+      label="Profilo"
+      title="Chi sono"
+      description={profile.intro}
+      // In coda all'intestazione invece che sotto le card dello stack: così la
+      // colonna di sinistra non si ferma a metà lasciando un vuoto.
+      extra={
+        <dl className="mt-8 space-y-4 border-t border-[var(--hairline)] pt-6">
+          {dati.map((riga) => (
+            <div key={riga.k} className="flex items-baseline justify-between gap-4">
+              <dt className="eyebrow uppercase">{riga.k}</dt>
+              <dd className="text-sm font-medium">{riga.v}</dd>
+            </div>
+          ))}
+        </dl>
+      }
+    >
       <div className="grid gap-5 sm:grid-cols-2">
         {stack.map((group) => (
           <div
@@ -23,27 +48,6 @@ export function About() {
                 </li>
               ))}
             </ul>
-          </div>
-        ))}
-      </div>
-
-      {/* Solo informazioni che il resto della pagina non mostra già: prima
-          questa griglia ripeteva ruolo, sede e numero di progetti dell'hero. */}
-      <div className="glass-flat glass-edge story-in relative mt-5 grid grid-cols-1 overflow-hidden rounded-xl sm:grid-cols-3">
-        {[
-          { k: "Italiano", v: "Madrelingua" },
-          { k: "Inglese", v: "B2" },
-          { k: "Cerco", v: "Ruolo part-time" },
-        ].map((row, i) => (
-          <div
-            key={row.k}
-            className={[
-              "p-5 border-[var(--hairline)]",
-              i < 2 ? "border-b sm:border-b-0 sm:border-r" : "",
-            ].join(" ")}
-          >
-            <p className="eyebrow uppercase">{row.k}</p>
-            <p className="mt-2 text-sm font-medium">{row.v}</p>
           </div>
         ))}
       </div>

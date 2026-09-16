@@ -8,7 +8,6 @@ import {
   SiChartdotjs,
   SiDocker,
   SiElectron,
-  SiExpress,
   SiFramer,
   SiGradle,
   SiHibernate,
@@ -68,7 +67,9 @@ const ICONS: Record<string, IconComponent> = {
   motion: SiFramer,
   "framer motion": SiFramer,
   vite: SiVite,
-  express: SiExpress,
+  // Express resta senza logo: il suo marchio è la scritta "ex" e in mezzo alle
+  // altre icone sembrava testo finito lì per sbaglio. Nella scheda del progetto
+  // compare comunque come voce con il nome.
   prisma: SiPrisma,
   sqlite: SiSqlite,
   maven: SiApachemaven,

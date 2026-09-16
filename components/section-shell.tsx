@@ -14,12 +14,15 @@ export function SectionShell({
   label,
   title,
   description,
+  extra,
   children,
 }: {
   id: string
   label: string
   title: ReactNode
   description?: string
+  /** Contenuto in coda alla colonna dell'intestazione, che altrimenti resta vuota. */
+  extra?: ReactNode
   children: ReactNode
 }) {
   return (
@@ -35,6 +38,8 @@ export function SectionShell({
               {description}
             </p>
           ) : null}
+
+          {extra}
 
           <div
             aria-hidden
