@@ -124,6 +124,7 @@ export const projects: Project[] = [
       caption: "Panoramica dei mercati",
       frame: "browser",
     },
+    coverTall: "/projects/moneymind/cover-tall.webp",
     gallery: [
       {
         src: "/projects/moneymind/grafico.webp",
@@ -205,6 +206,7 @@ export const projects: Project[] = [
       caption: "Home con gli album in tendenza e il player",
       frame: "window",
     },
+    coverTall: "/projects/wavely/cover-tall.webp",
     gallery: [
       {
         src: "/projects/wavely/artista.webp",
