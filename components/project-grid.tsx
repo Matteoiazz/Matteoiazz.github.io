@@ -16,7 +16,9 @@ import { DeviceMockup } from "@/components/device-mockup"
  * buco. Tutti i progetti restano visibili insieme, ognuno nella sua card.
  *
  * La scheda è un <dialog> nativo: focus intrappolato, Esc e ritorno del focus
- * sulla card li gestisce il browser.
+ * sulla card li gestisce il browser. Da lg galleria e testo stanno affiancati
+ * in una scheda alta quanto lo schermo: prima la schermata occupava tutta la
+ * larghezza, era più alta dello schermo e titolo e pulsanti restavano sotto.
  */
 export function ProjectGrid({ projects }: { projects: Project[] }) {
   const dialog = useRef<HTMLDialogElement>(null)
@@ -88,6 +90,24 @@ function ProjectCard({
       className={`glass-flat glass-edge surface-hover story-in group relative flex flex-col overflow-hidden rounded-2xl transition-[translate,border-color] duration-300 hover:-translate-y-1 ${className}`}
     >
       <Copertina project={project} />
+
+      {/* Visit sulla copertina, sopra il pulsante che apre la scheda. Sta in
+          un livello a parte grande quanto la copertina: dentro .shot-stage
+          (container-type crea un contesto di impilamento) il pulsante che
+          copre la card gli passerebbe sopra e il link non si potrebbe cliccare. */}
+      {project.demo ? (
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-20 aspect-[16/10]">
+          <a
+            href={project.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit: apri il sito di ${project.title} in una nuova scheda`}
+            className="pointer-events-auto absolute bottom-3 right-3 rounded-full bg-foreground px-3 py-1 text-xs font-medium text-background shadow-lg shadow-black/40 transition-opacity hover:opacity-90"
+          >
+            Visit ↗
+          </a>
+        </div>
+      ) : null}
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <div className="flex items-baseline justify-between gap-4">
@@ -183,15 +203,18 @@ function Dettaglio({ project, onClose }: { project: Project; onClose: () => void
 
   return (
     <div
-      className="flex max-h-[inherit] flex-col"
+      className="relative flex max-h-[inherit] flex-col lg:h-full"
       onKeyDown={(e) => {
         if (shots.length < 2) return
         if (e.key === "ArrowRight") vai(1)
         if (e.key === "ArrowLeft") vai(-1)
       }}
     >
-      <div className="flex items-center justify-between gap-4 border-b border-[var(--hairline)] px-5 py-3 sm:px-7">
-        <p className="eyebrow uppercase">
+      {/* Sotto lg è una barra in testa, così la × resta sempre a portata.
+          Da lg la barra sparisce: tipo e anno vanno sopra il titolo e la ×
+          galleggia nell'angolo, lasciando quei 57px alla schermata. */}
+      <div className="flex shrink-0 items-center justify-between gap-4 border-b border-[var(--hairline)] px-5 py-3 sm:px-7 lg:absolute lg:right-5 lg:top-5 lg:z-10 lg:border-0 lg:p-0">
+        <p className="eyebrow uppercase lg:hidden">
           {project.kind} · {project.year}
         </p>
         <button
@@ -204,9 +227,13 @@ function Dettaglio({ project, onClose }: { project: Project; onClose: () => void
         </button>
       </div>
 
-      <div className="min-h-0 overflow-y-auto overscroll-contain">
-        <div className="px-4 pt-4 sm:px-7 sm:pt-6">
-          <div className="shot-stage relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-[radial-gradient(70%_60%_at_50%_40%,color-mix(in_oklch,var(--foreground)_7%,transparent),transparent_70%)] p-3 sm:aspect-[16/10] sm:p-6">
+      {/* Sotto lg scorre tutta la scheda; da lg le due colonne stanno ferme
+          e scorre solo il testo, se non ci sta. */}
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain lg:grid lg:grid-cols-[minmax(0,1fr)_21rem] lg:overflow-hidden xl:grid-cols-[minmax(0,1fr)_24rem]">
+        <div className="px-4 pt-4 sm:px-7 sm:pt-6 lg:flex lg:min-h-0 lg:flex-col lg:py-5 lg:pl-6 lg:pr-5">
+          {/* Da lg il palco prende tutta l'altezza libera: la cornice si
+              adatta (container query) e la schermata resta grande, ma intera. */}
+          <div className="shot-stage relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-[radial-gradient(70%_60%_at_50%_40%,color-mix(in_oklch,var(--foreground)_7%,transparent),transparent_70%)] p-3 sm:aspect-[16/10] sm:p-6 lg:aspect-auto lg:min-h-0 lg:flex-1 lg:px-6 lg:py-3">
             <div key={indice} className="shot-fade flex h-full w-full items-center justify-center">
               <DeviceMockup shot={shot} titolo={project.title} />
             </div>
@@ -220,7 +247,7 @@ function Dettaglio({ project, onClose }: { project: Project; onClose: () => void
           </div>
 
           {/* Contatore fuori dal palco: dentro finiva sopra l'angolo della cornice. */}
-          <div className="mt-3 flex min-h-5 items-baseline justify-between gap-4">
+          <div className="mt-3 flex min-h-5 shrink-0 items-baseline justify-between gap-4">
             <p className="text-sm text-muted-foreground">{shot.caption}</p>
             {shots.length > 1 ? (
               <span className="eyebrow shrink-0" aria-live="polite">
@@ -230,7 +257,7 @@ function Dettaglio({ project, onClose }: { project: Project; onClose: () => void
           </div>
 
           {shots.length > 1 ? (
-            <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+            <div className="mt-3 flex shrink-0 gap-2 overflow-x-auto pb-1">
               {shots.map((s, i) => (
                 <button
                   key={s.src}
@@ -257,75 +284,72 @@ function Dettaglio({ project, onClose }: { project: Project; onClose: () => void
           ) : null}
         </div>
 
-        <div className="grid gap-10 px-5 pb-8 pt-7 sm:px-7 lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-14">
-          <div>
-            <h2
-              id="dettaglio-titolo"
-              className="text-[clamp(1.8rem,4vw,2.6rem)] font-semibold leading-[1.05] tracking-[-0.03em]"
-            >
-              {project.title}
-            </h2>
-            <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">{project.description}</p>
+        {/* Testo: titolo e pulsanti in cima, così si vedono appena si apre. */}
+        <div className="px-5 pb-8 pt-7 sm:px-7 lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain lg:border-l lg:border-[var(--hairline)] lg:pb-7 lg:pt-7">
+          <p className="eyebrow hidden uppercase lg:block">
+            {project.kind} · {project.year}
+          </p>
+          <h2
+            id="dettaglio-titolo"
+            className="text-[clamp(1.8rem,4vw,2.4rem)] font-semibold leading-[1.05] tracking-[-0.03em] lg:mt-3"
+          >
+            {project.title}
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">{project.team}</p>
 
-            <h3 className="eyebrow mt-9 uppercase">Dentro il progetto</h3>
-            <ul className="mt-4 space-y-3">
-              {project.highlights.map((voce) => (
-                <li key={voce} className="flex gap-3 text-pretty leading-relaxed">
-                  <span aria-hidden className="mt-[0.6rem] size-1.5 shrink-0 rounded-full bg-foreground/50" />
-                  {voce}
-                </li>
-              ))}
-            </ul>
+          <div className="mt-5 flex flex-wrap gap-3">
+            {project.demo ? (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
+              >
+                Visit ↗
+              </a>
+            ) : null}
+            {project.repo ? (
+              <a
+                href={project.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass glass-dyn island rounded-lg px-4 py-2 text-sm font-medium"
+              >
+                Code ↗
+              </a>
+            ) : (
+              <span className="rounded-lg border border-dashed border-[var(--hairline-strong)] px-4 py-2 text-sm text-muted-foreground">
+                Codice privato
+              </span>
+            )}
           </div>
 
-          <aside className="space-y-7 lg:border-l lg:border-[var(--hairline)] lg:pl-8">
-            <div>
-              <p className="eyebrow uppercase">Team</p>
-              <p className="mt-1.5 text-sm">{project.team}</p>
-            </div>
+          <p className="mt-6 text-pretty leading-relaxed text-muted-foreground lg:text-[0.95rem]">
+            {project.description}
+          </p>
 
-            <div>
-              <p className="eyebrow uppercase">Stack</p>
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {project.stack.map((tech) => (
-                  <li
-                    key={tech}
-                    className="flex items-center gap-1.5 rounded-full border border-[var(--hairline)] px-2.5 py-1 text-xs text-muted-foreground"
-                  >
-                    <TechIcon name={tech} className="size-3.5" />
-                    {tech}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <h3 className="eyebrow mt-8 uppercase">Stack</h3>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {project.stack.map((tech) => (
+              <li
+                key={tech}
+                className="flex items-center gap-1.5 rounded-full border border-[var(--hairline)] px-2.5 py-1 text-xs text-muted-foreground"
+              >
+                <TechIcon name={tech} className="size-3.5" />
+                {tech}
+              </li>
+            ))}
+          </ul>
 
-            <div className="flex flex-wrap gap-3">
-              {project.demo ? (
-                <a
-                  href={project.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
-                >
-                  Visit ↗
-                </a>
-              ) : null}
-              {project.repo ? (
-                <a
-                  href={project.repo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glass glass-dyn island rounded-lg px-4 py-2 text-sm font-medium"
-                >
-                  Code ↗
-                </a>
-              ) : (
-                <span className="rounded-lg border border-dashed border-[var(--hairline-strong)] px-4 py-2 text-sm text-muted-foreground">
-                  Codice privato
-                </span>
-              )}
-            </div>
-          </aside>
+          <h3 className="eyebrow mt-8 uppercase">Dentro il progetto</h3>
+          <ul className="mt-4 space-y-3">
+            {project.highlights.map((voce) => (
+              <li key={voce} className="flex gap-3 text-pretty leading-relaxed lg:text-[0.95rem]">
+                <span aria-hidden className="mt-[0.6rem] size-1.5 shrink-0 rounded-full bg-foreground/50" />
+                {voce}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

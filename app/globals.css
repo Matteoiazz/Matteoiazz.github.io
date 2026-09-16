@@ -672,6 +672,14 @@
 @media (width >= 40rem) {
   .project-dialog { max-height: calc(100svh - 3rem); }
 }
+/* Da lg galleria e testo affiancati: la scheda ha un'altezza fissa, così il
+   palco può prendersi tutto lo spazio in verticale senza superare lo schermo. */
+@media (width >= 64rem) {
+  .project-dialog {
+    width: min(80rem, calc(100vw - 3rem));
+    height: min(calc(100svh - 3rem), 54rem);
+  }
+}
 .project-dialog::backdrop {
   background: rgb(0 0 0 / 0.72);
   backdrop-filter: blur(6px);
