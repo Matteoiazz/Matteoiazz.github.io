@@ -95,7 +95,7 @@ export function Hero() {
         <motion.div
           aria-hidden
           style={animato ? { opacity: sceneFade } : undefined}
-          className="pointer-events-none absolute left-1/2 top-[27%] z-0 aspect-square w-[min(118vw,60svh)] -translate-x-1/2 -translate-y-1/2 scale-[2] sm:top-[26%] sm:w-[min(92vw,56svh)] lg:left-auto lg:right-[-8%] lg:top-1/2 lg:w-[min(88vh,52vw)] lg:translate-x-0 xl:right-[-5%] xl:w-[min(98vh,54vw)]"
+          className="pointer-events-none absolute left-1/2 top-[calc(5rem+min(33.3vw,17.3svh))] z-0 aspect-square w-[min(104vw,54svh)] -translate-x-1/2 -translate-y-1/2 scale-[2] sm:top-[calc(5rem+min(29.4vw,17.9svh))] sm:w-[min(92vw,56svh)] lg:left-auto lg:right-[-8%] lg:top-1/2 lg:w-[min(88vh,52vw)] lg:translate-x-0 xl:right-[-5%] xl:w-[min(98vh,54vw)]"
         >
           <div
             className="absolute inset-0"
@@ -108,14 +108,19 @@ export function Hero() {
 
         {/* Oggetto cromato. Sotto lg sta in alto, grande, come su un poster:
             il nome è ancorato in basso e ci si sovrappone appena. Da lg è
-            affiancato a destra. */}
+            affiancato a destra.
+            Sotto lg la posizione parte dalla nav e non da una percentuale
+            dell'altezza: nel PNG i petali iniziano al 18% dall'alto, quindi il
+            centro sta a 5rem + 0.32 × larghezza e la cima del fiore resta
+            sempre 14px sotto la capsula (in basso a 66px), che prima la
+            tagliava. I valori in vw/svh sono 0.32 × quelli della larghezza. */}
         <motion.div
           style={
             animato
               ? { y: flowerY, scale: flowerScale, rotate: flowerRotate, opacity: flowerFade }
               : undefined
           }
-          className="pointer-events-none absolute left-1/2 top-[27%] z-0 aspect-square w-[min(118vw,60svh)] -translate-x-1/2 -translate-y-1/2 will-change-transform sm:top-[26%] sm:w-[min(92vw,56svh)] lg:left-auto lg:right-[-8%] lg:top-1/2 lg:w-[min(88vh,52vw)] lg:translate-x-0 xl:right-[-5%] xl:w-[min(98vh,54vw)]"
+          className="pointer-events-none absolute left-1/2 top-[calc(5rem+min(33.3vw,17.3svh))] z-0 aspect-square w-[min(104vw,54svh)] -translate-x-1/2 -translate-y-1/2 will-change-transform sm:top-[calc(5rem+min(29.4vw,17.9svh))] sm:w-[min(92vw,56svh)] lg:left-auto lg:right-[-8%] lg:top-1/2 lg:w-[min(88vh,52vw)] lg:translate-x-0 xl:right-[-5%] xl:w-[min(98vh,54vw)]"
         >
           {/* Quasi pieno anche sotto lg: il testo ci passa sopra solo nel
               bordo basso, protetto dalla velatura.
