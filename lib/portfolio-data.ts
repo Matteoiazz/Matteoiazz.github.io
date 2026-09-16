@@ -266,12 +266,31 @@ export const projects: Project[] = [
     stack: ["Kotlin", "Jetpack Compose", "Spring Boot", "PostgreSQL", "Keycloak", "RabbitMQ", "Docker"],
     repo: "https://github.com/Matteoiazz/Enterprise-Project",
     cover: {
-      src: "/projects/tripify-home.webp",
-      alt: "Schermata home dell'app Android Tripify, con ricerca di voli, hotel ed esperienze",
-      caption: "Home con ricerca di voli, hotel ed esperienze",
+      src: "/projects/tripify/cover.webp",
+      alt: "Home dell'app Android Tripify con ricerca di voli, hotel ed esperienze e i più apprezzati",
+      caption: "Home con ricerca e i più apprezzati",
       frame: "phone",
     },
-    gallery: [],
+    gallery: [
+      {
+        src: "/projects/tripify/dettaglio.webp",
+        alt: "Scheda dell'hotel Iron & Spa Resort con galleria, valutazione, date del soggiorno e tipologie di camera",
+        caption: "Scheda di un hotel, con tipologie di camera e prezzi",
+        frame: "phone",
+      },
+      {
+        src: "/projects/tripify/ricerca.webp",
+        alt: "Risultati della ricerca Milano: voli con tratta, prezzo, data e posti disponibili",
+        caption: "Risultati di ricerca",
+        frame: "phone",
+      },
+      {
+        src: "/projects/tripify/itinerari.webp",
+        alt: "Itinerari pubblici più apprezzati, come Fuga a Venezia e Puglia Autentica",
+        caption: "Itinerari pubblici condivisi dagli utenti",
+        frame: "phone",
+      },
+    ],
   },
 ]
 
