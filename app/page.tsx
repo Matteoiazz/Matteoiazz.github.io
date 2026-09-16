@@ -12,10 +12,10 @@ export default function Page() {
     <main className="relative overflow-x-clip">
       <Nav />
       <Hero />
-      <Projects />
-      <TechMarquee />
       <About />
       <Experience />
+      <TechMarquee />
+      <Projects />
       <Contact />
       <SectionIsland />
     </main>

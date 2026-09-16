@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react"
 import { GlassIsland } from "@/components/glass-island"
 
 const links = [
-  { href: "#projects", label: "Progetti" },
   { href: "#about", label: "Profilo" },
   { href: "#experience", label: "Percorso" },
+  { href: "#projects", label: "Progetti" },
 ]
 
 /**

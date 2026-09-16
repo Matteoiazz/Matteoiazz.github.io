@@ -392,16 +392,30 @@
   color: transparent;
 }
 
+/* Colonna del contenuto, uguale per tutte le sezioni. Il margine laterale
+   cresce con lo schermo, più che in proporzione: con la vecchia colonna
+   fissa da 72rem su un portatile da 1464px restavano quasi 200px vuoti per
+   lato, con un margine fisso del 5% la pagina sembrava troppo larga.
+   Circa: 24px sul telefono, 50px a 1024, 105px a 1464, 190px a 1920. */
+:root { --margine-lati: max(1.5rem, 5vw, 18.5vw - 10.25rem); }
+@utility contenitore {
+  width: 100%;
+  max-width: calc(100rem + 2 * var(--margine-lati));
+  margin-inline: auto;
+  padding-inline: var(--margine-lati);
+}
+
 /* Nome in prima schermata. Sotto lg riempie la larghezza utile (schermo
-   meno il padding laterale): 3.95em è la larghezza misurata di "Iazzolino"
-   con questo font e tracking. Da sm ha un tetto, da lg torna affiancato
-   al fiore. */
-.hero-nome { font-size: calc((100vw - 3rem) / 3.95); }
+   meno i margini laterali): 3.95em è la larghezza misurata di "Iazzolino"
+   con questo font e tracking. Da sm ha un tetto. Da lg torna affiancato al
+   fiore e cresce con lo schermo, ma anche con l'altezza: sui portatili con
+   lo schermo basso la presentazione deve restare sopra "Scorri". */
+.hero-nome { font-size: calc((100vw - 2 * var(--margine-lati)) / 3.95); }
 @media (width >= 40rem) {
-  .hero-nome { font-size: min(calc((100vw - 5rem) / 3.95), 9rem); }
+  .hero-nome { font-size: min(calc((100vw - 2 * var(--margine-lati)) / 3.95), 9rem); }
 }
 @media (width >= 64rem) {
-  .hero-nome { font-size: clamp(3rem, 11vw, 7rem); }
+  .hero-nome { font-size: clamp(3rem, min(9.5vw, 17svh), 10rem); }
 }
 
 /* Etichette piccole in monospace, cifra stilistica dello stile. */

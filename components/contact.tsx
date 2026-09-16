@@ -69,8 +69,8 @@ export function Contact() {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-12 pt-28 sm:px-10 sm:pb-16 sm:pt-36">
-        <div className="glass-flat glass-edge story-in relative overflow-hidden rounded-2xl px-6 py-20 text-center sm:px-16">
+      <div className="contenitore relative z-10 pb-12 pt-28 sm:pb-16 sm:pt-36">
+        <div className="glass-flat glass-edge story-in relative overflow-hidden rounded-2xl px-6 py-20 text-center sm:px-16 lg:py-24">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 top-0 h-64"
@@ -82,7 +82,7 @@ export function Contact() {
 
           <div className="relative">
             <p className="eyebrow uppercase">Contatti</p>
-            <h2 className="title-fade mx-auto mt-5 max-w-xl text-balance text-[clamp(1.9rem,4vw,3rem)] font-semibold leading-[1.1] tracking-[-0.03em]">
+            <h2 className="title-fade mx-auto mt-5 max-w-2xl text-balance text-[clamp(1.9rem,4vw,3.5rem)] font-semibold leading-[1.1] tracking-[-0.03em]">
               Costruiamo qualcosa insieme
             </h2>
             <p className="mx-auto mt-5 max-w-md text-pretty leading-relaxed text-muted-foreground">

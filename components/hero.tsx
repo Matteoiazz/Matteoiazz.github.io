@@ -22,9 +22,12 @@ const dati = [
  * la presentazione sale e sfuma, una frase nuova prende il suo posto mentre il
  * fiore cresce e ruota, poi tutto si ritira prima che la scena si sblocchi.
  *
- * La sezione successiva risale sopra la coda della scena (margine negativo)
- * mentre il fiore sfuma: senza, tra la fine dell'hero e i progetti restava
- * un'intera schermata vuota.
+ * La sezione successiva risale sopra la coda della scena (margine negativo):
+ * il suo contenuto entra dal basso proprio mentre la frase del secondo tempo
+ * se ne va. Con un margine fisso di 25vh restava invece un tratto di circa
+ * un terzo di schermo in cui non si vedeva nulla e bisognava scorrere a vuoto.
+ * Il margine è in vh più un tratto in rem: la parte in rem compensa il
+ * padding in alto della sezione successiva, che non scala con lo schermo.
  *
  * Con prefers-reduced-motion la scena non si blocca e resta statica.
  */
@@ -46,16 +49,16 @@ export function Hero() {
   const flowerScale = useTransform(p, [0, 0.55, 1], [1, 1.22, 0.92])
   const flowerRotate = useTransform(p, [0, 1], [0, 28])
   const flowerY = useTransform(p, [0, 1], [0, -40])
-  const flowerFade = useTransform(p, [0, 0.72, 0.94], [1, 1, 0])
+  const flowerFade = useTransform(p, [0, 0.74, 0.96], [1, 1, 0])
 
   // Lo sfondo della scena sparisce col fiore: allo sblocco il contenitore è
   // vuoto, quindi il suo bordo non traccia più una riga sulla pagina.
-  const sceneFade = useTransform(p, [0.72, 0.94], [1, 0])
+  const sceneFade = useTransform(p, [0.74, 0.96], [1, 0])
 
   // 3. la frase entra mentre la presentazione esce (niente fotogrammi vuoti)
   //    ed esce prima della fine, così non scorre via sotto la nav
-  const lineFade = useTransform(p, [0.2, 0.38, 0.62, 0.78], [0, 1, 1, 0])
-  const lineY = useTransform(p, [0.2, 0.38, 0.62, 0.78], [36, 0, 0, -36])
+  const lineFade = useTransform(p, [0.2, 0.38, 0.66, 0.84], [0, 1, 1, 0])
+  const lineY = useTransform(p, [0.2, 0.38, 0.66, 0.84], [36, 0, 0, -36])
 
   const animato = !calmo
 
@@ -65,7 +68,7 @@ export function Hero() {
       id="top"
       className={
         animato
-          ? "relative -mb-[15vh] h-[185vh] sm:-mb-[20vh] sm:h-[195vh] lg:-mb-[25vh] lg:h-[210vh]"
+          ? "relative -mb-[calc(17vh+12rem)] h-[185vh] sm:-mb-[calc(19vh+14rem)] sm:h-[195vh] lg:-mb-[calc(22vh+14rem)] lg:h-[210vh]"
           : "relative"
       }
     >
@@ -92,7 +95,7 @@ export function Hero() {
         <motion.div
           aria-hidden
           style={animato ? { opacity: sceneFade } : undefined}
-          className="pointer-events-none absolute left-1/2 top-[27%] z-0 aspect-square w-[min(118vw,60svh)] -translate-x-1/2 -translate-y-1/2 scale-[2] sm:top-[26%] sm:w-[min(92vw,56svh)] lg:left-auto lg:right-[-8%] lg:top-1/2 lg:w-[min(88vh,52vw)] lg:translate-x-0"
+          className="pointer-events-none absolute left-1/2 top-[27%] z-0 aspect-square w-[min(118vw,60svh)] -translate-x-1/2 -translate-y-1/2 scale-[2] sm:top-[26%] sm:w-[min(92vw,56svh)] lg:left-auto lg:right-[-8%] lg:top-1/2 lg:w-[min(88vh,52vw)] lg:translate-x-0 xl:right-[-5%] xl:w-[min(98vh,54vw)]"
         >
           <div
             className="absolute inset-0"
@@ -112,7 +115,7 @@ export function Hero() {
               ? { y: flowerY, scale: flowerScale, rotate: flowerRotate, opacity: flowerFade }
               : undefined
           }
-          className="pointer-events-none absolute left-1/2 top-[27%] z-0 aspect-square w-[min(118vw,60svh)] -translate-x-1/2 -translate-y-1/2 will-change-transform sm:top-[26%] sm:w-[min(92vw,56svh)] lg:left-auto lg:right-[-8%] lg:top-1/2 lg:w-[min(88vh,52vw)] lg:translate-x-0"
+          className="pointer-events-none absolute left-1/2 top-[27%] z-0 aspect-square w-[min(118vw,60svh)] -translate-x-1/2 -translate-y-1/2 will-change-transform sm:top-[26%] sm:w-[min(92vw,56svh)] lg:left-auto lg:right-[-8%] lg:top-1/2 lg:w-[min(88vh,52vw)] lg:translate-x-0 xl:right-[-5%] xl:w-[min(98vh,54vw)]"
         >
           {/* Quasi pieno anche sotto lg: il testo ci passa sopra solo nel
               bordo basso, protetto dalla velatura.
@@ -147,7 +150,7 @@ export function Hero() {
 
         <motion.div
           style={animato ? { y: introY, opacity: introFade } : undefined}
-          className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-6 pb-20 sm:px-10 sm:pb-24 lg:justify-center lg:pb-0"
+          className="contenitore relative z-10 flex h-full flex-col justify-end pb-20 sm:pb-24 lg:justify-center lg:pb-0"
         >
           <div className="fade-up text-xs text-muted-foreground sm:text-sm">
             {profile.location}
@@ -233,7 +236,7 @@ export function Hero() {
         {animato ? (
           <motion.div
             style={{ opacity: lineFade, y: lineY }}
-            className="pointer-events-none absolute inset-0 z-10 mx-auto flex max-w-6xl items-end justify-center px-6 pb-[24vh] text-center sm:px-10 lg:items-center lg:justify-start lg:pb-0 lg:text-left"
+            className="contenitore pointer-events-none absolute inset-0 z-10 flex items-end justify-center pb-[24vh] text-center lg:items-center lg:justify-start lg:pb-0 lg:text-left"
           >
             <p className="max-w-xl text-balance text-[clamp(1.6rem,4.2vw,3rem)] font-semibold leading-[1.1] tracking-[-0.03em]">
               <span className="text-foreground">Backend solidi,</span>{" "}

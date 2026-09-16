@@ -6,9 +6,10 @@ import { projects } from "@/lib/portfolio-data"
 
 const sezioni = [
   { id: "top", label: "Inizio", nota: "Software engineer" },
-  { id: "projects", label: "Progetti", nota: `${projects.length} lavori selezionati` },
+  // Nello stesso ordine della pagina: vince l'ultima sezione già raggiunta.
   { id: "about", label: "Profilo", nota: "Competenze e lingue" },
   { id: "experience", label: "Percorso", nota: "UniCal · dic. 2026" },
+  { id: "projects", label: "Progetti", nota: `${projects.length} lavori selezionati` },
   // Niente voce per i contatti: lì l'isoletta è già ritirata.
 ]
 
