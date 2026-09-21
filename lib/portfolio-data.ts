@@ -365,11 +365,11 @@ export const experiences: Experience[] = [
       "Terzo anno. Progetti universitari in ambito web, mobile e architetture enterprise, affiancati da progetti personali.",
   },
   {
-    role: "Sommelier / Cameriere",
-    company: "Sale ricevimenti",
-    period: "Dal 2024",
+    role: "Operatore volontario",
+    company: "Servizio Civile Universale",
+    period: "Set 2025 · set 2026",
     description:
-      "Servizio di sala e sommellerie in eventi e ricevimenti: gestione del cliente, lavoro in team sotto pressione e cura del dettaglio.",
+      "Un anno di Servizio Civile Universale come operatore volontario, svolto in parallelo agli studi.",
   },
   {
     role: "Diploma Scientifico — Scienze Applicate",
