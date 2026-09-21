@@ -50,8 +50,83 @@ export type Project = {
 }
 
 // Progetti reali: descrizioni ricavate dal codice dei singoli repository.
-// L'ordine conta: i primi due occupano la prima riga del mosaico.
+// L'ordine conta: Tripify apre il mosaico nella card più grande, la tesi gli sta accanto.
 export const projects: Project[] = [
+  {
+    slug: "tripify",
+    title: "Tripify",
+    year: "2026",
+    kind: "App Android",
+    // Progetto di gruppo in quattro: il contributo personale sono catalogo e
+    // itinerari, sia i due microservizi sia i moduli dell'app Android
+    // (DOCUMENTAZIONE-TECNICA-CATALOG-ITINERARY.md nel repository).
+    team: "Progetto di gruppo in quattro · Enterprise Architecture, UniCal · miei catalogo e itinerari, backend e app",
+    tagline:
+      "Piattaforma di viaggi a microservizi per voli, hotel e attività. Ho costruito catalogo e itinerari, dai servizi Spring Boot all'app Android.",
+    description:
+      "Piattaforma di prenotazione viaggi fatta di sei microservizi Spring Boot, ognuno con il proprio database, e di un'app Android nativa. Ho sviluppato il catalogo e gli itinerari dall'inizio alla fine. Il catalogo raccoglie voli, hotel e attività, li rende cercabili con filtri combinabili e tiene la disponibilità reale di posti e camere, in modo che due persone non possano prenotare l'ultimo posto nello stesso momento. Gli itinerari sono liste di viaggio ordinate, private, condivise o pubbliche: si compongono a mano con un controllo di coerenza su città e date, oppure si fanno generare da città, durata, numero di viaggiatori e budget, e si esportano nel calendario.",
+    highlights: [
+      "Ricerca con una dozzina di filtri combinabili (città, prezzo, voto, date, posti, voli diretti) costruita a runtime con il pattern Specification di Spring Data, su un modello con ereditarietà JPA per voli, hotel e attività",
+      "Niente overbooking tra servizi diversi: posti e camere bloccati per 15 minuti mentre l'utente paga, poi confermati o rilasciati, con compensazione in stile saga quando il checkout fallisce",
+      "Itinerari con controllo di coerenza geografica e temporale, generazione automatica che sceglie il volo più economico con posti per tutta la comitiva, esportazione in calendario .ics con eventi che si aggiornano invece di duplicarsi",
+      "Sicurezza: ruoli e proprietà degli annunci verificati dal JWT di Keycloak, immagini controllate dai byte iniziali e non dall'estensione, 404 invece di 403 sulle liste private per non rivelarne l'esistenza, lock ottimistico sulle liste condivise",
+      "App Android in Kotlin e Jetpack Compose con architettura MVVM, StateFlow e Retrofit: home con raccomandazioni, ricerca con autocompletamento delle città, scheda con galleria e mappa, timeline dell'itinerario divisa per giorno reale",
+      "Tutta la piattaforma gira in Docker: API gateway con rate limiting, Keycloak con accesso Google, RabbitMQ per le notifiche, un database PostgreSQL per servizio",
+    ],
+    stack: ["Kotlin", "Jetpack Compose", "Spring Boot", "Java", "PostgreSQL", "Keycloak", "RabbitMQ", "Docker"],
+    repo: "https://github.com/Matteoiazz/Enterprise-Project",
+    cover: {
+      src: "/projects/tripify/cover.webp",
+      alt: "Home dell'app Android Tripify con ricerca di voli, hotel ed esperienze e i più apprezzati",
+      caption: "Home con ricerca e i più apprezzati",
+      frame: "phone",
+    },
+    gallery: [
+      {
+        src: "/projects/tripify/dettaglio.webp",
+        alt: "Scheda dell'hotel Iron & Spa Resort con galleria, valutazione, date del soggiorno e tipologie di camera",
+        caption: "Scheda di un hotel, con tipologie di camera e prezzi",
+        frame: "phone",
+      },
+      {
+        src: "/projects/tripify/ricerca.webp",
+        alt: "Risultati della ricerca Milano: voli con tratta, prezzo, data e posti disponibili",
+        caption: "Risultati di ricerca",
+        frame: "phone",
+      },
+      {
+        src: "/projects/tripify/itinerari.webp",
+        alt: "Itinerari pubblici più apprezzati, come Fuga a Venezia e Puglia Autentica",
+        caption: "Itinerari pubblici condivisi dagli utenti",
+        frame: "phone",
+      },
+    ],
+  },
+  {
+    slug: "tesi",
+    title: "Progetto di tesi",
+    year: "2026",
+    kind: "App desktop · Tesi",
+    team: "Tesi di laurea triennale in Informatica · UniCal",
+    tagline:
+      "App desktop per preparare gli esami di programmazione su Moodle: tracce, test case e un assistente AI con RAG.",
+    description:
+      "Applicazione desktop pensata per i docenti che preparano esami di programmazione sulla piattaforma e-learning dell'università. Il docente importa il file XML di Moodle con le domande CodeRunner, scrive e modifica tracce, firma della funzione e test case in un editor di codice, e riesporta un file pronto da caricare. Un assistente AI basato su RAG, che attinge al materiale del corso, aiuta a scrivere tracce e test case coerenti con quello che è stato spiegato.",
+    highlights: [
+      "Import ed export del formato Moodle XML per le domande CodeRunner, con lettura tollerante dei campi opzionali e CDATA per codice e output attesi",
+      "Editor di codice Monaco dentro Electron per tracce, firma della funzione e test case, con input, output atteso, punteggio e visibilità allo studente",
+      "Backend Python con FastAPI e modelli Pydantic come unica fonte di verità per import, export e API",
+      "Assistente AI con RAG sul materiale del corso per proporre tracce e test case",
+    ],
+    stack: ["Electron", "Python", "FastAPI", "Pydantic"],
+    cover: {
+      src: "/projects/tesi/cover.webp",
+      alt: "Copertina del progetto di tesi con la scritta Work in progress",
+      caption: "Work in progress",
+      frame: "window",
+    },
+    gallery: [],
+  },
   {
     slug: "goldenstay",
     title: "GoldenStay",
@@ -258,52 +333,6 @@ export const projects: Project[] = [
       },
     ],
   },
-  {
-    slug: "tripify",
-    title: "Tripify",
-    year: "2026",
-    kind: "App Android",
-    // Il ruolo è esplicitato: il progetto è di gruppo, il contributo personale
-    // è il modulo catalogo dell'app Android (come dichiarato nel CV).
-    team: "Progetto di gruppo · corso di Enterprise Architecture, mio il modulo catalogo",
-    tagline: "App Android di una piattaforma di viaggi a microservizi: voli, hotel ed escursioni.",
-    description:
-      "App Android per cercare e prenotare viaggi, voli, hotel ed escursioni, parte di una piattaforma a microservizi sviluppata per il corso di Enterprise Architecture. Il mio contributo è il modulo catalogo dell'app, in Kotlin e Jetpack Compose.",
-    highlights: [
-      "Modulo catalogo dell'app Android in Kotlin e Jetpack Compose",
-      "Backend a microservizi Spring Boot, ognuno con il proprio database PostgreSQL",
-      "Autenticazione con Keycloak, messaggi asincroni con RabbitMQ e API gateway",
-      "Intera piattaforma avviabile in Docker",
-    ],
-    stack: ["Kotlin", "Jetpack Compose", "Spring Boot", "PostgreSQL", "Keycloak", "RabbitMQ", "Docker"],
-    repo: "https://github.com/Matteoiazz/Enterprise-Project",
-    cover: {
-      src: "/projects/tripify/cover.webp",
-      alt: "Home dell'app Android Tripify con ricerca di voli, hotel ed esperienze e i più apprezzati",
-      caption: "Home con ricerca e i più apprezzati",
-      frame: "phone",
-    },
-    gallery: [
-      {
-        src: "/projects/tripify/dettaglio.webp",
-        alt: "Scheda dell'hotel Iron & Spa Resort con galleria, valutazione, date del soggiorno e tipologie di camera",
-        caption: "Scheda di un hotel, con tipologie di camera e prezzi",
-        frame: "phone",
-      },
-      {
-        src: "/projects/tripify/ricerca.webp",
-        alt: "Risultati della ricerca Milano: voli con tratta, prezzo, data e posti disponibili",
-        caption: "Risultati di ricerca",
-        frame: "phone",
-      },
-      {
-        src: "/projects/tripify/itinerari.webp",
-        alt: "Itinerari pubblici più apprezzati, come Fuga a Venezia e Puglia Autentica",
-        caption: "Itinerari pubblici condivisi dagli utenti",
-        frame: "phone",
-      },
-    ],
-  },
 ]
 
 export const stack: { group: string; items: string[] }[] = [
@@ -321,6 +350,13 @@ export type Experience = {
 }
 
 export const experiences: Experience[] = [
+  {
+    role: "Laurea Magistrale in Artificial Intelligence and Computer Science",
+    company: "Università della Calabria",
+    period: "Da ottobre 2026",
+    description:
+      "Magistrale in intelligenza artificiale e informatica, in continuità con la triennale: il passo successivo dopo una tesi che porta l'AI dentro uno strumento per la didattica.",
+  },
   {
     role: "Laurea Triennale in Informatica",
     company: "Università della Calabria",

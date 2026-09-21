@@ -10,10 +10,11 @@ import { DeviceMockup } from "@/components/device-mockup"
 /**
  * Mosaico dei progetti + scheda di dettaglio.
  *
- * Da lg la griglia è su 12 colonne: i primi due progetti dividono la prima
- * riga (7 + 5), gli altri stanno a tre per riga. Su md due colonne, e se i
- * progetti sono dispari l'ultimo prende tutta la riga invece di lasciare un
- * buco. Tutti i progetti restano visibili insieme, ognuno nella sua card.
+ * Da lg la griglia è su 12 colonne, a coppie: 7 + 5, poi 5 + 7 a zigzag, e
+ * l'ultima coppia 6 + 6. Con sei progetti a tre per riga l'ultima riga
+ * restava con una card sola e un buco di due terzi. Su md due colonne, e se i
+ * progetti sono dispari l'ultimo prende tutta la riga. Tutti i progetti
+ * restano visibili insieme, ognuno nella sua card.
  *
  * La scheda è un <dialog> nativo: focus intrappolato, Esc e ritorno del focus
  * sulla card li gestisce il browser. Da lg galleria e testo stanno affiancati
@@ -71,8 +72,11 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
 }
 
 function colonne(i: number, totale: number) {
-  const lg = i === 0 ? "lg:col-span-7" : i === 1 ? "lg:col-span-5" : "lg:col-span-4"
-  const md = totale % 2 === 1 && i === totale - 1 ? "md:col-span-2" : ""
+  const ultimaCoppia = totale % 2 === 0 && i >= totale - 2
+  const zigzag = ["lg:col-span-7", "lg:col-span-5", "lg:col-span-5", "lg:col-span-7"]
+  const soloUltimo = totale % 2 === 1 && i === totale - 1
+  const lg = soloUltimo ? "lg:col-span-12" : ultimaCoppia && totale > 4 ? "lg:col-span-6" : zigzag[i % 4]
+  const md = soloUltimo ? "md:col-span-2" : ""
   return `${lg} ${md}`
 }
 
@@ -153,10 +157,23 @@ function Copertina({ project }: { project: Project }) {
   return (
     <div className="shot-stage relative aspect-[16/10] overflow-hidden border-b border-[var(--hairline)] bg-background/60">
       {cover.frame === "phone" ? (
-        <div className="flex h-full items-center justify-center p-5 transition-transform duration-700 group-hover:scale-[1.03]">
-          <div className="h-full">
-            <DeviceMockup shot={cover} />
-          </div>
+        // App mobile: tre schermate affiancate, la copertina al centro e più
+        // grande. Un telefono solo, in una card larga, lasciava due fasce vuote.
+        <div className="flex h-full items-center justify-center gap-[3%] px-5 py-4 transition-transform duration-700 group-hover:scale-[1.03]">
+          {telefoni(project).map((shot, i, tutti) => {
+            const centrale = tutti.length === 1 || i === 1
+            return (
+              <div
+                key={shot.src}
+                className={centrale ? "h-full" : "h-[84%] opacity-80"}
+                // Ogni telefono è il proprio contenitore: la cornice (100cqh) prende
+                // l'altezza di questo riquadro e non quella di tutta la copertina.
+                style={{ containerType: "size", aspectRatio: "9 / 19.5" }}
+              >
+                <DeviceMockup shot={shot} />
+              </div>
+            )
+          })}
         </div>
       ) : (
         <>
@@ -193,6 +210,13 @@ function Copertina({ project }: { project: Project }) {
       </span>
     </div>
   )
+}
+
+/** Schermate da telefono per la copertina: la copertina al centro, due laterali. */
+function telefoni(project: Project) {
+  const altre = project.gallery.filter((s) => s.frame === "phone").slice(0, 2)
+  if (altre.length < 2) return [project.cover]
+  return [altre[0], project.cover, altre[1]]
 }
 
 function Dettaglio({ project, onClose }: { project: Project; onClose: () => void }) {

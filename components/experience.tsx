@@ -7,7 +7,7 @@ export function Experience() {
       id="experience"
       label="Percorso"
       title="Formazione ed esperienza"
-      description="Tre tappe: la scuola, l'università che sto finendo e il lavoro in sala che porto avanti in parallelo."
+      description="La scuola, la triennale che sto chiudendo con la tesi, la magistrale in AI che inizia a ottobre e il lavoro in sala che porto avanti in parallelo."
     >
       <ol className="relative space-y-5">
         {/* Binario del racconto: si riempie mentre il capitolo scorre. */}

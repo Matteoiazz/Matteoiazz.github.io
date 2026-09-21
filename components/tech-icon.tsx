@@ -8,6 +8,7 @@ import {
   SiChartdotjs,
   SiDocker,
   SiElectron,
+  SiFastapi,
   SiFramer,
   SiGradle,
   SiHibernate,
@@ -21,6 +22,7 @@ import {
   SiNodedotjs,
   SiPostgresql,
   SiPrisma,
+  SiPydantic,
   SiPython,
   SiRabbitmq,
   SiReact,
@@ -77,6 +79,8 @@ const ICONS: Record<string, IconComponent> = {
   jwt: SiJsonwebtokens,
   "spring security": SiSpringsecurity,
   hibernate: SiHibernate,
+  fastapi: SiFastapi,
+  pydantic: SiPydantic,
 }
 
 /**
