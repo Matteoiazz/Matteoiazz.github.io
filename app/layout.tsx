@@ -14,14 +14,21 @@ const descrizione =
 export const metadata: Metadata = {
   // Serve a rendere assoluti gli URL delle anteprime: senza, i link condivisi
   // su WhatsApp o LinkedIn non mostrano l'immagine.
-  metadataBase: new URL('https://matteoiazz.github.io'),
+  metadataBase: new URL('https://matteoiazz.vercel.app'),
   title: 'Matteo Iazzolino — Software Engineer',
   description: descrizione,
-  icons: { icon: '/icon.svg', apple: '/apple-icon.png' },
+  // Monogramma "MI": prima c'era ancora il logo del template v0.
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/icon-32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/apple-icon.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'it_IT',
-    url: 'https://matteoiazz.github.io',
+    url: 'https://matteoiazz.vercel.app',
     siteName: 'Matteo Iazzolino',
     title: 'Matteo Iazzolino — Software Engineer',
     description: descrizione,
