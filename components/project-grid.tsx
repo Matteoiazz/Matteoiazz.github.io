@@ -144,6 +144,7 @@ function ProjectCard({
         type="button"
         aria-haspopup="dialog"
         aria-label={`Apri i dettagli di ${project.title}`}
+        data-cursore="Apri"
         onClick={(e) => onOpen(project, e.currentTarget)}
         className="absolute inset-0 z-10 rounded-2xl outline-offset-2 focus-visible:outline-2 focus-visible:outline-foreground"
       />

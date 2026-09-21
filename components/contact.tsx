@@ -108,6 +108,9 @@ export function Contact() {
                   {s.label}
                 </a>
               ))}
+              <a href="/cv/" className="glass glass-dyn island rounded-lg px-5 py-2.5 text-sm font-medium">
+                Curriculum
+              </a>
             </div>
           </div>
         </div>

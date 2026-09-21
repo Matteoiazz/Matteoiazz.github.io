@@ -764,3 +764,82 @@ html.dialog-aperto { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .firma-lettera { animation: none !important; transform: none !important; transition: none; }
 }
+
+/* ============================================================
+   CURSORE: luce sulle card e anello con etichetta
+   ============================================================ */
+
+/* Le card di vetro seguono il cursore (components/luce.tsx scrive --mx/--my):
+   un alone morbido sul fondo e un filo di luce che corre sul bordo. */
+.glass-flat {
+  position: relative;
+  --mx: -1000px;
+  --my: -1000px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .glass-flat,
+  .glass-flat.surface-hover:hover {
+    background-image:
+      radial-gradient(
+        520px circle at var(--mx) var(--my),
+        color-mix(in oklch, var(--foreground) 6.5%, transparent),
+        transparent 45%
+      ),
+      linear-gradient(
+        135deg,
+        color-mix(in oklch, var(--foreground) 7%, var(--background)),
+        color-mix(in oklch, var(--foreground) 2.5%, var(--background))
+      );
+  }
+  .glass-flat::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    pointer-events: none;
+    background: radial-gradient(
+      240px circle at var(--mx) var(--my),
+      color-mix(in oklch, var(--foreground) 60%, transparent),
+      transparent 65%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .glass-flat:hover::after { opacity: 1; }
+}
+
+/* Anello del cursore: sopra le card dei progetti diventa una pillola chiara
+   con il nome dell'azione. */
+.cursore-anello {
+  transition:
+    width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    scale 0.2s ease-out,
+    opacity 0.2s ease-out;
+}
+.cursore-anello.con-etichetta {
+  width: 4.75rem;
+  height: 2.25rem;
+  border-color: transparent;
+  background-color: color-mix(in oklch, var(--foreground) 94%, transparent);
+  box-shadow: 0 10px 30px -8px rgb(0 0 0 / 0.6);
+}
+.cursore-testo {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  white-space: nowrap;
+}
+.con-etichetta .cursore-testo {
+  opacity: 1;
+  transition-delay: 0.1s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-flat::after { transition: none; }
+}

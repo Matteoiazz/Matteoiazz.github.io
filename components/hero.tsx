@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import Image from "next/image"
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react"
 import { profile, projects } from "@/lib/portfolio-data"
@@ -61,6 +61,39 @@ export function Hero() {
   const lineY = useTransform(p, [0.2, 0.38, 0.66, 0.84], [36, 0, 0, -36])
 
   const animato = !calmo
+
+  // Il fiore segue anche il cursore: si inclina in 3D verso il mouse e si sposta
+  //    appena, con una molla morbida. Solo da lg e con mouse o trackpad.
+  const inclinaX = useSpring(0, { stiffness: 90, damping: 16, mass: 0.6 })
+  const inclinaY = useSpring(0, { stiffness: 90, damping: 16, mass: 0.6 })
+  const spostaX = useSpring(0, { stiffness: 70, damping: 18, mass: 0.8 })
+  const spostaY = useSpring(0, { stiffness: 70, damping: 18, mass: 0.8 })
+
+  useEffect(() => {
+    if (!animato) return
+    const adatto = window.matchMedia("(min-width: 64rem) and (hover: hover) and (pointer: fine)")
+    if (!adatto.matches) return
+    const muovi = (e: PointerEvent) => {
+      const nx = e.clientX / window.innerWidth - 0.5
+      const ny = e.clientY / window.innerHeight - 0.5
+      inclinaY.set(nx * 22)
+      inclinaX.set(-ny * 18)
+      spostaX.set(nx * 26)
+      spostaY.set(ny * 20)
+    }
+    const fermo = () => {
+      inclinaX.set(0)
+      inclinaY.set(0)
+      spostaX.set(0)
+      spostaY.set(0)
+    }
+    window.addEventListener("pointermove", muovi, { passive: true })
+    document.documentElement.addEventListener("pointerleave", fermo)
+    return () => {
+      window.removeEventListener("pointermove", muovi)
+      document.documentElement.removeEventListener("pointerleave", fermo)
+    }
+  }, [animato, inclinaX, inclinaY, spostaX, spostaY])
 
   return (
     <section
@@ -126,19 +159,30 @@ export function Hero() {
               bordo basso, protetto dalla velatura.
               `priority` è deprecato da Next 16: per l'immagine più grande
               sopra la piega la documentazione indica loading/fetchPriority. */}
-          <Image
-            src="/hero-chrome.png"
-            alt=""
-            fill
-            loading="eager"
-            fetchPriority="high"
-            sizes="(max-width: 1024px) 80vw, 50vw"
-            className="object-contain opacity-90 lg:opacity-100"
-            style={{
-              maskImage: "radial-gradient(circle at center, #000 50%, transparent 74%)",
-              WebkitMaskImage: "radial-gradient(circle at center, #000 50%, transparent 74%)",
-            }}
-          />
+          {/* Livello interno per l'inclinazione verso il cursore: si somma alle
+              trasformazioni dello scorrimento del livello esterno. */}
+          <motion.div
+            className="absolute inset-0"
+            style={
+              animato
+                ? { rotateX: inclinaX, rotateY: inclinaY, x: spostaX, y: spostaY, transformPerspective: 1100 }
+                : undefined
+            }
+          >
+            <Image
+              src="/hero-chrome.png"
+              alt=""
+              fill
+              loading="eager"
+              fetchPriority="high"
+              sizes="(max-width: 1024px) 80vw, 50vw"
+              className="object-contain opacity-90 lg:opacity-100"
+              style={{
+                maskImage: "radial-gradient(circle at center, #000 50%, transparent 74%)",
+                WebkitMaskImage: "radial-gradient(circle at center, #000 50%, transparent 74%)",
+              }}
+            />
+          </motion.div>
         </motion.div>
 
         {/* Velatura dal basso, solo sotto lg: scurisce dove il nome incontra il
@@ -200,6 +244,12 @@ export function Hero() {
               className="glass glass-dyn island rounded-lg px-5 py-2.5 text-sm font-medium"
             >
               Contattami
+            </a>
+            <a
+              href="/cv/"
+              className="rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Curriculum →
             </a>
           </div>
 

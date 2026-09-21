@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { AmbientBackground } from '@/components/ambient-background'
 import { Cursor } from '@/components/cursor'
+import { Luce } from '@/components/luce'
 import { ScrollProgress } from '@/components/scroll-progress'
 
 const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
@@ -60,6 +61,7 @@ export default function RootLayout({
         <ScrollProgress />
         {children}
         <Cursor />
+        <Luce />
       </body>
     </html>
   )
