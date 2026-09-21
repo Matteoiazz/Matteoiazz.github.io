@@ -8,7 +8,7 @@ import { SectionShell } from "@/components/section-shell"
 const dati = [
   { k: "Italiano", v: "Madrelingua" },
   { k: "Inglese", v: "B2" },
-  { k: "Cerco", v: "Ruolo part-time" },
+  { k: "Magistrale", v: "AI e Computer Science" },
 ]
 
 const iniziali = profile.name

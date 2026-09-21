@@ -13,7 +13,7 @@ export const profile = {
   // Segue il ruolo nella prima schermata: tienila corta.
   tagline: "Dal modello dati all'interfaccia, curo tutto il percorso.",
   intro:
-    "Studente al terzo anno di Informatica all'Università della Calabria, con laurea prevista a dicembre 2026. Ho maturato esperienza pratica costruendo progetti universitari e personali in ambito web e mobile: sviluppo full-stack, applicazioni Android e architetture enterprise. Cerco un ruolo part-time da sviluppatore per portare queste competenze su codice di produzione, in parallelo alla laurea magistrale.",
+    "Studente al terzo anno di Informatica all'Università della Calabria, con laurea prevista a dicembre 2026 e una tesi che porta l'intelligenza artificiale dentro uno strumento per la didattica. Da ottobre 2026 proseguo con la magistrale in Artificial Intelligence and Computer Science, sempre all'UniCal. Nel frattempo ho costruito progetti universitari e personali per web, mobile e desktop: sviluppo full-stack, applicazioni Android e architetture a microservizi.",
 }
 
 export type Shot = {
