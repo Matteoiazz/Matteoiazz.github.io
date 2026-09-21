@@ -61,14 +61,33 @@ export function About() {
       // In coda all'intestazione invece che sotto le card dello stack: così la
       // colonna di sinistra non si ferma a metà lasciando un vuoto.
       extra={
-        <dl className="mt-8 space-y-4 border-t border-[var(--hairline)] pt-6">
-          {dati.map((riga) => (
-            <div key={riga.k} className="flex items-baseline justify-between gap-4">
-              <dt className="eyebrow uppercase">{riga.k}</dt>
-              <dd className="text-sm font-medium">{riga.v}</dd>
-            </div>
-          ))}
-        </dl>
+        <>
+          <dl className="mt-8 space-y-4 border-t border-[var(--hairline)] pt-6">
+            {dati.map((riga) => (
+              <div key={riga.k} className="flex items-baseline justify-between gap-4">
+                <dt className="eyebrow uppercase">{riga.k}</dt>
+                <dd className="text-sm font-medium">{riga.v}</dd>
+              </div>
+            ))}
+          </dl>
+          {/* Il curriculum sta qui, accanto a chi sono: la pagina in stile sito
+              e il PDF da scaricare. */}
+          <div className="mt-7 flex flex-wrap gap-3">
+            <a
+              href="/cv/"
+              className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
+            >
+              Curriculum
+            </a>
+            <a
+              href="/Matteo_Iazzolino_CV.pdf"
+              download="Matteo_Iazzolino_CV.pdf"
+              className="glass glass-dyn island rounded-lg px-4 py-2 text-sm font-medium"
+            >
+              Scarica PDF ↓
+            </a>
+          </div>
+        </>
       }
     >
       {/* Da md le righe si dividono l'altezza della colonna accanto, che col
