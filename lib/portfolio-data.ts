@@ -155,6 +155,12 @@ export const projects: Project[] = [
     coverTall: "/projects/goldenstay/cover-tall.webp",
     gallery: [
       {
+        src: "/projects/goldenstay/demo.gif",
+        alt: "Registrazione della prenotazione completa su GoldenStay: ricerca camere, scheda, pagamento e ricevuta in PDF",
+        caption: "Demo: ricerca, prenotazione, pagamento e ricevuta",
+        frame: "browser",
+      },
+      {
         src: "/projects/goldenstay/camera.webp",
         alt: "Scheda della Suite Vista Mare con foto, capienza, letto e prezzo a notte",
         caption: "Scheda della camera",
