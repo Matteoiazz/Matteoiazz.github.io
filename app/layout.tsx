@@ -10,13 +10,13 @@ const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
 const descrizione =
-  'Portfolio di Matteo Iazzolino, software engineer e studente di Informatica all’Università della Calabria. Progetti web, mobile e architetture enterprise.'
+  'Portfolio di Matteo Iazzolino, junior full-stack developer e studente di Informatica all’Università della Calabria. Progetti web, mobile e architetture enterprise.'
 
 export const metadata: Metadata = {
   // Serve a rendere assoluti gli URL delle anteprime: senza, i link condivisi
   // su WhatsApp o LinkedIn non mostrano l'immagine.
   metadataBase: new URL('https://matteoiazz.vercel.app'),
-  title: 'Matteo Iazzolino — Software Engineer',
+  title: 'Matteo Iazzolino — Junior Full-Stack Developer',
   description: descrizione,
   // Monogramma "MI": prima c'era ancora il logo del template v0.
   icons: {
@@ -31,12 +31,12 @@ export const metadata: Metadata = {
     locale: 'it_IT',
     url: 'https://matteoiazz.vercel.app',
     siteName: 'Matteo Iazzolino',
-    title: 'Matteo Iazzolino — Software Engineer',
+    title: 'Matteo Iazzolino — Junior Full-Stack Developer',
     description: descrizione,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Matteo Iazzolino — Software Engineer',
+    title: 'Matteo Iazzolino — Junior Full-Stack Developer',
     description: descrizione,
   },
 }

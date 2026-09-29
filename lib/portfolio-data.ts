@@ -5,7 +5,7 @@
 
 export const profile = {
   name: "Matteo Iazzolino",
-  role: "Software Engineer",
+  role: "Junior Full-Stack Developer",
   location: "Cosenza, Italia",
   // Foto della sezione Profilo: mettila in public/ e scrivi qui il percorso,
   // per esempio "/matteo.jpg" (quadrata, almeno 320px). Vuota: si vedono le iniziali.

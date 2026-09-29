@@ -5,7 +5,7 @@ import { GlassIsland } from "@/components/glass-island"
 import { projects } from "@/lib/portfolio-data"
 
 const sezioni = [
-  { id: "top", label: "Inizio", nota: "Software engineer" },
+  { id: "top", label: "Inizio", nota: "Junior Full-Stack Developer" },
   // Nello stesso ordine della pagina: vince l'ultima sezione già raggiunta.
   { id: "about", label: "Profilo", nota: "Competenze e lingue" },
   { id: "experience", label: "Percorso", nota: "UniCal · dic. 2026" },
