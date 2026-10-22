@@ -116,11 +116,7 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
             ))}
           </div>
         ) : (
-          <ol className="mt-6 border-t border-[var(--hairline)]">
-            {visibili.map((project, i) => (
-              <RigaProgetto key={project.slug} project={project} numero={i + 1} onOpen={apri} />
-            ))}
-          </ol>
+          <ListaProgetti progetti={visibili} onOpen={apri} />
         )}
       </div>
 
@@ -166,15 +162,83 @@ function colonneUguali(i: number, totale: number) {
   return totale % 2 === 1 && i === totale - 1 ? "md:col-span-2 lg:col-span-4" : "lg:col-span-4"
 }
 
+const ANTEPRIMA_W = 288
+
+/**
+ * Vista a lista. Una sola anteprima per tutto l'elenco, che segue il
+ * puntatore e cambia copertina quando si passa a un'altra riga: la posizione
+ * finisce in due variabili CSS, senza ridisegnare React a ogni movimento.
+ * Nella metà destra l'anteprima passa a sinistra del puntatore, per non
+ * uscire dalla colonna.
+ */
+function ListaProgetti({
+  progetti,
+  onOpen,
+}: {
+  progetti: Project[]
+  onOpen: (p: Project, el: HTMLElement) => void
+}) {
+  const anteprima = useRef<HTMLDivElement>(null)
+  const [sopra, setSopra] = useState<Project | null>(null)
+
+  const muovi = (e: React.PointerEvent<HTMLOListElement>) => {
+    if (e.pointerType !== "mouse" || !anteprima.current) return
+    const r = e.currentTarget.getBoundingClientRect()
+    const x = e.clientX - r.left
+    const y = e.clientY - r.top
+    const sinistra = x > r.width * 0.55
+    anteprima.current.style.setProperty("--px", `${sinistra ? x - ANTEPRIMA_W - 28 : x + 28}px`)
+    anteprima.current.style.setProperty("--py", `${y - (ANTEPRIMA_W * 10) / 32}px`)
+  }
+
+  return (
+    <div className="relative mt-6">
+      <ol onPointerMove={muovi} onPointerLeave={() => setSopra(null)} className="border-t border-[var(--hairline)]">
+        {progetti.map((project, i) => (
+          <RigaProgetto key={project.slug} project={project} numero={i + 1} onOpen={onOpen} onHover={setSopra} />
+        ))}
+      </ol>
+
+      <div
+        ref={anteprima}
+        aria-hidden
+        className={`pointer-events-none absolute left-0 top-0 z-20 hidden aspect-[16/10] overflow-hidden rounded-lg border border-[var(--hairline-strong)] bg-neutral-900 shadow-2xl shadow-black/70 lg:block ${
+          sopra ? "scale-100 opacity-100" : "scale-90 opacity-0"
+        }`}
+        style={{
+          width: ANTEPRIMA_W,
+          translate: "var(--px, 0px) var(--py, 0px)",
+          transition: "translate 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease, scale 0.3s ease",
+        }}
+      >
+        {progetti.map((p) => (
+          <Image
+            key={p.slug}
+            src={p.cover.src}
+            alt=""
+            fill
+            sizes={`${ANTEPRIMA_W}px`}
+            className={`transition-opacity duration-200 ${sopra?.slug === p.slug ? "opacity-100" : "opacity-0"} ${
+              p.cover.frame === "phone" ? "object-contain" : "object-cover object-top"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 /** Riga della vista a lista: un indice dei progetti, che apre la stessa scheda. */
 function RigaProgetto({
   project,
   numero,
   onOpen,
+  onHover,
 }: {
   project: Project
   numero: number
   onOpen: (p: Project, el: HTMLElement) => void
+  onHover: (p: Project) => void
 }) {
   return (
     <li className="group relative border-b border-[var(--hairline)]">
@@ -204,21 +268,8 @@ function RigaProgetto({
         </span>
       </div>
 
-      {/* Anteprima della copertina: compare accanto al titolo, solo con il mouse. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-[42%] top-1/2 z-20 hidden aspect-[16/10] w-60 -translate-y-1/2 rotate-[-2deg] scale-90 overflow-hidden rounded-lg border border-[var(--hairline-strong)] bg-neutral-900 opacity-0 shadow-2xl shadow-black/70 transition-[opacity,scale,rotate] duration-300 group-hover:rotate-0 group-hover:scale-100 group-hover:opacity-100 lg:block xl:w-72"
-      >
-        <Image
-          src={project.cover.src}
-          alt=""
-          fill
-          sizes="288px"
-          className={project.cover.frame === "phone" ? "object-contain" : "object-cover object-top"}
-        />
-      </div>
-
       <button
+        onPointerEnter={(e) => e.pointerType === "mouse" && onHover(project)}
         type="button"
         aria-haspopup="dialog"
         aria-label={`Apri i dettagli di ${project.title}`}
@@ -498,6 +549,21 @@ function Dettaglio({ project, onClose }: { project: Project; onClose: () => void
               </span>
             )}
           </div>
+
+          {project.casoStudio ? (
+            <a
+              href={`/progetti/${project.slug}/`}
+              className="group/caso glass-flat glass-edge mt-4 flex items-center justify-between gap-4 rounded-xl px-4 py-3.5"
+            >
+              <span>
+                <span className="block text-sm font-medium">Leggi il caso di studio</span>
+                <span className="mt-0.5 block text-xs text-muted-foreground">Architettura, scelte e codice</span>
+              </span>
+              <span aria-hidden className="transition-transform duration-300 group-hover/caso:translate-x-1">
+                →
+              </span>
+            </a>
+          ) : null}
 
           <p className="mt-6 text-pretty leading-relaxed text-muted-foreground lg:text-[0.95rem]">
             {project.description}

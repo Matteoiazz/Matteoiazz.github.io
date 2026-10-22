@@ -31,6 +31,8 @@ export type Project = {
   slug: string
   /** Per i filtri della sezione Progetti. */
   platform: Platform
+  /** Ha una pagina /progetti/<slug>/: il contenuto è in lib/casi-studio.ts. */
+  casoStudio?: boolean
   title: string
   year: string
   /** Tipo di progetto, mostrato sulla copertina della card. */
@@ -59,6 +61,7 @@ export const projects: Project[] = [
   {
     slug: "tripify",
     platform: "mobile",
+    casoStudio: true,
     title: "Tripify",
     year: "2026",
     kind: "App Android",
@@ -110,6 +113,7 @@ export const projects: Project[] = [
   {
     slug: "tesi",
     platform: "desktop",
+    casoStudio: true,
     // Il nome è quello dell'app installata (productName in frontend/package.json).
     title: "Editor tracce CodeRunner",
     year: "2026",
@@ -161,6 +165,7 @@ export const projects: Project[] = [
   {
     slug: "goldenstay",
     platform: "web",
+    casoStudio: true,
     title: "GoldenStay",
     year: "2026",
     kind: "Web app",
@@ -423,6 +428,7 @@ export function progettiCon(tecnologia: string): Project[] {
 }
 
 export type Experience = {
+  tipo: "Formazione" | "Esperienza"
   role: string
   company: string
   period: string
@@ -431,6 +437,7 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
+    tipo: "Formazione",
     role: "Laurea Magistrale in Artificial Intelligence and Computer Science",
     company: "Università della Calabria",
     period: "Da ottobre 2026",
@@ -438,6 +445,7 @@ export const experiences: Experience[] = [
       "Magistrale in intelligenza artificiale e informatica, in continuità con la triennale. Nel primo semestre Deep Learning e Research and Development Methodologies, con un progetto Scrum in otto per il Dipartimento di Fisica: l'analisi 3D di alghe al microscopio.",
   },
   {
+    tipo: "Formazione",
     role: "Laurea Triennale in Informatica",
     company: "Università della Calabria",
     period: "In corso · prevista dic. 2026",
@@ -445,6 +453,7 @@ export const experiences: Experience[] = [
       "Terzo anno. Progetti universitari in ambito web, mobile e architetture enterprise, affiancati da progetti personali.",
   },
   {
+    tipo: "Esperienza",
     role: "Operatore volontario",
     company: "Servizio Civile Universale",
     period: "Set 2025 · set 2026",
@@ -452,6 +461,7 @@ export const experiences: Experience[] = [
       "Un anno di Servizio Civile Universale come operatore volontario, svolto in parallelo agli studi.",
   },
   {
+    tipo: "Formazione",
     role: "Diploma Scientifico — Scienze Applicate",
     company: "Liceo Scientifico \"Scorza\", Cosenza",
     period: "2023 · 97/100",

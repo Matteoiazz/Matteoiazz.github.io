@@ -1,6 +1,12 @@
 import { experiences } from "@/lib/portfolio-data"
 import { SectionShell } from "@/components/section-shell"
 
+/**
+ * Percorso come elenco editoriale, senza card: date in colonna, titoli
+ * grandi, righe sottili a separare. Le altre sezioni sono fatte di
+ * superfici, questa di testo, e il cambio di forma dà ritmo alla pagina.
+ * L'intestazione a lato resta ferma mentre l'elenco scorre.
+ */
 export function Experience() {
   return (
     <SectionShell
@@ -10,28 +16,24 @@ export function Experience() {
       title="Formazione ed esperienza"
       description="La scuola, la triennale che sto chiudendo con la tesi, la magistrale in AI iniziata a ottobre e l'anno di Servizio Civile."
     >
-      <ol className="relative space-y-5">
-        {/* Binario del racconto: si riempie mentre il capitolo scorre. */}
-        <span
-          aria-hidden
-          className="story-thread absolute left-[5px] top-6 hidden h-[calc(100%-3rem)] w-px bg-gradient-to-b from-foreground/40 via-foreground/20 to-transparent sm:block"
-        />
-
+      <ol className="border-t border-[var(--hairline)]">
         {experiences.map((exp) => (
-          <li key={`${exp.company}-${exp.period}`} className="story relative sm:pl-10">
-            <span
-              aria-hidden
-              className="absolute left-0 top-8 hidden size-[11px] rounded-full border border-foreground/40 bg-background sm:block"
-            />
-            {/* Schede come nel resto del sito: prima erano tre blocchi di testo
-                appoggiati sul fondo, e la sezione sembrava incompiuta. */}
-            <div className="glass-flat glass-edge surface-hover rounded-xl p-6">
-              <p className="eyebrow">{exp.period}</p>
-              <h3 className="mt-2 text-base font-medium tracking-tight">
+          <li
+            key={`${exp.company}-${exp.period}`}
+            className="story group grid gap-3 border-b border-[var(--hairline)] py-8 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-8 sm:py-10 lg:grid-cols-[12rem_minmax(0,1fr)]"
+          >
+            <div className="flex items-baseline gap-3 sm:block">
+              <p className="eyebrow text-foreground/70 transition-colors duration-300 group-hover:text-foreground">
+                {exp.period}
+              </p>
+              <p className="eyebrow uppercase text-[0.65rem] sm:mt-2">{exp.tipo}</p>
+            </div>
+            <div>
+              <h3 className="text-balance text-xl font-medium leading-snug tracking-[-0.02em] sm:text-2xl">
                 {exp.role}
-                <span className="text-muted-foreground"> · {exp.company}</span>
               </h3>
-              <p className="mt-2 text-pretty text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-1.5 text-sm text-foreground/60">{exp.company}</p>
+              <p className="mt-4 max-w-2xl text-pretty leading-relaxed text-muted-foreground">
                 {exp.description}
               </p>
             </div>

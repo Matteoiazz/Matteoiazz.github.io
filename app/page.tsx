@@ -6,6 +6,7 @@ import { Experience } from "@/components/experience"
 import { Contact } from "@/components/contact"
 import { TechMarquee } from "@/components/tech-marquee"
 import { SectionIsland } from "@/components/section-island"
+import { FioreCompagno } from "@/components/fiore-compagno"
 
 // Progetti subito dopo la prima schermata, poi chi li ha fatti e il percorso.
 export default function Page() {
@@ -13,6 +14,7 @@ export default function Page() {
     <main className="relative overflow-x-clip">
       <Nav />
       <Hero />
+      <FioreCompagno />
       <Projects />
       <TechMarquee />
       <About />
