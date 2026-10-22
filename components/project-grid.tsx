@@ -12,9 +12,11 @@ import { DeviceMockup } from "@/components/device-mockup"
  *
  * Da lg la griglia è su 12 colonne, a coppie: 7 + 5, poi 5 + 7 a zigzag, e
  * l'ultima coppia 6 + 6. Con sei progetti a tre per riga l'ultima riga
- * restava con una card sola e un buco di due terzi. Su md due colonne, e se i
- * progetti sono dispari l'ultimo prende tutta la riga. Tutti i progetti
- * restano visibili insieme, ognuno nella sua card.
+ * restava con una card sola e un buco di due terzi. Se i progetti sono
+ * dispari, dal quinto in su le ultime tre card si dividono la riga 4 + 4 + 4:
+ * una card sola a tutta larghezza aveva una copertina alta quanto lo schermo.
+ * Su md due colonne, e se i progetti sono dispari l'ultimo prende tutta la
+ * riga. Tutti i progetti restano visibili insieme, ognuno nella sua card.
  *
  * La scheda è un <dialog> nativo: focus intrappolato, Esc e ritorno del focus
  * sulla card li gestisce il browser. Da lg galleria e testo stanno affiancati
@@ -75,7 +77,14 @@ function colonne(i: number, totale: number) {
   const ultimaCoppia = totale % 2 === 0 && i >= totale - 2
   const zigzag = ["lg:col-span-7", "lg:col-span-5", "lg:col-span-5", "lg:col-span-7"]
   const soloUltimo = totale % 2 === 1 && i === totale - 1
-  const lg = soloUltimo ? "lg:col-span-12" : ultimaCoppia && totale > 4 ? "lg:col-span-6" : zigzag[i % 4]
+  const ultimeTre = totale % 2 === 1 && totale >= 5 && i >= totale - 3
+  const lg = ultimeTre
+    ? "lg:col-span-4"
+    : soloUltimo
+      ? "lg:col-span-12"
+      : ultimaCoppia && totale > 4
+        ? "lg:col-span-6"
+        : zigzag[i % 4]
   const md = soloUltimo ? "md:col-span-2" : ""
   return `${lg} ${md}`
 }

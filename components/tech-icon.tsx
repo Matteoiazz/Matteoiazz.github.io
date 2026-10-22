@@ -10,10 +10,12 @@ import {
   SiElectron,
   SiFastapi,
   SiFramer,
+  SiGithubactions,
   SiGradle,
   SiHibernate,
   SiJavascript,
   SiJetpackcompose,
+  SiJira,
   SiJsonwebtokens,
   SiKeycloak,
   SiKotlin,
@@ -81,6 +83,8 @@ const ICONS: Record<string, IconComponent> = {
   hibernate: SiHibernate,
   fastapi: SiFastapi,
   pydantic: SiPydantic,
+  jira: SiJira,
+  "github actions": SiGithubactions,
 }
 
 /**

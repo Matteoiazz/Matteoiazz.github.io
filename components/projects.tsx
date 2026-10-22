@@ -17,8 +17,9 @@ export function Projects() {
             Cosa ho costruito
           </h2>
           <p className="mt-5 max-w-xl text-pretty leading-relaxed text-muted-foreground">
-            Un&apos;app Android a microservizi, web app, un sito con area soci e app desktop, ognuno
-            con lo stack adatto al problema. Apri un progetto per schermate e dettagli.
+            Un&apos;app Android a microservizi, web app, un sito con area soci, app desktop e un
+            progetto di ricerca per il Dipartimento di Fisica, ognuno con lo stack adatto al
+            problema. Apri un progetto per schermate e dettagli.
           </p>
         </div>
         <p className="eyebrow shrink-0">{String(projects.length).padStart(2, "0")} progetti</p>

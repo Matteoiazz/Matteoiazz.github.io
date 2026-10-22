@@ -13,7 +13,7 @@ export const profile = {
   // Segue il ruolo nella prima schermata: tienila corta.
   tagline: "Dal modello dati all'interfaccia, curo tutto il percorso.",
   intro:
-    "Studente al terzo anno di Informatica all'Università della Calabria, con laurea prevista a dicembre 2026 e una tesi che porta l'intelligenza artificiale dentro uno strumento per la didattica. Da ottobre 2026 proseguo con la magistrale in Artificial Intelligence and Computer Science, sempre all'UniCal. Nel frattempo ho costruito progetti universitari e personali per web, mobile e desktop: sviluppo full-stack, applicazioni Android e architetture a microservizi.",
+    "Studente al terzo anno di Informatica all'Università della Calabria, con laurea prevista a dicembre 2026 e una tesi che porta l'intelligenza artificiale dentro uno strumento per la didattica. Da ottobre 2026 seguo anche la magistrale in Artificial Intelligence and Computer Science, sempre all'UniCal, dove lavoro in un gruppo di otto a un progetto per il Dipartimento di Fisica. Nel frattempo ho costruito progetti universitari e personali per web, mobile e desktop: sviluppo full-stack, applicazioni Android e architetture a microservizi.",
 }
 
 export type Shot = {
@@ -104,28 +104,53 @@ export const projects: Project[] = [
   },
   {
     slug: "tesi",
-    title: "Progetto di tesi",
+    // Il nome è quello dell'app installata (productName in frontend/package.json).
+    title: "Editor tracce CodeRunner",
     year: "2026",
     kind: "App desktop · Tesi",
-    team: "Tesi di laurea triennale in Informatica · UniCal",
+    team: "Tesi di laurea triennale in Informatica · UniCal · progetto individuale",
     tagline:
-      "App desktop per preparare gli esami di programmazione su Moodle: tracce, test case e un assistente AI con RAG.",
+      "App desktop con cui il docente prepara gli esami di programmazione per Moodle: tracce, soluzioni verificate sui test ed export pronto da importare.",
     description:
-      "Applicazione desktop pensata per i docenti che preparano esami di programmazione sulla piattaforma e-learning dell'università. Il docente importa il file XML di Moodle con le domande CodeRunner, scrive e modifica tracce, firma della funzione e test case in un editor di codice, e riesporta un file pronto da caricare. Un assistente AI basato su RAG, che attinge al materiale del corso, aiuta a scrivere tracce e test case coerenti con quello che è stato spiegato.",
+      "Applicazione desktop per il docente di Fondamenti di Programmazione dell'UniCal, che prepara esami e pretest in Python per Moodle con le domande CodeRunner. Per ogni esercizio si scrivono il testo, la soluzione nascosta, il codice di partenza per gli studenti e i test; l'app calcola gli output attesi eseguendo la soluzione, controlla che ogni test passi ed esporta un file XML che Moodle importa al primo colpo. Le tracce restano in un archivio con salvataggio automatico, pronte da duplicare per l'appello successivo. La seconda parte della tesi, in sviluppo, è un assistente AI con RAG sul materiale del corso che propone tracce e test case.",
     highlights: [
-      "Import ed export del formato Moodle XML per le domande CodeRunner, con lettura tollerante dei campi opzionali e CDATA per codice e output attesi",
-      "Editor di codice Monaco dentro Electron per tracce, firma della funzione e test case, con input, output atteso, punteggio e visibilità allo studente",
-      "Backend Python con FastAPI e modelli Pydantic come unica fonte di verità per import, export e API",
-      "Assistente AI con RAG sul materiale del corso per proporre tracce e test case",
+      "Import ed export nello stesso formato XML degli export di Moodle, con CDATA e immagini incorporate nel testo, verificato su esercizi d'esame reali del docente",
+      "Output attesi calcolati eseguendo la soluzione come fa CodeRunner, con tempo limite di 3 secondi e output massimo di 1 MB: l'esportazione resta bloccata finché ogni test non è superato",
+      "Codice per gli studenti generato dalla soluzione, test comuni a tutta la traccia con i 9 test standard del docente ed esclusione dei singoli test per esercizio",
+      "Archivio SQLite con salvataggio automatico, duplicazione per un nuovo appello, cestino, riuso degli esercizi, backup e ripristino",
+      "Backend FastAPI con architettura esagonale, avviato da Electron su una porta libera e protetto da un codice segreto diverso a ogni avvio; nella pagina Content Security Policy e contextIsolation",
+      "Installer per Windows, macOS e Linux con Python incluso, creati da GitHub Actions dopo i test con pytest e Vitest",
     ],
-    stack: ["Electron", "Python", "FastAPI", "Pydantic"],
+    stack: ["Electron", "React", "TypeScript", "Python", "FastAPI", "SQLite"],
+    repo: "https://github.com/Matteoiazz/editor-tracce-coderunner",
+    // Schermate dell'app con gli XML d'esame pubblicati nel repository
+    // (backend/tests/fixtures/moodle), importati e verificati.
     cover: {
       src: "/projects/tesi/cover.webp",
-      alt: "Copertina del progetto di tesi con la scritta Work in progress",
-      caption: "Work in progress",
+      alt: "Esercizio 3 dell'esame del 3 luglio 2026 aperto nell'editor: testo della traccia, sezioni completate e due esercizi con tutti i test superati",
+      caption: "Un esame reale importato da Moodle e verificato",
       frame: "window",
     },
-    gallery: [],
+    gallery: [
+      {
+        src: "/projects/tesi/soluzione.webp",
+        alt: "Soluzione nascosta dell'esercizio nell'editor Monaco e, sotto, il codice per gli studenti generato dalla soluzione",
+        caption: "Soluzione e codice per gli studenti",
+        frame: "window",
+      },
+      {
+        src: "/projects/tesi/test.webp",
+        alt: "Tabella dei test con input, output atteso, esempio, visibilità ed esito: 14 test su 14 superati",
+        caption: "Test con output calcolati e verificati",
+        frame: "window",
+      },
+      {
+        src: "/projects/tesi/archivio.webp",
+        alt: "Archivio con le tracce salvate, i pulsanti per duplicarle o spostarle nel cestino e la sezione di backup",
+        caption: "Archivio delle tracce, con backup",
+        frame: "window",
+      },
+    ],
   },
   {
     slug: "goldenstay",
@@ -339,6 +364,36 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    // Progetto della magistrale appena partito: niente schermate finché non c'è
+    // un'interfaccia, la copertina è un'illustrazione e lo dice la didascalia.
+    // Il nome dell'app non è ancora deciso dal gruppo ("biolight" o "ApKit4D").
+    slug: "alghe-4d",
+    title: "Alghe in 4D",
+    year: "2026",
+    kind: "App desktop · R&D",
+    team: "Progetto di gruppo in otto · Research and Development Methodologies, magistrale UniCal · per il Dipartimento di Fisica · appena iniziato",
+    tagline:
+      "App desktop in Python per un laboratorio di fisica: apre acquisizioni al microscopio fino a 8 GB, le mostra in 3D nel tempo e traccia le alghe.",
+    description:
+      "Progetto della magistrale per una ricercatrice del Dipartimento di Fisica che studia alghe acquisite con un microscopio Zeiss. Oggi usa ZEISS arivis, che con file così grandi non è fluido: serve uno strumento più reattivo per aprire un'acquisizione, vederla in 3D frame per frame, scegliere una regione di interesse, rilevare le alghe e collegarle in tracce, calcolare le statistiche ed esportare i risultati. Il gruppo lavora in Scrum con la ricercatrice come Product Owner. Il progetto è appena partito: qui ci sono il problema e le scelte fatte finora, le schermate arriveranno con i primi sprint.",
+    highlights: [
+      "Dati 4D da un microscopio Zeiss: file .czi da 500 MB a 8 GB con un volume 3D che cambia nel tempo, da aprire e scorrere senza caricarlo tutto in memoria",
+      "Prima il core, poi la grafica: caricamento e analisi come libreria testata e usabile da riga di comando, con l'interfaccia che arriva dopo e usa lo stesso codice",
+      "Proposta al team: l'analisi come pipeline di step indipendenti (lettura, ritaglio della regione di interesse, rilevamento delle alghe, tracce, statistiche, export in CSV, JSON e HDF5), ognuno testabile da solo",
+      "Si riparte da un prototipo di circa 2500 righe senza versionamento: prima nel repository e coperto da test sul tracking, poi migliorato",
+      "Vista 3D con napari, nato per le immagini scientifiche multidimensionali, e PyVista pronto come alternativa se con i volumi grandi non è fluido",
+      "Backlog su Jira, pull request con review e CI su GitHub con test, linting e controllo dei tipi",
+    ],
+    stack: ["Python", "napari", "PyVista", "Jira", "GitHub Actions"],
+    cover: {
+      src: "/projects/alghe/cover.webp",
+      alt: "Illustrazione di un volume 3D con la regione di interesse tratteggiata, le alghe come punti luminosi e le loro tracce nel tempo",
+      caption: "Illustrazione: volume 3D, regione di interesse e tracce delle alghe",
+      frame: "window",
+    },
+    gallery: [],
+  },
 ]
 
 export const stack: { group: string; items: string[] }[] = [
@@ -361,7 +416,7 @@ export const experiences: Experience[] = [
     company: "Università della Calabria",
     period: "Da ottobre 2026",
     description:
-      "Magistrale in intelligenza artificiale e informatica, in continuità con la triennale: il passo successivo dopo una tesi che porta l'AI dentro uno strumento per la didattica.",
+      "Magistrale in intelligenza artificiale e informatica, in continuità con la triennale. Nel primo semestre Deep Learning e Research and Development Methodologies, con un progetto Scrum in otto per il Dipartimento di Fisica: l'analisi 3D di alghe al microscopio.",
   },
   {
     role: "Laurea Triennale in Informatica",
