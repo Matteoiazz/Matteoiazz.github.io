@@ -1,78 +1,97 @@
-import Image from "next/image"
-import { profile, stack } from "@/lib/portfolio-data"
-import { TechIcon } from "@/components/tech-icon"
-import { SectionShell } from "@/components/section-shell"
+import type { CSSProperties } from "react"
+import { profile, projects, stack } from "@/lib/portfolio-data"
+import { ParolaCromata } from "@/components/parola-cromata"
+import { Competenze } from "@/components/competenze"
 
-// Solo informazioni che il resto della pagina non mostra già: ruolo, sede e
-// numero di progetti sono nella prima schermata.
-const dati = [
-  { k: "Italiano", v: "Madrelingua" },
-  { k: "Inglese", v: "B2" },
-  { k: "Magistrale", v: "AI e Computer Science" },
+// Manifesto in due toni: la prima parte accesa, il resto più tenue. Parte da
+// due progetti veri, non da un aggettivo.
+const manifesto = [
+  { testo: "Mi piace prendere un problema vero", chiaro: true },
+  {
+    testo:
+      "come gli esami di un docente o le acquisizioni di un laboratorio di fisica, e trasformarlo in uno strumento che qualcuno usa davvero.",
+    chiaro: false,
+  },
+]
+const parole = manifesto.flatMap((parte, pi) =>
+  parte.testo.split(" ").map((p, i, tutte) => ({
+    p: pi === 0 && i === tutte.length - 1 ? `${p},` : p,
+    chiaro: parte.chiaro,
+  })),
+)
+
+// Contate dagli stack, non scritte a mano: aggiungendo un progetto si aggiornano.
+const tecnologie = new Set([...stack.flatMap((g) => g.items), ...projects.flatMap((p) => p.stack)]).size
+
+const numeri = [
+  { v: String(projects.length).padStart(2, "0"), k: "progetti" },
+  { v: String(tecnologie), k: "tecnologie e strumenti" },
+  { v: "97/100", k: "al diploma" },
+  { v: "B2", k: "inglese" },
+]
+// Due per riga sul telefono, quattro da md: i separatori cambiano di posto.
+const bordi = [
+  "border-r border-b md:border-b-0",
+  "pl-5 border-b md:border-b-0 md:border-r md:pl-6",
+  "border-r md:pl-6",
+  "pl-5 md:pl-6",
 ]
 
-const iniziali = profile.name
-  .split(" ")
-  .map((parola) => parola[0])
-  .join("")
-
 /**
- * Riga d'apertura del Profilo: ritratto accanto all'etichetta e al nome, al
- * posto della sola etichetta. Il ritratto mostra la foto se c'è, altrimenti
- * le iniziali.
+ * Profilo dopo i progetti: chi ha visto il lavoro arriva qui a conoscere chi
+ * l'ha fatto. Parola cromata, manifesto che si accende scorrendo, i numeri,
+ * la presentazione col curriculum e l'indice delle competenze.
  */
-function RigaProfilo() {
-  return (
-    <div className="mb-2 flex items-center gap-4">
-      <div className="glass-flat relative size-14 shrink-0 overflow-hidden rounded-full">
-        {profile.photo ? (
-          <Image
-            src={profile.photo}
-            alt={`Foto di ${profile.name}`}
-            fill
-            sizes="56px"
-            className="object-cover"
-          />
-        ) : (
-          <span
-            aria-hidden
-            className="title-fade flex size-full items-center justify-center text-lg font-semibold tracking-[-0.04em]"
-          >
-            {iniziali}
-          </span>
-        )}
-      </div>
-      <div>
-        <p className="eyebrow uppercase">Profilo</p>
-        <p className="mt-1 text-sm font-medium">{profile.name}</p>
-      </div>
-    </div>
-  )
-}
-
 export function About() {
   return (
-    <SectionShell
-      id="about"
-      label="Profilo"
-      title="Chi sono"
-      description={profile.intro}
-      etichetta={<RigaProfilo />}
-      // In coda all'intestazione invece che sotto le card dello stack: così la
-      // colonna di sinistra non si ferma a metà lasciando un vuoto.
-      extra={
-        <>
-          <dl className="mt-8 space-y-4 border-t border-[var(--hairline)] pt-6">
-            {dati.map((riga) => (
-              <div key={riga.k} className="flex items-baseline justify-between gap-4">
-                <dt className="eyebrow uppercase">{riga.k}</dt>
-                <dd className="text-sm font-medium">{riga.v}</dd>
-              </div>
-            ))}
-          </dl>
-          {/* Il curriculum sta qui, accanto a chi sono: la pagina in stile sito
-              e il PDF da scaricare. */}
-          <div className="mt-7 flex flex-wrap gap-3">
+    <section id="about" className="contenitore relative z-10 pb-16 pt-20 sm:pb-20 sm:pt-24">
+      <header className="story-in">
+        <ParolaCromata testo="Profilo" />
+        <h2 className="title-fade relative -mt-[7%] text-balance text-[clamp(2.2rem,5vw,4.25rem)] font-semibold leading-[1.05] tracking-[-0.035em]">
+          Chi sono
+        </h2>
+      </header>
+
+      {/* Ogni parola si accende quando il paragrafo sale nello schermo
+          (animation-timeline, in globals.css): senza supporto resta accesa. */}
+      <p
+        className="manifesto mt-14 max-w-5xl text-balance text-[clamp(1.7rem,3.6vw,3.25rem)] font-semibold leading-[1.14] tracking-[-0.03em] sm:mt-20"
+        style={{ "--n": parole.length } as CSSProperties}
+      >
+        {parole.map((w, i) => (
+          <span
+            key={i}
+            className={`parola-scorre ${w.chiaro ? "text-foreground" : "text-muted-foreground"}`}
+            style={{ "--i": i } as CSSProperties}
+          >
+            {w.p}{" "}
+          </span>
+        ))}
+      </p>
+
+      <dl className="mt-16 grid grid-cols-2 border-y border-[var(--hairline)] sm:mt-20 md:grid-cols-4">
+        {numeri.map((n, i) => (
+          <div
+            key={n.k}
+            className={`story-in flex flex-col border-[var(--hairline)] py-7 pr-4 ${bordi[i]}`}
+          >
+            {/* Etichetta prima nel codice (dt viene prima di dd), sotto il numero a schermo. */}
+            <dt className="eyebrow order-2 mt-3 uppercase">{n.k}</dt>
+            <dd className="title-fade order-1 text-[clamp(2.4rem,5vw,4.5rem)] font-semibold leading-none tracking-[-0.04em]">
+              {n.v}
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      <div className="mt-16 grid gap-10 sm:mt-20 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:gap-16">
+        <p className="story-in text-pretty text-lg leading-relaxed text-muted-foreground">{profile.intro}</p>
+        <div className="story-in md:pt-1">
+          <p className="eyebrow uppercase">Curriculum</p>
+          <p className="mt-3 text-pretty leading-relaxed text-muted-foreground">
+            Lo stesso percorso in una pagina sola, da leggere qui o da scaricare in PDF.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
             <a
               href="/cv/"
               className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
@@ -87,32 +106,10 @@ export function About() {
               Scarica PDF ↓
             </a>
           </div>
-        </>
-      }
-    >
-      {/* Da md le righe si dividono l'altezza della colonna accanto, che col
-          ritratto è più alta delle card: senza, sotto le card restava un vuoto. */}
-      <div className="grid gap-5 sm:grid-cols-2 md:h-full md:auto-rows-fr">
-        {stack.map((group) => (
-          <div
-            key={group.group}
-            className="glass-flat glass-edge surface-hover story-in relative rounded-xl p-6"
-          >
-            <p className="eyebrow uppercase">{group.group}</p>
-            <ul className="mt-5 space-y-3.5">
-              {group.items.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-center gap-3 text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
-                >
-                  <TechIcon name={item} className="size-4 shrink-0" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        </div>
       </div>
-    </SectionShell>
+
+      <Competenze />
+    </section>
   )
 }

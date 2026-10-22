@@ -3,9 +3,19 @@
 import { useCallback, useRef, useState } from "react"
 import { flushSync } from "react-dom"
 import Image from "next/image"
-import type { Project } from "@/lib/portfolio-data"
+import type { Platform, Project } from "@/lib/portfolio-data"
 import { TechIcon, conLogoDistinto } from "@/components/tech-icon"
 import { DeviceMockup } from "@/components/device-mockup"
+
+type Filtro = "tutti" | Platform
+type Vista = "griglia" | "lista"
+
+const filtri: { id: Filtro; label: string }[] = [
+  { id: "tutti", label: "Tutti" },
+  { id: "web", label: "Web" },
+  { id: "mobile", label: "Mobile" },
+  { id: "desktop", label: "Desktop" },
+]
 
 /**
  * Mosaico dei progetti + scheda di dettaglio.
@@ -17,6 +27,11 @@ import { DeviceMockup } from "@/components/device-mockup"
  * una card sola a tutta larghezza aveva una copertina alta quanto lo schermo.
  * Su md due colonne, e se i progetti sono dispari l'ultimo prende tutta la
  * riga. Tutti i progetti restano visibili insieme, ognuno nella sua card.
+ *
+ * Sopra la griglia, i filtri per piattaforma e la scelta della vista. Con un
+ * filtro attivo il mosaico lascia il posto a card tutte uguali, a tre per
+ * riga: lo zigzag con due o tre card faceva buchi. La lista è un indice, una
+ * riga per progetto, con l'anteprima della copertina al passaggio del mouse.
  *
  * La scheda è un <dialog> nativo: focus intrappolato, Esc e ritorno del focus
  * sulla card li gestisce il browser. Da lg galleria e testo stanno affiancati
@@ -39,17 +54,74 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
 
   const chiudi = useCallback(() => dialog.current?.close(), [])
 
+  const [filtro, setFiltro] = useState<Filtro>("tutti")
+  const [vista, setVista] = useState<Vista>("griglia")
+  const visibili = filtro === "tutti" ? projects : projects.filter((p) => p.platform === filtro)
+
   return (
     <>
-      <div className="mt-14 grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-12">
-        {projects.map((project, i) => (
-          <ProjectCard
-            key={project.slug}
-            project={project}
-            className={colonne(i, projects.length)}
-            onOpen={apri}
-          />
-        ))}
+      <div className="mt-12 flex flex-col gap-4 border-t border-[var(--hairline)] pt-5 sm:flex-row sm:items-center sm:justify-between">
+        <div role="group" aria-label="Filtra per piattaforma" className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          {filtri.map((f) => {
+            const quanti = f.id === "tutti" ? projects.length : projects.filter((p) => p.platform === f.id).length
+            const attivo = filtro === f.id
+            return (
+              <button
+                key={f.id}
+                type="button"
+                aria-pressed={attivo}
+                onClick={() => setFiltro(f.id)}
+                className={`flex items-baseline gap-1.5 text-sm transition-colors ${
+                  attivo ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <span className={attivo ? "underline decoration-foreground/40 underline-offset-[6px]" : ""}>
+                  {f.label}
+                </span>
+                <span className="eyebrow text-[0.65rem]">{String(quanti).padStart(2, "0")}</span>
+              </button>
+            )
+          })}
+        </div>
+
+        <div role="group" aria-label="Vista" className="flex items-center gap-1 self-start rounded-full border border-[var(--hairline)] p-1 sm:self-auto">
+          {(["griglia", "lista"] as const).map((v) => (
+            <button
+              key={v}
+              type="button"
+              aria-pressed={vista === v}
+              onClick={() => setVista(v)}
+              className={`rounded-full px-3.5 py-1 text-xs font-medium capitalize transition-colors ${
+                vista === v ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {v}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* La chiave rimonta l'elenco a ogni cambio: le card ricompaiono con una
+          dissolvenza invece di saltare al loro nuovo posto. */}
+      <div key={`${filtro}-${vista}`} className="shot-fade">
+        {vista === "griglia" ? (
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-12">
+            {visibili.map((project, i) => (
+              <ProjectCard
+                key={project.slug}
+                project={project}
+                className={filtro === "tutti" ? colonne(i, visibili.length) : colonneUguali(i, visibili.length)}
+                onOpen={apri}
+              />
+            ))}
+          </div>
+        ) : (
+          <ol className="mt-6 border-t border-[var(--hairline)]">
+            {visibili.map((project, i) => (
+              <RigaProgetto key={project.slug} project={project} numero={i + 1} onOpen={apri} />
+            ))}
+          </ol>
+        )}
       </div>
 
       <dialog
@@ -87,6 +159,75 @@ function colonne(i: number, totale: number) {
         : zigzag[i % 4]
   const md = soloUltimo ? "md:col-span-2" : ""
   return `${lg} ${md}`
+}
+
+/** Con un filtro attivo: tre card uguali per riga, l'ultima dispari intera su md. */
+function colonneUguali(i: number, totale: number) {
+  return totale % 2 === 1 && i === totale - 1 ? "md:col-span-2 lg:col-span-4" : "lg:col-span-4"
+}
+
+/** Riga della vista a lista: un indice dei progetti, che apre la stessa scheda. */
+function RigaProgetto({
+  project,
+  numero,
+  onOpen,
+}: {
+  project: Project
+  numero: number
+  onOpen: (p: Project, el: HTMLElement) => void
+}) {
+  return (
+    <li className="group relative border-b border-[var(--hairline)]">
+      <div className="grid grid-cols-[2rem_minmax(0,1fr)_auto] items-center gap-4 py-6 transition-colors duration-300 sm:grid-cols-[3rem_minmax(0,1.3fr)_minmax(0,1fr)_auto] sm:py-7 lg:grid-cols-[3rem_minmax(0,1.3fr)_minmax(0,1fr)_9rem_auto]">
+        <span className="eyebrow">{String(numero).padStart(2, "0")}</span>
+        <div className="min-w-0">
+          <h3 className="text-xl font-medium tracking-tight text-foreground/85 transition-[color,translate] duration-300 group-hover:translate-x-1.5 group-hover:text-foreground sm:text-2xl lg:text-[2rem]">
+            {project.title}
+          </h3>
+          <p className="mt-1 text-sm text-muted-foreground sm:hidden">
+            {project.kind} · {project.year}
+          </p>
+        </div>
+        <p className="hidden text-sm text-muted-foreground sm:block">{project.kind}</p>
+        <div className="hidden items-center gap-3 text-muted-foreground/60 transition-colors duration-300 group-hover:text-muted-foreground lg:flex">
+          {conLogoDistinto(project.stack)
+            .slice(0, 4)
+            .map((tech) => (
+              <TechIcon key={tech} name={tech} className="size-4" />
+            ))}
+        </div>
+        <span className="flex items-center gap-4 text-muted-foreground">
+          <span className="eyebrow hidden sm:inline">{project.year}</span>
+          <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1 group-hover:text-foreground">
+            →
+          </span>
+        </span>
+      </div>
+
+      {/* Anteprima della copertina: compare accanto al titolo, solo con il mouse. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-[42%] top-1/2 z-20 hidden aspect-[16/10] w-60 -translate-y-1/2 rotate-[-2deg] scale-90 overflow-hidden rounded-lg border border-[var(--hairline-strong)] bg-neutral-900 opacity-0 shadow-2xl shadow-black/70 transition-[opacity,scale,rotate] duration-300 group-hover:rotate-0 group-hover:scale-100 group-hover:opacity-100 lg:block xl:w-72"
+      >
+        <Image
+          src={project.cover.src}
+          alt=""
+          fill
+          sizes="288px"
+          className={project.cover.frame === "phone" ? "object-contain" : "object-cover object-top"}
+        />
+      </div>
+
+      <button
+        type="button"
+        aria-haspopup="dialog"
+        aria-label={`Apri i dettagli di ${project.title}`}
+        data-cursore="Apri"
+        onClick={(e) => onOpen(project, e.currentTarget)}
+        className="absolute inset-0 z-10 outline-offset-2 focus-visible:outline-2 focus-visible:outline-foreground"
+      />
+    </li>
+  )
 }
 
 function ProjectCard({

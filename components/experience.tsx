@@ -6,6 +6,7 @@ export function Experience() {
     <SectionShell
       id="experience"
       label="Percorso"
+      parola="Percorso"
       title="Formazione ed esperienza"
       description="La scuola, la triennale che sto chiudendo con la tesi, la magistrale in AI iniziata a ottobre e l'anno di Servizio Civile."
     >

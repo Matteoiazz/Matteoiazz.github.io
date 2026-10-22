@@ -81,8 +81,11 @@ export function Contact() {
           />
 
           <div className="relative">
-            <p className="eyebrow uppercase">Contatti</p>
-            <h2 className="title-fade mx-auto mt-5 max-w-2xl text-balance text-[clamp(1.9rem,4vw,3.5rem)] font-semibold leading-[1.1] tracking-[-0.03em]">
+            <p className="inline-flex items-center gap-2.5 rounded-full border border-[var(--hairline-strong)] px-3.5 py-1.5 text-xs text-muted-foreground">
+              <span aria-hidden className="dot-live size-1.5 rounded-full bg-foreground/85" />
+              Aperto a nuove opportunità
+            </p>
+            <h2 className="title-fade mx-auto mt-6 max-w-3xl text-balance text-[clamp(2.3rem,5.6vw,5rem)] font-semibold leading-[1.04] tracking-[-0.035em]">
               Costruiamo qualcosa insieme
             </h2>
             <p className="mx-auto mt-5 max-w-md text-pretty leading-relaxed text-muted-foreground">

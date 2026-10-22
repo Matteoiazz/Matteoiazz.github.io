@@ -25,8 +25,12 @@ export type Shot = {
   frame: "browser" | "phone" | "window"
 }
 
+export type Platform = "web" | "mobile" | "desktop"
+
 export type Project = {
   slug: string
+  /** Per i filtri della sezione Progetti. */
+  platform: Platform
   title: string
   year: string
   /** Tipo di progetto, mostrato sulla copertina della card. */
@@ -54,6 +58,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "tripify",
+    platform: "mobile",
     title: "Tripify",
     year: "2026",
     kind: "App Android",
@@ -104,6 +109,7 @@ export const projects: Project[] = [
   },
   {
     slug: "tesi",
+    platform: "desktop",
     // Il nome è quello dell'app installata (productName in frontend/package.json).
     title: "Editor tracce CodeRunner",
     year: "2026",
@@ -121,7 +127,7 @@ export const projects: Project[] = [
       "Backend FastAPI con architettura esagonale, avviato da Electron su una porta libera e protetto da un codice segreto diverso a ogni avvio; nella pagina Content Security Policy e contextIsolation",
       "Installer per Windows, macOS e Linux con Python incluso, creati da GitHub Actions dopo i test con pytest e Vitest",
     ],
-    stack: ["Electron", "React", "TypeScript", "Python", "FastAPI", "SQLite"],
+    stack: ["Electron", "React", "TypeScript", "Python", "FastAPI", "SQLite", "GitHub Actions"],
     repo: "https://github.com/Matteoiazz/editor-tracce-coderunner",
     // Schermate dell'app con gli XML d'esame pubblicati nel repository
     // (backend/tests/fixtures/moodle), importati e verificati.
@@ -154,6 +160,7 @@ export const projects: Project[] = [
   },
   {
     slug: "goldenstay",
+    platform: "web",
     title: "GoldenStay",
     year: "2026",
     kind: "Web app",
@@ -213,6 +220,7 @@ export const projects: Project[] = [
   },
   {
     slug: "moneymind",
+    platform: "web",
     title: "MoneyMind",
     year: "2026",
     kind: "Web app",
@@ -264,6 +272,7 @@ export const projects: Project[] = [
   },
   {
     slug: "muscle-fitness",
+    platform: "web",
     title: "Muscle & Fitness",
     year: "2026",
     kind: "Sito e area soci",
@@ -316,6 +325,7 @@ export const projects: Project[] = [
   },
   {
     slug: "wavely",
+    platform: "desktop",
     title: "WAVE.LY",
     year: "2025",
     kind: "App desktop",
@@ -369,6 +379,7 @@ export const projects: Project[] = [
     // un'interfaccia, la copertina è un'illustrazione e lo dice la didascalia.
     // Il nome dell'app non è ancora deciso dal gruppo ("biolight" o "ApKit4D").
     slug: "alghe-4d",
+    platform: "desktop",
     title: "Alghe in 4D",
     year: "2026",
     kind: "App desktop · R&D",
@@ -396,12 +407,20 @@ export const projects: Project[] = [
   },
 ]
 
+// Le tecnologie che compaiono anche nello stack di un progetto mostrano dove
+// sono state usate; le altre (C, C++, MySQL) vengono dai corsi universitari.
 export const stack: { group: string; items: string[] }[] = [
-  { group: "Linguaggi", items: ["Java", "Kotlin", "Python", "C++", "C"] },
+  { group: "Linguaggi", items: ["Java", "Kotlin", "Python", "TypeScript", "C++", "C"] },
   { group: "Frontend", items: ["Angular", "React", "Tailwind CSS"] },
-  { group: "Backend e database", items: ["Spring Boot", "Node.js", "PostgreSQL", "MySQL"] },
+  { group: "Backend e database", items: ["Spring Boot", "FastAPI", "Node.js", "PostgreSQL", "SQLite", "MySQL"] },
   { group: "Mobile e desktop", items: ["Kotlin", "Jetpack Compose", "JavaFX", "Electron"] },
+  { group: "Infrastruttura", items: ["Docker", "Keycloak", "RabbitMQ", "GitHub Actions"] },
 ]
+
+/** Progetti che usano una tecnologia, nell'ordine della pagina. */
+export function progettiCon(tecnologia: string): Project[] {
+  return projects.filter((p) => p.stack.includes(tecnologia))
+}
 
 export type Experience = {
   role: string

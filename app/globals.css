@@ -633,6 +633,31 @@
   .story, .story-in, .story-thread { animation: none !important; opacity: 1 !important; transform: none !important; }
 }
 
+/* Manifesto del Profilo: le parole si accendono una dopo l'altra mentre il
+   paragrafo attraversa lo schermo. Ogni parola ha il suo indice (--i) su un
+   totale (--n): la sua finestra di accensione scivola lungo il 40% centrale
+   della timeline del paragrafo. */
+@keyframes parola-accesa {
+  from { opacity: 0.16; }
+  to   { opacity: 1; }
+}
+@supports (animation-timeline: view()) {
+  .manifesto { view-timeline-name: --manifesto; }
+  .parola-scorre {
+    animation: parola-accesa linear both;
+    animation-timeline: --manifesto;
+    animation-range:
+      cover calc(14% + var(--i) / var(--n) * 34%)
+      cover calc(20% + var(--i) / var(--n) * 34%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .parola-scorre { animation: none !important; opacity: 1 !important; }
+}
+
+/* Competenze: col mouse sopra una voce, le altre si fanno da parte. */
+.competenze[data-attiva] .competenza:not([data-on]) { opacity: 0.35; }
+
 /* ============================================================
    PROGETTI: copertine, cornici e scheda di dettaglio
    ============================================================ */
