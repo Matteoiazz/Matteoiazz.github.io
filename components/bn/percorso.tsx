@@ -38,12 +38,12 @@ export function Percorso() {
     <section id="percorso" className="chiaro relative py-24 md:py-32">
       <Griglia />
       <div className="contenitore relative z-10">
-        <Nome as="h2" righe={[t("PERCORSO", "PATH")]} massimo={0.2} />
+        <Nome as="h2" righe={[t("PERCORSO", "PATH")]} massimo={0.2} cromo />
 
         <div className="mt-16 grid grid-cols-4 gap-x-[var(--passo)] md:mt-24 md:grid-cols-12">
           <div className="col-span-4 hidden md:col-span-4 md:block">
             <div className="sticky top-28">
-              <p className="text-[clamp(5rem,11vw,10rem)] font-extrabold leading-none tracking-[-0.04em] [font-variation-settings:'wdth'_76]">
+              <p className="text-[clamp(5rem,11vw,10rem)] font-extrabold leading-none tracking-[-0.04em] font-display [font-variation-settings:'wdth'_76]">
                 <Contatore key={attiva} valore={annoDi(experiences[attiva].period)} />
               </p>
               <p className="dato mt-4 text-tenue">
@@ -52,7 +52,7 @@ export function Percorso() {
             </div>
           </div>
 
-          <ol className="col-span-4 border-t border-inchiostro md:col-span-8">
+          <ol className="col-span-4 border-t border-riga-forte md:col-span-8">
             {experiences.map((e, i) => {
               const en = percorsoEn[e.role]
               return (
@@ -68,7 +68,7 @@ export function Percorso() {
                     {/* La voce che si sta leggendo ha la data in negativo: nessuna voce sbiadisce. */}
                     <p
                       className={`dato inline-block px-1.5 py-0.5 transition-colors duration-300 ${
-                        attiva === i ? "bg-inchiostro text-carta" : ""
+                        attiva === i ? "rounded-full bg-carta text-inchiostro" : ""
                       }`}
                     >
                       {t(e.period, en?.period ?? e.period)}

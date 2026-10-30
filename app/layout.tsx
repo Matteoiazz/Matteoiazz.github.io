@@ -1,14 +1,17 @@
 import type { Metadata, Viewport } from 'next'
-import { Archivo, Geist_Mono } from 'next/font/google'
+import { Archivo, Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { Cursore } from '@/components/bn/cursore'
 import { Lingua } from '@/components/bn/lingua'
 import { Comandi } from '@/components/bn/comandi'
 import { Segreti } from '@/components/bn/segreti'
+import { Luce } from '@/components/luce'
 
-// Archivo variabile con l'asse della larghezza: il nome si allarga e si
-// stringe sotto il puntatore. Geist Mono solo per dati: ore, anni, conteggi.
+// Archivo variabile (larghezza e peso) per i nomi giganti e i titoli: le
+// lettere si allargano sotto il puntatore. Geist per il testo, come nel
+// primo sito; Geist Mono solo per i dati.
 const archivo = Archivo({ subsets: ['latin'], axes: ['wdth'], variable: '--font-archivo' })
+const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
 const descrizione =
@@ -41,8 +44,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light',
-  themeColor: '#ffffff',
+  colorScheme: 'dark',
+  themeColor: '#0b0b0c',
 }
 
 export default function RootLayout({
@@ -51,13 +54,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="it" className={`${archivo.variable} ${geistMono.variable}`}>
+    <html lang="it" className={`${archivo.variable} ${geistSans.variable} ${geistMono.variable}`}>
       <body className="antialiased">
         <Lingua>
           {children}
           <Comandi />
         </Lingua>
         <Cursore />
+        <Luce />
         <Segreti />
       </body>
     </html>

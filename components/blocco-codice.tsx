@@ -30,7 +30,7 @@ export function BloccoCodice({ codice }: { codice: Codice }) {
     } catch {}
   }
   return (
-    <figure className="scuro overflow-hidden border border-inchiostro">
+    <figure className="vetro-piatto overflow-hidden rounded-[18px]">
       <figcaption className="flex items-center justify-between gap-4 border-b border-riga-forte px-4 py-2.5">
         <span className="dato truncate text-tenue">{codice.file}</span>
         <button

@@ -9,13 +9,14 @@ const CHIAVE = "mi-entrato"
 let primaVisita: boolean | null = null
 
 /**
- * Ingresso alla prima visita: un contatore da 000 a 100 su fondo nero,
- * poi il nero si ritira colonna per colonna lungo la griglia e il nome
- * comincia a costruirsi. Alle visite successive (stessa sessione) e con il
- * movimento ridotto non compare: la pagina parte subito.
+ * Ingresso alla prima visita: la pagina è dietro una lastra di vetro
+ * smerigliato con un contatore da 000 a 100; arrivato a 100 il vetro si
+ * schiarisce (la sfocatura scende a zero) e il fiore e il nome vengono a
+ * fuoco. Alle visite successive (stessa sessione) e con il movimento
+ * ridotto non compare.
  *
- * Segnala la fine aggiungendo "pronto" a <html>: da lì partono le celle
- * del nome.
+ * Segnala la fine aggiungendo "pronto" a <html>: da lì emergono le
+ * lettere del nome.
  */
 export function Ingresso() {
   const [stato, setStato] = useState<"conta" | "esce" | "fatto">("conta")
@@ -31,8 +32,7 @@ export function Ingresso() {
         primaVisita = true
       }
     }
-    const visto = !primaVisita
-    if (visto || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (!primaVisita || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setStato("fatto")
       segna()
       return
@@ -48,7 +48,7 @@ export function Ingresso() {
       else {
         setStato("esce")
         segna()
-        setTimeout(() => setStato("fatto"), 1100)
+        setTimeout(() => setStato("fatto"), 1200)
       }
     }
     frame = requestAnimationFrame(passo)
@@ -56,27 +56,24 @@ export function Ingresso() {
   }, [])
 
   if (stato === "fatto") return null
+  const esce = stato === "esce"
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-[100]" data-no-stampa data-ingresso>
-      <div className="absolute inset-0 grid grid-cols-4 md:grid-cols-12">
-        {Array.from({ length: 12 }, (_, i) => (
-          <span
-            key={i}
-            className={`bg-inchiostro transition-transform duration-700 ease-[cubic-bezier(0.7,0,0.2,1)] ${i >= 4 ? "hidden md:block" : ""}`}
-            style={{
-              transform: stato === "esce" ? "translateY(-101%)" : "none",
-              transitionDelay: `${(i % 12) * 35}ms`,
-            }}
-          />
-        ))}
-      </div>
       <div
-        className={`contenitore absolute inset-x-0 bottom-0 flex items-end justify-between pb-6 text-carta transition-opacity duration-300 ${
-          stato === "esce" ? "opacity-0" : ""
+        className="absolute inset-0 transition-[backdrop-filter,background-color] duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+        style={{
+          backdropFilter: esce ? "blur(0px)" : "blur(34px) saturate(140%)",
+          WebkitBackdropFilter: esce ? "blur(0px)" : "blur(34px) saturate(140%)",
+          backgroundColor: esce ? "rgb(11 11 12 / 0)" : "rgb(11 11 12 / 0.92)",
+        }}
+      />
+      <div
+        className={`contenitore absolute inset-x-0 bottom-0 flex items-end justify-between pb-8 transition-[opacity,filter] duration-500 ${
+          esce ? "opacity-0 blur-md" : ""
         }`}
       >
-        <p className="text-sm [font-variation-settings:'wdth'_85]">Matteo Iazzolino · Portfolio</p>
-        <p className="font-mono text-[clamp(4rem,14vw,11rem)] leading-[0.8] tabular-nums">
+        <p className="text-sm text-tenue">Matteo Iazzolino · Portfolio</p>
+        <p className="font-mono text-[clamp(4rem,14vw,11rem)] leading-[0.8] tabular-nums text-testo">
           {String(n).padStart(3, "0")}
         </p>
       </div>

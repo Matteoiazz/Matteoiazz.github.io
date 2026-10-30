@@ -37,7 +37,7 @@ export function DeviceMockup({
   }
 
   return (
-    <div className="shot-browser relative flex flex-col overflow-hidden rounded-[2px] border border-neutral-700/80 bg-neutral-900">
+    <div className="shot-browser relative flex flex-col overflow-hidden rounded-[12px] border border-white/15 bg-neutral-900 shadow-[0_30px_60px_-30px_rgb(0_0_0/0.9)]">
       <div className="flex h-7 shrink-0 items-center gap-1.5 border-b border-neutral-700/80 bg-neutral-800/90 px-3">
         <span className="size-2 rounded-full bg-neutral-600" />
         <span className="size-2 rounded-full bg-neutral-600" />

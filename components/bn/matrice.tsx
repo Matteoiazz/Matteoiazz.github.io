@@ -44,7 +44,7 @@ export function Matrice() {
   return (
     <div className="mt-28 md:mt-36">
       <div className="grid grid-cols-4 items-end gap-x-[var(--passo)] gap-y-4 md:grid-cols-12">
-        <h3 className="col-span-4 text-[clamp(2rem,4.5vw,4rem)] font-extrabold leading-[0.9] tracking-[-0.03em] [font-variation-settings:'wdth'_80] md:col-span-6">
+        <h3 className="col-span-4 text-[clamp(2rem,4.5vw,4rem)] font-extrabold leading-[0.9] tracking-[-0.03em] font-display [font-variation-settings:'wdth'_80] md:col-span-6">
           {t("Competenze, e dove le ho usate", "Skills, and where I used them")}
         </h3>
         <p className="col-span-4 text-pretty text-tenue md:col-span-4 md:col-start-9">
@@ -56,7 +56,7 @@ export function Matrice() {
       </div>
 
       <p className="mt-8 text-sm text-tenue md:hidden">{t("Scorri la tabella di lato", "Swipe the table sideways")}</p>
-      <div className="mt-4 overflow-x-auto md:mt-10">
+      <div className="vetro-piatto mt-4 overflow-x-auto rounded-[22px] px-4 py-3 sm:px-6 md:mt-10">
         <table className="w-full min-w-[40rem] border-collapse text-sm" onPointerLeave={() => (setRiga(null), setColonna(null))}>
           <thead>
             <tr>

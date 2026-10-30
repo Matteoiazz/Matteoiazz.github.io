@@ -1,0 +1,4 @@
+{
+  "prompt": "Ritaglio derivato da public/hero-chrome.png (render cromato originale del sito): alfa ricavata dall'immagine stessa con riempimento dal bordo e compensazione dell'alone radiale (soglia sfondo +12, chiusura morfologica 4px, buchi riempiti, bordo sfocato 1.2px), poi rifilato a 723x664. Nessuna generazione.",
+  "createdAt": "2026-10-30T13:03:43.161Z"
+}

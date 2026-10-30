@@ -36,7 +36,7 @@ export function Profilo() {
     <section id="profilo" className="scuro relative py-24 md:py-32">
       <Griglia />
       <div className="contenitore relative z-10">
-        <Nome as="h2" righe={[t("CHI SONO", "ABOUT ME")]} massimo={0.2} />
+        <Nome as="h2" righe={[t("CHI SONO", "ABOUT ME")]} massimo={0.2} cromo />
 
         <p
           className="manifesto mt-16 max-w-[24ch] text-balance text-[clamp(1.9rem,4.4vw,4.2rem)] font-semibold leading-[1.06] tracking-[-0.025em] md:mt-24"
@@ -71,11 +71,11 @@ export function Profilo() {
               {t("Italiano madrelingua · Inglese B2", "Italian native · English B2")}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="/Matteo_Iazzolino_CV.pdf" download="Matteo_Iazzolino_CV.pdf" className="flex items-center gap-2 bg-carta px-4 py-2.5 text-sm font-medium text-inchiostro">
+              <a href="/Matteo_Iazzolino_CV.pdf" download="Matteo_Iazzolino_CV.pdf" className="flex items-center gap-2 rounded-full bg-carta px-4 py-2.5 text-sm font-medium text-inchiostro">
                 {t("Scarica il CV", "Download CV")}
                 <ArrowDown aria-hidden className="size-4" />
               </a>
-              <a href="/cv/" className="flex items-center gap-2 border border-carta px-4 py-2.5 text-sm font-medium hover:bg-carta hover:text-inchiostro">
+              <a href="/cv/" className="pillola-vetro flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium">
                 {t("Curriculum in pagina", "CV page")}
                 <ArrowUpRight aria-hidden className="size-4" />
               </a>

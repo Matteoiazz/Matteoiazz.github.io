@@ -17,7 +17,7 @@ export function Palette({
   intervallo = 4400,
   className = "",
   caselle,
-  classeCasella = "bg-testo text-fondo after:bg-fondo/40",
+  classeCasella = "rounded-[3px] bg-white/[0.09] text-testo shadow-[inset_0_1px_0_rgb(255_255_255/0.24)] after:bg-black/50",
 }: {
   frasi: string[]
   intervallo?: number
@@ -88,7 +88,7 @@ export function Palette({
             caselleRef.current[i] = el
           }}
           aria-hidden
-          className={`paletta relative px-[0.12em] py-[0.08em] font-sans font-semibold [font-variation-settings:'wdth'_78] after:absolute after:inset-x-0 after:top-1/2 after:h-px ${classeCasella}`}
+          className={`paletta relative px-[0.12em] py-[0.08em] font-display font-semibold [font-variation-settings:'wdth'_78] after:absolute after:inset-x-0 after:top-1/2 after:h-px ${classeCasella}`}
         >
           {c === " " ? " " : c}
         </span>

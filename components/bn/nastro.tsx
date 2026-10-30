@@ -57,7 +57,7 @@ export function Nastro() {
             {voci.map((v) => (
               <span
                 key={`${copia}-${v}`}
-                className="flex items-center whitespace-nowrap text-[clamp(2.5rem,7vw,6.5rem)] font-extrabold leading-none tracking-[-0.03em] [font-variation-settings:'wdth'_72]"
+                className="flex items-center whitespace-nowrap text-[clamp(2.5rem,7vw,6.5rem)] font-extrabold leading-none tracking-[-0.03em] font-display [font-variation-settings:'wdth'_72]"
               >
                 {v}
                 <span className="mx-[0.4em] inline-block size-[0.18em] rounded-full bg-current opacity-60" />

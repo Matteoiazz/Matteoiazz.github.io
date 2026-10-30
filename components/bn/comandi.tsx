@@ -118,9 +118,9 @@ export function Comandi() {
         ref={dialogo}
         aria-label={t("Menu dei comandi", "Command menu")}
         onClick={(e) => e.target === e.currentTarget && e.currentTarget.close()}
-        className="scheda chiaro mt-[12vh] w-[min(36rem,calc(100vw-1.5rem))]"
+        className="scheda stretta"
       >
-        <div className="flex items-center gap-3 border-b border-inchiostro px-5 py-4">
+        <div className="flex items-center gap-3 border-b border-riga-forte px-5 py-4">
           <input
             ref={campo}
             value={filtro}
@@ -161,7 +161,7 @@ export function Comandi() {
                   onPointerEnter={() => setScelto(i)}
                   onClick={() => esegui(c)}
                   className={`flex w-full items-center justify-between px-5 py-2.5 text-left ${
-                    i === scelto ? "bg-inchiostro text-carta" : ""
+                    i === scelto ? "bg-white/10" : ""
                   }`}
                 >
                   {c.testo}
@@ -188,7 +188,7 @@ export function Comandi() {
           data-no-stampa
         >
           <p
-            className="bg-inchiostro px-5 py-3 text-sm text-carta outline outline-1 outline-carta/30"
+            className="vetro rounded-full px-5 py-3 text-sm text-testo"
             style={{ animation: "avviso 2.6s cubic-bezier(0.16, 1, 0.3, 1) both" }}
           >
             {avviso.testo}

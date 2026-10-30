@@ -68,7 +68,7 @@ export function Evidenza() {
         >
           {/* Tavola d'apertura */}
           <div className={`contenitore flex shrink-0 flex-col justify-end ${orizzontale ? "pb-[12vh] md:w-[46vw] md:pr-0" : ""}`}>
-            <h2 className="text-[clamp(3rem,8.5vw,8rem)] font-extrabold leading-[0.86] tracking-[-0.035em] [font-variation-settings:'wdth'_80]">
+            <h2 className="text-[clamp(3rem,8.5vw,8rem)] font-extrabold leading-[0.86] tracking-[-0.035em] font-display [font-variation-settings:'wdth'_80]">
               {t("Tre progetti,", "Three projects,")}
               <br />
               <span className="text-tenue">{t("dal database all'interfaccia", "from database to interface")}</span>
@@ -98,7 +98,7 @@ export function Evidenza() {
                 <a
                   href={`/progetti/${p.slug}/`}
                   data-cursore={t("Leggi", "Read")}
-                  className="monocromo shot-stage relative col-span-4 aspect-[16/11] border border-riga-forte bg-[#151515] md:col-span-7 md:aspect-auto md:h-[64svh]"
+                  className="monocromo vetro-piatto shot-stage relative col-span-4 aspect-[16/11] overflow-hidden rounded-[22px] md:col-span-7 md:aspect-auto md:h-[64svh]"
                   aria-label={t(`Caso di studio: ${p.title}`, `Case study: ${p.title}`)}
                 >
                   <div className="flex h-full items-center justify-center gap-[3%] p-[5%]">
@@ -116,7 +116,7 @@ export function Evidenza() {
 
                 <div className="col-span-4 flex flex-col justify-between gap-8 md:col-span-5">
                   <div>
-                    <h3 className="text-[clamp(2.4rem,5vw,5rem)] font-extrabold leading-[0.9] tracking-[-0.03em] transition-[font-variation-settings] duration-500 [font-variation-settings:'wdth'_78] group-hover:[font-variation-settings:'wdth'_100]">
+                    <h3 className="text-[clamp(2.4rem,5vw,5rem)] font-extrabold leading-[0.9] tracking-[-0.03em] transition-[font-variation-settings] duration-500 font-display [font-variation-settings:'wdth'_78] group-hover:font-display [font-variation-settings:'wdth'_100]">
                       {p.title}
                     </h3>
                     <p className="mt-5 max-w-[42ch] text-pretty text-lg leading-snug">{t(p.tagline, en.tagline)}</p>

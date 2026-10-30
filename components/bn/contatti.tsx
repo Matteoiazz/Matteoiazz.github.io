@@ -6,6 +6,7 @@ import { contact } from "@/lib/portfolio-data"
 import { Griglia } from "@/components/bn/griglia"
 import { Nome } from "@/components/bn/nome"
 import { Palette } from "@/components/bn/palette"
+import { Wordmark } from "@/components/wordmark"
 import { useLingua } from "@/components/bn/lingua"
 import { apriComandi, avvisa, copia, useOraCosenza } from "@/components/bn/comuni"
 
@@ -44,7 +45,7 @@ export function Contatti() {
       <section id="contatti" className="chiaro relative overflow-hidden py-24 md:py-32">
         <Griglia />
         <div className="contenitore relative z-10">
-          <Nome as="h2" righe={[t("SCRIVIMI", "WRITE ME")]} massimo={0.24} />
+          <Nome as="h2" righe={[t("SCRIVIMI", "WRITE ME")]} massimo={0.24} cromo />
 
           <div className="mt-14 grid grid-cols-4 gap-x-[var(--passo)] gap-y-12 md:mt-20 md:grid-cols-12">
             <div className="col-span-4 md:col-span-7">
@@ -61,7 +62,7 @@ export function Contatti() {
                 onPointerMove={attira}
                 onPointerLeave={lascia}
                 onClick={async () => avvisa((await copia(contact.email)) ? t("Email copiata", "Email copied") : contact.email)}
-                className="group mt-8 inline-flex max-w-full items-center gap-4 bg-inchiostro px-6 py-5 text-left text-carta transition-transform duration-300 ease-out"
+                className="group mt-8 inline-flex max-w-full items-center gap-4 rounded-full bg-carta px-7 py-5 text-left text-inchiostro shadow-[0_20px_50px_-20px_rgb(255_255_255/0.25)] transition-transform duration-300 ease-out"
               >
                 <span className="truncate text-[clamp(1.1rem,2.6vw,2.2rem)] font-semibold tracking-[-0.02em]">{contact.email}</span>
                 <Copy aria-hidden className="size-5 shrink-0 opacity-70 transition-transform group-hover:scale-110" />
@@ -73,14 +74,14 @@ export function Contatti() {
               </p>
             </div>
 
-            <ul className="col-span-4 self-end border-t border-inchiostro md:col-span-4 md:col-start-9">
+            <ul className="vetro-piatto col-span-4 self-end overflow-hidden rounded-[22px] md:col-span-4 md:col-start-9">
               {link.map((l) => (
-                <li key={l.testo} className="border-b border-inchiostro">
+                <li key={l.testo} className="border-b border-riga last:border-b-0">
                   <a
                     href={l.href}
                     target={l.href.startsWith("http") ? "_blank" : undefined}
                     rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="group flex items-center justify-between gap-4 px-2 py-5 transition-colors hover:bg-inchiostro hover:text-carta"
+                    className="group flex items-center justify-between gap-4 px-6 py-5 transition-colors hover:bg-carta hover:text-inchiostro"
                   >
                     <span className="text-2xl font-semibold tracking-[-0.02em]">{l.testo}</span>
                     <span className="flex items-center gap-3">
@@ -101,7 +102,7 @@ export function Contatti() {
             <Palette
               frasi={t(["Grazie della visita", "A presto", "Scrivimi quando vuoi"], ["Thanks for visiting", "Speak soon", "Write any time"])}
               intervallo={2800}
-              classeCasella="bg-[#1d1d1d] text-carta after:bg-black/60"
+              classeCasella="rounded-[3px] bg-white/[0.08] text-testo shadow-[inset_0_1px_0_rgb(255_255_255/0.2)] after:bg-black/50"
             />
           </div>
           <div className="mt-14 grid grid-cols-2 gap-6 border-t border-riga-forte pt-6 text-sm md:grid-cols-4">
@@ -118,6 +119,8 @@ export function Contatti() {
             </a>
           </div>
         </div>
+        {/* La firma cromata del primo sito chiude la pagina. */}
+        <Wordmark />
       </footer>
     </>
   )

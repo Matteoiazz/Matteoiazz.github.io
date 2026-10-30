@@ -24,7 +24,7 @@ const righeTitolo = (titolo: string) => {
 }
 
 /**
- * Caso di studio nel mondo della home: carta e inchiostro sulla griglia.
+ * Caso di studio nel mondo della home: vetro scuro e cromo.
  * In apertura il titolo costruito a celle; poi il riassunto con ruolo e
  * stack, la copertina su lastra nera, i numeri sul tabellone a palette,
  * lo schema con la parte personale in nero e i capitoli con il codice
@@ -89,10 +89,10 @@ export function CasoStudio({ slug }: { slug: string }) {
               {t("Tutti i progetti", "All the work")}
             </a>
 
-            <Nome righe={righeTitolo(p.title)} etichetta={p.title} subito massimo={0.26} className="mt-10 md:mt-14" />
+            <Nome righe={righeTitolo(p.title)} etichetta={p.title} subito massimo={0.26} cromo className="mt-10 md:mt-14" />
 
             {lingua === "en" ? (
-              <p className="dato mt-6 inline-block border border-inchiostro px-2 py-1">
+              <p className="dato mt-6 inline-block rounded-full border border-riga-forte px-3 py-1">
                 This case study is written in Italian; the code comments are too.
               </p>
             ) : null}
@@ -101,7 +101,7 @@ export function CasoStudio({ slug }: { slug: string }) {
               <p className="col-span-4 text-pretty text-[clamp(1.3rem,2.3vw,1.9rem)] font-medium leading-[1.3] tracking-[-0.015em] md:col-span-7">
                 {caso.sommario}
               </p>
-              <dl className="col-span-4 space-y-6 border-t border-inchiostro pt-5 md:col-span-4 md:col-start-9">
+              <dl className="vetro-piatto col-span-4 space-y-6 rounded-[22px] p-6 md:col-span-4 md:col-start-9">
                 <div>
                   <dt className="dato uppercase text-tenue">{t("Progetto", "Project")}</dt>
                   <dd className="mt-1.5 font-medium">
@@ -129,13 +129,13 @@ export function CasoStudio({ slug }: { slug: string }) {
                 </div>
                 <div className="flex flex-wrap gap-3">
                   {p.demo ? (
-                    <a href={p.demo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-inchiostro px-4 py-2.5 text-sm font-medium text-carta">
+                    <a href={p.demo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 rounded-full bg-carta px-4 py-2.5 text-sm font-medium text-inchiostro">
                       {t("Sito online", "Live site")}
                       <ArrowUpRight aria-hidden className="size-4" />
                     </a>
                   ) : null}
                   {p.repo ? (
-                    <a href={p.repo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 border border-inchiostro px-4 py-2.5 text-sm font-medium hover:bg-inchiostro hover:text-carta">
+                    <a href={p.repo} target="_blank" rel="noopener noreferrer" className="pillola-vetro flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium">
                       {t("Codice", "Code")}
                       <ArrowUpRight aria-hidden className="size-4" />
                     </a>
@@ -149,7 +149,7 @@ export function CasoStudio({ slug }: { slug: string }) {
         {/* Copertina su lastra nera */}
         <section className="scuro relative">
           <div className="contenitore py-10 md:py-14">
-            <div className="monocromo shot-stage relative aspect-[4/3] w-full sm:aspect-[16/9]">
+            <div className="monocromo vetro-piatto shot-stage relative aspect-[4/3] w-full overflow-hidden rounded-[26px] sm:aspect-[16/9]">
               <div className="flex h-full w-full items-center justify-center gap-[3%] p-[3%]">
                 {p.cover.frame === "phone"
                   ? schermate.filter((s) => s.frame === "phone").slice(0, 3).map((s, k) => (
@@ -166,7 +166,7 @@ export function CasoStudio({ slug }: { slug: string }) {
               {caso.numeri.map((n) => (
                 <div key={n.k} className="flex items-center gap-5 border-b border-riga-forte py-5 md:odd:border-r md:odd:pr-6 md:even:pl-6">
                   <dd className="text-[clamp(1.4rem,2.6vw,2.2rem)]">
-                    <Palette frasi={[n.v]} caselle={Math.max(3, n.v.length)} classeCasella="bg-[#1d1d1d] text-carta after:bg-black/60" />
+                    <Palette frasi={[n.v]} caselle={Math.max(3, n.v.length)} classeCasella="rounded-[3px] bg-white/[0.08] text-testo shadow-[inset_0_1px_0_rgb(255_255_255/0.2)] after:bg-black/50" />
                   </dd>
                   <dt className="text-tenue">{n.k}</dt>
                 </div>
@@ -186,7 +186,7 @@ export function CasoStudio({ slug }: { slug: string }) {
                     <a
                       href={`#${v.id}`}
                       className={`-ml-px flex gap-3 border-l py-1.5 pl-4 text-sm transition-colors ${
-                        attiva === v.id ? "border-inchiostro font-medium" : "border-transparent text-tenue hover:text-inchiostro"
+                        attiva === v.id ? "border-testo font-medium" : "border-transparent text-tenue hover:text-testo"
                       }`}
                     >
                       <span className="dato pt-px">{String(i).padStart(2, "0")}</span>
@@ -200,29 +200,29 @@ export function CasoStudio({ slug }: { slug: string }) {
             <div className="col-span-4 min-w-0 md:col-span-9 lg:col-span-8 lg:col-start-5">
               {/* Schema dell'architettura */}
               <article id="schema" className="scroll-mt-24">
-                <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] [font-variation-settings:'wdth'_82]">
+                <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] font-display [font-variation-settings:'wdth'_82]">
                   <span className="dato mr-4 align-top font-normal text-tenue">00</span>
                   {t("Come è fatto", "How it's built")}
                 </h2>
                 <p className="mt-5 max-w-[65ch] text-pretty leading-relaxed text-tenue">{caso.architettura.didascalia}</p>
                 <p className="dato mt-4 flex items-center gap-2">
-                  <span className="inline-block size-3 bg-inchiostro" />
+                  <span className="inline-block size-3 rounded-[3px] bg-carta" />
                   {t("in nero, la mia parte", "in black, my part")}
                 </p>
-                <div className="mt-8 border-t border-inchiostro">
+                <div className="vetro-piatto mt-8 overflow-hidden rounded-[22px] px-5">
                   {caso.architettura.livelli.map((livello) => (
-                    <div key={livello.nome} className="grid grid-cols-[6rem_minmax(0,1fr)] items-center gap-4 border-b border-riga-forte py-4 sm:grid-cols-[8rem_minmax(0,1fr)]">
+                    <div key={livello.nome} className="grid grid-cols-[6rem_minmax(0,1fr)] items-center gap-4 border-b border-riga py-4 last:border-b-0 sm:grid-cols-[8rem_minmax(0,1fr)]">
                       <p className="dato uppercase text-tenue">{livello.nome}</p>
                       <div className="flex flex-wrap gap-2">
                         {livello.blocchi.map((b) => (
                           <div
                             key={b.nome}
-                            className={`min-w-[8.5rem] flex-1 border px-3.5 py-2.5 ${
-                              b.mio ? "border-inchiostro bg-inchiostro text-carta" : "border-riga-forte"
+                            className={`min-w-[8.5rem] flex-1 rounded-xl border px-3.5 py-2.5 ${
+                              b.mio ? "border-carta bg-carta text-inchiostro" : "border-riga-forte"
                             }`}
                           >
                             <p className="text-sm font-semibold">{b.nome}</p>
-                            {b.nota ? <p className={`mt-0.5 text-xs ${b.mio ? "text-carta/70" : "text-tenue"}`}>{b.nota}</p> : null}
+                            {b.nota ? <p className={`mt-0.5 text-xs ${b.mio ? "text-inchiostro/70" : "text-tenue"}`}>{b.nota}</p> : null}
                           </div>
                         ))}
                       </div>
@@ -233,7 +233,7 @@ export function CasoStudio({ slug }: { slug: string }) {
 
               {caso.capitoli.map((cap, i) => (
                 <article key={cap.titolo} id={`capitolo-${i + 1}`} className="mt-24 scroll-mt-24 md:mt-32">
-                  <h2 className="text-balance text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] [font-variation-settings:'wdth'_82]">
+                  <h2 className="text-balance text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] font-display [font-variation-settings:'wdth'_82]">
                     <span className="dato mr-4 align-top font-normal text-tenue">{String(i + 1).padStart(2, "0")}</span>
                     {cap.titolo}
                   </h2>
@@ -258,7 +258,7 @@ export function CasoStudio({ slug }: { slug: string }) {
         {/* Schermate */}
         <section id="schermate" className="scuro relative scroll-mt-16 py-20 md:py-28">
           <div className="contenitore">
-            <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] [font-variation-settings:'wdth'_82]">
+            <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] font-display [font-variation-settings:'wdth'_82]">
               {t("Schermate", "Screens")}
             </h2>
             <p className="mt-3 text-sm text-tenue">{t("In bianco e nero; a colori al passaggio del mouse.", "Black and white; colour on hover.")}</p>
@@ -287,9 +287,9 @@ export function CasoStudio({ slug }: { slug: string }) {
           >
             <p className="dato flex items-center justify-between text-tenue">
               {t("Prossimo caso di studio", "Next case study")}
-              <ArrowRight aria-hidden className="size-5 text-inchiostro transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowRight aria-hidden className="size-5 text-testo transition-transform duration-300 group-hover:translate-x-1" />
             </p>
-            <p className="mt-6 text-[clamp(3rem,11vw,10rem)] font-extrabold uppercase leading-[0.85] tracking-[-0.035em] transition-[font-variation-settings] duration-700 [font-variation-settings:'wdth'_70] group-hover:[font-variation-settings:'wdth'_112]">
+            <p className="mt-6 text-[clamp(3rem,11vw,10rem)] font-extrabold uppercase leading-[0.85] tracking-[-0.035em] transition-[font-variation-settings] duration-700 font-display [font-variation-settings:'wdth'_70] group-hover:font-display [font-variation-settings:'wdth'_112]">
               {prossimo.title}
             </p>
             <p className="mt-6 max-w-[48ch] text-tenue">{t(prossimo.tagline, progettiEn[prossimo.slug].tagline)}</p>

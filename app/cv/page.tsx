@@ -55,13 +55,13 @@ export default function Curriculum() {
         <a
           href={PDF}
           download="Matteo_Iazzolino_CV.pdf"
-          className="rounded-[2px] bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
+          className="rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
         >
           Scarica PDF ↓
         </a>
       </div>
 
-      <article className="glass-flat mx-auto mt-6 max-w-4xl overflow-hidden px-6 py-9 sm:px-12 sm:py-12">
+      <article className="glass-flat mx-auto mt-6 max-w-4xl overflow-hidden rounded-[22px] px-6 py-9 sm:px-12 sm:py-12">
         <header>
           <p className="eyebrow uppercase">Curriculum vitae</p>
           <h1 className="title-fade mt-4 text-[clamp(2.4rem,7vw,4rem)] font-semibold leading-[0.95] tracking-[-0.04em]">
@@ -72,7 +72,7 @@ export default function Curriculum() {
             <span className="text-muted-foreground"> · Studente di Informatica all&apos;UniCal</span>
           </p>
           <ul className="mt-5 flex flex-wrap gap-2">
-            <li className="rounded-[2px] border border-[var(--hairline)] px-3 py-1 text-xs text-muted-foreground">
+            <li className="rounded-full border border-[var(--hairline)] px-3 py-1 text-xs text-muted-foreground">
               {profile.location}
             </li>
             {collegamenti.map((c) => (
@@ -81,7 +81,7 @@ export default function Curriculum() {
                   href={c.href}
                   target={c.href.startsWith("http") ? "_blank" : undefined}
                   rel="noopener noreferrer"
-                  className="block rounded-[2px] border border-[var(--hairline)] px-3 py-1 text-xs text-muted-foreground transition-colors hover:border-[var(--hairline-strong)] hover:text-foreground"
+                  className="block rounded-full border border-[var(--hairline)] px-3 py-1 text-xs text-muted-foreground transition-colors hover:border-[var(--hairline-strong)] hover:text-foreground"
                 >
                   {c.label}
                 </a>
@@ -111,7 +111,7 @@ export default function Curriculum() {
                   <ul className="mt-2.5 space-y-1.5">
                     {p.highlights.slice(0, p.slug === "tripify" ? 3 : 2).map((h) => (
                       <li key={h} className="flex gap-2.5 text-pretty text-sm leading-relaxed">
-                        <span aria-hidden className="mt-[0.55rem] size-1 shrink-0 rounded-[2px] bg-foreground/50" />
+                        <span aria-hidden className="mt-[0.55rem] size-1 shrink-0 rounded-full bg-foreground/50" />
                         {h}
                       </li>
                     ))}
@@ -120,7 +120,7 @@ export default function Curriculum() {
                     {p.stack.map((t) => (
                       <li
                         key={t}
-                        className="flex items-center gap-1.5 rounded-[2px] border border-[var(--hairline)] px-2 py-0.5 text-[0.7rem] text-muted-foreground"
+                        className="flex items-center gap-1.5 rounded-full border border-[var(--hairline)] px-2 py-0.5 text-[0.7rem] text-muted-foreground"
                       >
                         <TechIcon name={t} className="size-3" />
                         {t}
@@ -132,7 +132,7 @@ export default function Curriculum() {
                           href={p.repo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block rounded-[2px] border border-[var(--hairline-strong)] px-2 py-0.5 text-[0.7rem] text-foreground/85 transition-colors hover:text-foreground"
+                          className="block rounded-full border border-[var(--hairline-strong)] px-2 py-0.5 text-[0.7rem] text-foreground/85 transition-colors hover:text-foreground"
                         >
                           Codice ↗
                         </a>

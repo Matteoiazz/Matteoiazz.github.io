@@ -25,7 +25,7 @@ export function Luce() {
 
     const muovi = (e: PointerEvent) => {
       const bersaglio = e.target instanceof Element ? e.target : null
-      const el = bersaglio?.closest<HTMLElement>(".glass-flat, .glass-dyn") ?? null
+      const el = bersaglio?.closest<HTMLElement>(".glass-flat, .glass-dyn, .vetro-piatto") ?? null
       if (attivo && attivo !== el) spegni(attivo)
       attivo = el
       if (!el) return

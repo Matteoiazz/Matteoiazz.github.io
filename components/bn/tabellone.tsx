@@ -69,7 +69,7 @@ export function Tabellone() {
       <Griglia />
       <div className="contenitore relative z-10">
         <div className="grid grid-cols-4 items-end gap-x-[var(--passo)] gap-y-6 md:grid-cols-12">
-          <h2 className="col-span-4 text-[clamp(2.6rem,7vw,7rem)] font-extrabold leading-[0.88] tracking-[-0.035em] [font-variation-settings:'wdth'_80] md:col-span-7">
+          <h2 className="col-span-4 text-[clamp(2.6rem,7vw,7rem)] font-extrabold leading-[0.88] tracking-[-0.035em] font-display [font-variation-settings:'wdth'_80] md:col-span-7">
             {t("Tutti i progetti", "All the work")}
           </h2>
           <p className="col-span-4 max-w-[40ch] text-pretty text-tenue md:col-span-4 md:col-start-9">
@@ -81,7 +81,7 @@ export function Tabellone() {
         </div>
 
         {/* Il tabellone vero: una lastra nera come quelli delle stazioni. */}
-        <div className="scuro relative mt-12 border border-inchiostro" onPointerMove={muovi} onPointerLeave={() => setSopra(null)}>
+        <div className="vetro-piatto relative mt-12 rounded-[22px]" onPointerMove={muovi} onPointerLeave={() => setSopra(null)}>
           <div
             aria-hidden
             className="dato hidden grid-cols-[4.5rem_minmax(0,1fr)_minmax(0,11rem)_5rem_7rem] gap-4 border-b border-riga-forte px-5 py-3 uppercase text-tenue md:grid"
@@ -106,7 +106,7 @@ export function Tabellone() {
                           frasi={[p.title]}
                           caselle={24}
                           className="text-[1.15rem]"
-                          classeCasella="bg-[#1d1d1d] text-carta after:bg-black/60 group-hover:bg-inchiostro"
+                          classeCasella="rounded-[3px] bg-white/[0.08] text-testo shadow-[inset_0_1px_0_rgb(255_255_255/0.2)] after:bg-black/50 group-hover:bg-inchiostro group-hover:text-carta"
                         />
                       </span>
                       <span className="block truncate text-lg font-semibold md:hidden">{p.title}</span>
@@ -145,7 +145,7 @@ export function Tabellone() {
           <div
             ref={anteprima}
             aria-hidden
-            className={`pointer-events-none absolute left-0 top-0 z-20 hidden aspect-[16/10] overflow-hidden border border-inchiostro bg-[#151515] shadow-[0_24px_60px_-20px_rgb(0_0_0/0.6)] md:block ${
+            className={`pointer-events-none absolute left-0 top-0 z-20 hidden aspect-[16/10] overflow-hidden rounded-xl border border-white/20 bg-[#121214] shadow-[0_24px_60px_-20px_rgb(0_0_0/0.8)] md:block ${
               sopra ? "opacity-100" : "opacity-0"
             }`}
             style={{
@@ -173,7 +173,7 @@ export function Tabellone() {
       <dialog
         ref={dialogo}
         aria-labelledby="scheda-titolo"
-        className="scheda chiaro"
+        className="scheda"
         onClose={() => {
           document.documentElement.classList.remove("scheda-aperta")
           origine.current?.focus({ preventScroll: true })
@@ -202,7 +202,7 @@ function Scheda({ p, chiudi }: { p: Project; chiudi: () => void }) {
         if (e.key === "ArrowLeft") vai(-1)
       }}
     >
-      <div className="scuro relative flex flex-col p-4 sm:p-6">
+      <div className="relative flex flex-col bg-black/30 p-4 sm:p-6">
         <div className="shot-stage relative aspect-[4/3] w-full sm:aspect-[16/10] lg:aspect-auto lg:flex-1">
           <div key={i} className="flex h-full w-full items-center justify-center [animation:accesa_0.4s_ease_both]">
             <DeviceMockup shot={s} titolo={p.title} />
@@ -215,10 +215,10 @@ function Scheda({ p, chiudi }: { p: Project; chiudi: () => void }) {
               <span className="dato mr-2 text-tenue">
                 {i + 1} / {schermate.length}
               </span>
-              <button type="button" onClick={() => vai(-1)} aria-label={t("Schermata precedente", "Previous screen")} className="grid size-9 place-items-center border border-riga-forte hover:bg-carta hover:text-inchiostro">
+              <button type="button" onClick={() => vai(-1)} aria-label={t("Schermata precedente", "Previous screen")} className="pillola-vetro grid size-9 place-items-center rounded-full">
                 <ArrowLeft className="size-4" />
               </button>
-              <button type="button" onClick={() => vai(1)} aria-label={t("Schermata successiva", "Next screen")} className="grid size-9 place-items-center border border-riga-forte hover:bg-carta hover:text-inchiostro">
+              <button type="button" onClick={() => vai(1)} aria-label={t("Schermata successiva", "Next screen")} className="pillola-vetro grid size-9 place-items-center rounded-full">
                 <ArrowRight className="size-4" />
               </button>
             </div>
@@ -227,10 +227,10 @@ function Scheda({ p, chiudi }: { p: Project; chiudi: () => void }) {
       </div>
 
       <div className="relative flex flex-col p-6 sm:p-8 lg:overflow-y-auto">
-        <button type="button" onClick={chiudi} aria-label={t("Chiudi", "Close")} className="absolute right-4 top-4 grid size-10 place-items-center border border-inchiostro hover:bg-inchiostro hover:text-carta">
+        <button type="button" onClick={chiudi} aria-label={t("Chiudi", "Close")} className="pillola-vetro absolute right-4 top-4 grid size-10 place-items-center rounded-full">
           <X className="size-4" />
         </button>
-        <h2 id="scheda-titolo" className="pr-12 text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[0.95] tracking-[-0.03em] [font-variation-settings:'wdth'_82]">
+        <h2 id="scheda-titolo" className="pr-12 text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[0.95] tracking-[-0.03em] font-display [font-variation-settings:'wdth'_82]">
           {p.title}
         </h2>
         <p className="mt-3 text-sm text-tenue">
@@ -240,7 +240,7 @@ function Scheda({ p, chiudi }: { p: Project; chiudi: () => void }) {
 
         <ul className="mt-6 flex flex-wrap gap-2">
           {p.stack.map((tech) => (
-            <li key={tech} className="flex items-center gap-1.5 border border-riga-forte px-2.5 py-1 text-xs">
+            <li key={tech} className="flex items-center gap-1.5 rounded-full border border-riga-forte px-2.5 py-1 text-xs">
               <TechIcon name={tech} className="size-3.5" />
               {tech}
             </li>
@@ -249,24 +249,24 @@ function Scheda({ p, chiudi }: { p: Project; chiudi: () => void }) {
 
         <div className="mt-auto flex flex-wrap gap-3 pt-8">
           {p.casoStudio ? (
-            <a href={`/progetti/${p.slug}/`} className="flex items-center gap-2 bg-inchiostro px-4 py-2.5 text-sm font-medium text-carta">
+            <a href={`/progetti/${p.slug}/`} className="flex items-center gap-2 rounded-full bg-carta px-4 py-2.5 text-sm font-medium text-inchiostro">
               {t("Caso di studio", "Case study")}
               <ArrowRight className="size-4" />
             </a>
           ) : null}
           {p.demo ? (
-            <a href={p.demo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 border border-inchiostro px-4 py-2.5 text-sm font-medium hover:bg-inchiostro hover:text-carta">
+            <a href={p.demo} target="_blank" rel="noopener noreferrer" className="pillola-vetro flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium">
               {t("Sito online", "Live site")}
               <ArrowUpRight className="size-4" />
             </a>
           ) : null}
           {p.repo ? (
-            <a href={p.repo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 border border-inchiostro px-4 py-2.5 text-sm font-medium hover:bg-inchiostro hover:text-carta">
+            <a href={p.repo} target="_blank" rel="noopener noreferrer" className="pillola-vetro flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium">
               {t("Codice", "Code")}
               <ArrowUpRight className="size-4" />
             </a>
           ) : (
-            <span className="border border-dashed border-riga-forte px-4 py-2.5 text-sm text-tenue">{t("Codice privato", "Private code")}</span>
+            <span className="rounded-full border border-dashed border-riga-forte px-4 py-2.5 text-sm text-tenue">{t("Codice privato", "Private code")}</span>
           )}
         </div>
       </div>

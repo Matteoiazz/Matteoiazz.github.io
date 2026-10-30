@@ -2,35 +2,27 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 
-// Celle per lettera: colonne × righe della griglia che copre ogni carattere.
-const CX = 5
-const CY = 7
-
-// Pseudo-casuale deterministico: server e browser devono disegnare le
-// stesse celle con gli stessi ritardi, altrimenti l'idratazione non combacia.
-const caso = (a: number, b: number) => (((a * 7919 + b * 104729 + 13) % 997) + 997) % 997 / 997
-
 /**
- * Parola monumentale costruita sulla griglia.
+ * Parola monumentale che emerge dal vetro.
  *
- * All'arrivo ogni lettera è coperta da una griglia di celle del colore del
- * fondo che si ritirano in ordine casuale: il nome si compone cella per
- * cella. Poi le lettere rispondono al puntatore: quelle vicine si allargano
- * e si appesantiscono sugli assi della variabile di Archivo, le altre
- * tornano a riposo. La dimensione si adatta perché la riga più lunga
- * riempia esattamente la larghezza disponibile.
+ * All'arrivo ogni lettera sale da una sfocatura, una dopo l'altra, come
+ * dietro un vetro appannato che si schiarisce. Poi le lettere rispondono
+ * al puntatore: quelle vicine si allargano e si appesantiscono sugli assi
+ * della variabile di Archivo, le altre tornano a riposo. Con `cromo` le
+ * lettere prendono il materiale del fiore. La dimensione si adatta perché
+ * la riga più lunga riempia la larghezza disponibile, con un tetto.
  */
 export function Nome({
   righe,
-  ritardo = 0,
   as: Tag = "h1",
   className = "",
   etichetta,
   subito = false,
   massimo = 0.3,
+  cromo = false,
+  allineamento = "sinistra",
 }: {
   righe: string[]
-  ritardo?: number
   as?: "h1" | "h2" | "p"
   className?: string
   /** Testo per gli screen reader, se diverso dalle righe. */
@@ -39,9 +31,13 @@ export function Nome({
   subito?: boolean
   /** Corpo massimo, in frazione della larghezza dello schermo. */
   massimo?: number
+  /** Lettere nel materiale cromato del fiore. */
+  cromo?: boolean
+  allineamento?: "sinistra" | "centro"
 }) {
   const radice = useRef<HTMLElement>(null)
   const [visto, setVisto] = useState(false)
+  const chiave = righe.join("|")
 
   // Adatta il corpo alla larghezza: misura la riga più lunga a 100px.
   useLayoutEffect(() => {
@@ -61,9 +57,9 @@ export function Nome({
     const osservatore = new ResizeObserver(adatta)
     osservatore.observe(el)
     return () => osservatore.disconnect()
-  }, [massimo, righe.join("|")])
+  }, [massimo, chiave])
 
-  // Fuori dalla prima schermata le celle partono quando la parola entra in vista.
+  // Fuori dalla prima schermata le lettere emergono quando la parola entra in vista.
   useEffect(() => {
     const el = radice.current
     if (!el || subito) return
@@ -74,7 +70,7 @@ export function Nome({
           osservatore.disconnect()
         }
       },
-      { threshold: 0.35 },
+      { threshold: 0.3 },
     )
     osservatore.observe(el)
     return () => osservatore.disconnect()
@@ -119,27 +115,29 @@ export function Nome({
       document.documentElement.removeEventListener("pointerleave", esci)
       cancelAnimationFrame(frame)
     }
-  }, [righe.join("|")])
+  }, [chiave])
 
+  let indice = 0
   return (
     <Tag
       ref={radice as never}
       aria-label={etichetta ?? righe.join(" ")}
-      className={`nome ${subito ? "nome-subito" : ""} ${visto ? "nome-visto" : ""} block w-full select-none font-sans leading-[0.82] tracking-[-0.025em] ${className}`}
+      className={`nome ${subito ? "nome-subito" : ""} ${visto ? "nome-visto" : ""} block w-full select-none font-display leading-[0.84] tracking-[-0.025em] ${
+        allineamento === "centro" ? "text-center" : ""
+      } ${className}`}
       style={{ fontSize: "14vw" }}
     >
       {righe.map((riga, ri) => (
-        <span key={ri} data-riga aria-hidden className="block w-max whitespace-nowrap">
+        <span
+          key={`${chiave}-${ri}`}
+          data-riga
+          aria-hidden
+          className={`block w-max whitespace-nowrap ${allineamento === "centro" ? "mx-auto" : ""}`}
+        >
           {[...riga].map((c, ci) => (
-            <span key={ci} className="lettera relative" style={{ "--w": 92, "--p": 760 } as React.CSSProperties}>
-              {c === " " ? " " : c}
-              <span
-                className="celle"
-                style={{ "--cx": CX, "--cy": CY, "--base": `${ritardo + ri * 140}ms` } as React.CSSProperties}
-              >
-                {Array.from({ length: CX * CY }, (_, k) => (
-                  <i key={k} style={{ "--d": Math.round(caso(ri * 31 + ci, k) * 900) } as React.CSSProperties} />
-                ))}
+            <span key={ci} className="lettera" style={{ "--w": 92, "--p": 760 } as React.CSSProperties}>
+              <span className={`vista ${cromo ? "cromo" : ""}`} style={{ "--d": 60 * indice++ + ri * 90 } as React.CSSProperties}>
+                {c === " " ? " " : c}
               </span>
             </span>
           ))}
