@@ -62,12 +62,17 @@ export function Percorso() {
                     voci.current[i] = el
                   }}
                   data-indice={i}
-                  className={`grid gap-3 border-b border-riga-forte py-10 transition-opacity duration-500 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-8 md:py-14 ${
-                    attiva === i ? "opacity-100" : "md:opacity-45"
-                  }`}
+                  className="grid gap-3 border-b border-riga-forte py-10 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-8 md:py-14"
                 >
                   <div>
-                    <p className="dato">{t(e.period, en?.period ?? e.period)}</p>
+                    {/* La voce che si sta leggendo ha la data in negativo: nessuna voce sbiadisce. */}
+                    <p
+                      className={`dato inline-block px-1.5 py-0.5 transition-colors duration-300 ${
+                        attiva === i ? "bg-inchiostro text-carta" : ""
+                      }`}
+                    >
+                      {t(e.period, en?.period ?? e.period)}
+                    </p>
                     <p className="dato mt-2 uppercase text-tenue">{t(e.tipo, en?.tipo ?? e.tipo)}</p>
                   </div>
                   <div>

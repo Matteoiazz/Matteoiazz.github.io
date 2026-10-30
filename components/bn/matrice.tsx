@@ -55,7 +55,7 @@ export function Matrice() {
         </p>
       </div>
 
-      <p className="dato mt-8 text-tenue md:hidden">{t("Scorri la tabella di lato", "Swipe the table sideways")}</p>
+      <p className="mt-8 text-sm text-tenue md:hidden">{t("Scorri la tabella di lato", "Swipe the table sideways")}</p>
       <div className="mt-4 overflow-x-auto md:mt-10">
         <table className="w-full min-w-[40rem] border-collapse text-sm" onPointerLeave={() => (setRiga(null), setColonna(null))}>
           <thead>

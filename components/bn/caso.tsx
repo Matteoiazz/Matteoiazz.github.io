@@ -84,15 +84,10 @@ export function CasoStudio({ slug }: { slug: string }) {
         <section className="chiaro relative pb-16 pt-28 md:pt-36">
           <Griglia />
           <div className="contenitore relative z-10">
-            <div className="flex flex-wrap items-baseline justify-between gap-4">
-              <a href="/#progetti" className="group flex items-center gap-2 text-sm">
-                <ArrowLeft aria-hidden className="size-4 transition-transform group-hover:-translate-x-0.5" />
-                {t("Tutti i progetti", "All the work")}
-              </a>
-              <p className="dato text-tenue">
-                {t(p.kind, en.kind)} · {p.year}
-              </p>
-            </div>
+            <a href="/#progetti" className="group inline-flex items-center gap-2 text-sm">
+              <ArrowLeft aria-hidden className="size-4 transition-transform group-hover:-translate-x-0.5" />
+              {t("Tutti i progetti", "All the work")}
+            </a>
 
             <Nome righe={righeTitolo(p.title)} etichetta={p.title} subito massimo={0.26} className="mt-10 md:mt-14" />
 
@@ -107,6 +102,12 @@ export function CasoStudio({ slug }: { slug: string }) {
                 {caso.sommario}
               </p>
               <dl className="col-span-4 space-y-6 border-t border-inchiostro pt-5 md:col-span-4 md:col-start-9">
+                <div>
+                  <dt className="dato uppercase text-tenue">{t("Progetto", "Project")}</dt>
+                  <dd className="mt-1.5 font-medium">
+                    {t(p.kind, en.kind)} · {p.year}
+                  </dd>
+                </div>
                 <div>
                   <dt className="dato uppercase text-tenue">{t("Il mio ruolo", "My role")}</dt>
                   <dd className="mt-1.5 font-medium">{caso.ruolo}</dd>
@@ -199,8 +200,8 @@ export function CasoStudio({ slug }: { slug: string }) {
             <div className="col-span-4 min-w-0 md:col-span-9 lg:col-span-8 lg:col-start-5">
               {/* Schema dell'architettura */}
               <article id="schema" className="scroll-mt-24">
-                <p className="dato text-tenue">00</p>
-                <h2 className="mt-2 text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] [font-variation-settings:'wdth'_82]">
+                <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] [font-variation-settings:'wdth'_82]">
+                  <span className="dato mr-4 align-top font-normal text-tenue">00</span>
                   {t("Come è fatto", "How it's built")}
                 </h2>
                 <p className="mt-5 max-w-[65ch] text-pretty leading-relaxed text-tenue">{caso.architettura.didascalia}</p>
@@ -232,8 +233,8 @@ export function CasoStudio({ slug }: { slug: string }) {
 
               {caso.capitoli.map((cap, i) => (
                 <article key={cap.titolo} id={`capitolo-${i + 1}`} className="mt-24 scroll-mt-24 md:mt-32">
-                  <p className="dato text-tenue">{String(i + 1).padStart(2, "0")}</p>
-                  <h2 className="mt-2 text-balance text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] [font-variation-settings:'wdth'_82]">
+                  <h2 className="text-balance text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] [font-variation-settings:'wdth'_82]">
+                    <span className="dato mr-4 align-top font-normal text-tenue">{String(i + 1).padStart(2, "0")}</span>
                     {cap.titolo}
                   </h2>
                   <div className="mt-6 space-y-4">
@@ -260,7 +261,7 @@ export function CasoStudio({ slug }: { slug: string }) {
             <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] [font-variation-settings:'wdth'_82]">
               {t("Schermate", "Screens")}
             </h2>
-            <p className="dato mt-3 text-tenue">{t("In bianco e nero; a colori al passaggio del mouse.", "Black and white; colour on hover.")}</p>
+            <p className="mt-3 text-sm text-tenue">{t("In bianco e nero; a colori al passaggio del mouse.", "Black and white; colour on hover.")}</p>
             <div className={`mt-10 grid gap-6 ${p.cover.frame === "phone" ? "grid-cols-2 md:grid-cols-4" : "md:grid-cols-2"}`}>
               {schermate.map((s) => (
                 <figure key={s.src} className="monocromo">

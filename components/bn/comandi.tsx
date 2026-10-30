@@ -188,7 +188,7 @@ export function Comandi() {
           data-no-stampa
         >
           <p
-            className="bg-inchiostro px-5 py-3 text-sm text-carta shadow-[0_12px_30px_-10px_rgb(0_0_0/0.5)]"
+            className="bg-inchiostro px-5 py-3 text-sm text-carta outline outline-1 outline-carta/30"
             style={{ animation: "avviso 2.6s cubic-bezier(0.16, 1, 0.3, 1) both" }}
           >
             {avviso.testo}

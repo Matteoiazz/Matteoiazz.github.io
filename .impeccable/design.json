@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-30T13:30:00+01:00",
+  "title": "Design System: Matteo Iazzolino — Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "carta": { "role": "neutral", "displayName": "Carta", "canonical": "#ffffff", "tonalRamp": ["#262626", "#3d3d3d", "#575757", "#757575", "#969696", "#bababa", "#dedede", "#ffffff"] },
+      "inchiostro": { "role": "primary", "displayName": "Inchiostro", "canonical": "#0b0b0b", "tonalRamp": ["#0b0b0b", "#1d1d1d", "#333333", "#4d4d4d", "#6b6b6b", "#8f8f8f", "#b8b8b8", "#e6e6e6"] },
+      "grafite": { "role": "neutral", "displayName": "Grafite", "canonical": "#5f5f5f", "tonalRamp": ["#1f1f1f", "#2f2f2f", "#404040", "#5f5f5f", "#7d7d7d", "#9c9c9c", "#bdbdbd", "#e0e0e0"] },
+      "nebbia": { "role": "neutral", "displayName": "Nebbia", "canonical": "#a3a3a3", "tonalRamp": ["#262626", "#3d3d3d", "#595959", "#7a7a7a", "#a3a3a3", "#c2c2c2", "#dcdcdc", "#f2f2f2"] },
+      "lastra": { "role": "neutral", "displayName": "Lastra", "canonical": "#1d1d1d", "tonalRamp": ["#0b0b0b", "#141414", "#1d1d1d", "#2b2b2b", "#3d3d3d", "#545454", "#707070", "#949494"] },
+      "schermo": { "role": "neutral", "displayName": "Schermo", "canonical": "#151515", "tonalRamp": ["#0b0b0b", "#111111", "#151515", "#202020", "#303030", "#454545", "#606060", "#828282"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Il nome in apertura e le parole dei capitoli: si costruiscono a celle e si allargano sotto il puntatore." },
+      "headline": { "displayName": "Headline", "purpose": "Titoli di sezione e dei progetti in evidenza, condensati." },
+      "title": { "displayName": "Title", "purpose": "Voci del percorso e titoli delle schede." },
+      "lead": { "displayName": "Lead", "purpose": "Manifesto e riassunti dei casi di studio." },
+      "body": { "displayName": "Body", "purpose": "Descrizioni e capitoli, massimo 65ch." },
+      "label": { "displayName": "Label", "purpose": "Solo dati: ore, anni, conteggi, coordinate, file." },
+      "flap": { "displayName": "Paletta", "purpose": "Caselle del tabellone a palette." }
+    },
+    "shadows": [
+      { "name": "anteprima-sospesa", "value": "0 24px 60px -20px rgb(0 0 0 / 0.6)", "purpose": "Solo l'anteprima della copertina che segue il puntatore nel tabellone." }
+    ],
+    "motion": [
+      { "name": "cella-via", "value": "0.55s cubic-bezier(0.7, 0, 0.2, 1)", "purpose": "Le celle che scoprono il nome, con ritardi casuali fino a 900ms." },
+      { "name": "paletta", "value": "90ms linear per giro, 16ms tra caselle, 55ms tra giri", "purpose": "Il giro delle caselle del tabellone." },
+      { "name": "uscita-esponenziale", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Ingressi, contatori a rulli, scheda, avvisi." },
+      { "name": "banda", "value": "animation-timeline: view(), scaleY delle colonne", "purpose": "Passaggio carta/inchiostro tra capitoli, colonne in ordine sparso." }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "48rem" },
+      { "name": "lg", "value": "64rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Pulsante principale",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Azione principale: inchiostro pieno, angoli vivi, freccia disegnata.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Vedi i progetti <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 5v14\"/><path d=\"m19 12-7 7-7-7\"/></svg></a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #0b0b0b; color: #ffffff; padding: 12px 20px; font: 500 0.875rem/1.2 Archivo, sans-serif; text-decoration: none; border-radius: 0; } .ds-btn-primary svg { transition: transform 0.3s; } .ds-btn-primary:hover svg { transform: translateY(2px); } .ds-btn-primary:focus-visible { outline: 2px solid #0b0b0b; outline-offset: 3px; }"
+    },
+    {
+      "name": "Pulsante a filo",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Azione secondaria: filo inchiostro che si riempie al passaggio.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Curriculum PDF</a>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; background: #ffffff; color: #0b0b0b; border: 1px solid #0b0b0b; padding: 12px 20px; font: 500 0.875rem/1.2 Archivo, sans-serif; text-decoration: none; border-radius: 0; transition: background 0.2s, color 0.2s; } .ds-btn-secondary:hover { background: #0b0b0b; color: #ffffff; } .ds-btn-secondary:focus-visible { outline: 2px solid #0b0b0b; outline-offset: 3px; }"
+    },
+    {
+      "name": "Riga a palette",
+      "kind": "custom",
+      "refersTo": "flap-tile",
+      "description": "Tabellone Solari: una casella per carattere, con la riga di taglio a metà.",
+      "html": "<span class=\"ds-flap\"><i>J</i><i>U</i><i>N</i><i>I</i><i>O</i><i>R</i><i> </i><i>D</i><i>E</i><i>V</i></span>",
+      "css": ".ds-flap { display: inline-flex; gap: 2px; font: 600 1.4rem/1 Archivo, sans-serif; font-variation-settings: 'wdth' 78; } .ds-flap i { position: relative; font-style: normal; min-width: 0.62em; text-align: center; padding: 0.08em 0.12em; background: #0b0b0b; color: #ffffff; } .ds-flap i::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgb(255 255 255 / 0.4); }"
+    },
+    {
+      "name": "Riga del tabellone",
+      "kind": "custom",
+      "description": "Una partenza: anno, progetto, tipo, squadra, stato; al passaggio si inverte.",
+      "html": "<div class=\"ds-board\"><div class=\"ds-board-row\"><span class=\"ds-mono\">2026</span><strong>TRIPIFY</strong><span>App Android</span><span class=\"ds-mono\">4 pers.</span><span class=\"ds-mono\">● Arrivato</span></div></div>",
+      "css": ".ds-board { background: #0b0b0b; color: #ffffff; border: 1px solid #0b0b0b; } .ds-board-row { display: grid; grid-template-columns: 4.5rem 1fr 9rem 5rem 7rem; gap: 16px; align-items: center; padding: 18px 20px; font: 400 0.875rem Archivo, sans-serif; transition: background 0.2s, color 0.2s; } .ds-board-row strong { font-weight: 600; letter-spacing: 0.08em; } .ds-board-row:hover { background: #ffffff; color: #0b0b0b; } .ds-mono { font-family: 'Geist Mono', monospace; font-size: 0.75rem; }"
+    },
+    {
+      "name": "Tecnologia",
+      "kind": "chip",
+      "refersTo": "chip-stack",
+      "description": "Voce dello stack: filo sottile, angoli vivi.",
+      "html": "<span class=\"ds-chip\">Spring Boot</span>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgb(11 11 11 / 0.2); padding: 4px 10px; font: 400 0.75rem Archivo, sans-serif; color: #0b0b0b; border-radius: 0; }"
+    },
+    {
+      "name": "Barra in alto",
+      "kind": "nav",
+      "description": "Barra in inversione di colore, leggibile su carta e su inchiostro.",
+      "html": "<nav class=\"ds-nav\"><strong>Matteo Iazzolino</strong><span>Progetti</span><span>Profilo</span><span>Percorso</span><span>Contatti</span><span class=\"ds-mono\">Cosenza 13:25:37</span></nav>",
+      "css": ".ds-nav { display: flex; gap: 28px; align-items: center; padding: 16px 20px; color: #ffffff; mix-blend-mode: difference; font: 400 0.875rem Archivo, sans-serif; } .ds-nav strong { font-weight: 600; margin-right: auto; font-variation-settings: 'wdth' 85; } .ds-nav span:hover { text-decoration: underline; text-underline-offset: 0.22em; } .ds-mono { font-family: 'Geist Mono', monospace; font-size: 0.75rem; }"
+    },
+    {
+      "name": "Riga di collegamento",
+      "kind": "custom",
+      "description": "Link dei contatti: riga a tutta colonna che si inverte al passaggio.",
+      "html": "<a class=\"ds-link-row\" href=\"#\"><span>GitHub</span><span class=\"ds-mono\">github.com/Matteoiazz ↗</span></a>",
+      "css": ".ds-link-row { display: flex; justify-content: space-between; align-items: center; padding: 20px 8px; border-bottom: 1px solid #0b0b0b; color: #0b0b0b; text-decoration: none; font: 600 1.5rem Archivo, sans-serif; letter-spacing: -0.02em; transition: background 0.2s, color 0.2s; } .ds-link-row:hover { background: #0b0b0b; color: #ffffff; } .ds-mono { font: 400 0.75rem 'Geist Mono', monospace; opacity: 0.6; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Lo specimen a griglia",
+    "overview": "Il sito è un foglio di prova tipografico, nella tradizione dei manifesti di Wim Crouwel: carta bianca, inchiostro nero e una griglia di costruzione a dodici colonne che resta visibile come parte del disegno. Il nome si compone cella per cella sulla griglia e risponde al puntatore allargandosi sugli assi della variabile; i capitoli si alternano bianchi e neri, e il passaggio avviene colonna per colonna. La firma secondaria è il tabellone a palette delle stazioni italiane (Solari): righe che girano carattere per carattere per il ruolo, i progetti, i numeri e il saluto finale.\n\nDensità editoriale: pochi elementi per schermata, molto spazio, scala tipografica estrema (dal corpo dati in mono a parole che riempiono la larghezza). Tutto il colore è assente per scelta: il contrasto lo fanno peso, larghezza e il ribaltamento dei capitoli. Le schermate dei progetti entrano in bianco e nero e tornano a colori solo al passaggio del mouse.\n\nRifiuti confermati: niente colori d'accento, niente portfolio scuro con card e luci al neon, niente estetica da terminale, niente copia dei siti di riferimento (darioelia.it, lorenzoiaccino.it) da cui il progetto prende solo ambizione e pulizia.",
+    "keyCharacteristics": [
+      "Griglia di costruzione a 12 colonne (4 sul telefono) disegnata in ogni capitolo.",
+      "Capitoli alternati carta/inchiostro, con bande di passaggio a colonne.",
+      "Archivio variabile su larghezza e peso per tutta la tipografia; Geist Mono solo per i dati.",
+      "Tabellone a palette come linguaggio dei dati che cambiano.",
+      "Angoli vivi, nessuna ombra, nessun colore."
+    ],
+    "rules": [
+      { "name": "The Due Inchiostri Rule", "body": "Esistono solo carta e inchiostro. Nessun accento, nessuna sfumatura colorata: un grigio esiste solo per far leggere un testo secondario.", "section": "colors" },
+      { "name": "The Capitolo Rovesciato Rule", "body": "Un capitolo è chiaro o scuro per intero (classi .chiaro / .scuro): i ruoli dei colori si scambiano a livello di capitolo, mai per singolo elemento.", "section": "colors" },
+      { "name": "The Mono Solo Dati Rule", "body": "Il monospazio compare solo su dati misurabili o codice. Una frase in mono è un costume: va in Archivio.", "section": "typography" },
+      { "name": "The Parola Che Riempie Rule", "body": "Una parola display si misura e si adatta alla larghezza del contenitore, con un tetto in vw perché le parole corte non diventino alte mezza pagina.", "section": "typography" },
+      { "name": "The Foglio Piatto Rule", "body": "Nessuna superficie è sollevata a riposo. Se un elemento deve staccarsi, si inverte di colore.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do alternare i capitoli carta e inchiostro e passare dall'uno all'altro con la banda a colonne.",
+      "Do allineare ogni contenuto alle 12 colonne della griglia disegnata (4 sul telefono).",
+      "Do usare il tabellone a palette per i dati che cambiano o che vanno letti come informazione di stato.",
+      "Do mostrare le schermate dei progetti in bianco e nero e ridare il colore solo al passaggio.",
+      "Do rispettare il movimento ridotto: niente ingresso, niente celle, binario in colonna, palette ferme."
+    ],
+    "donts": [
+      "Don't introdurre un colore d'accento o sfumature colorate.",
+      "Don't arrotondare gli angoli oltre 2px né aggiungere ombre alle superfici.",
+      "Don't mettere etichette o occhielli sopra i titoli: la posizione e il tipo vanno sotto il titolo o dentro la riga del titolo.",
+      "Don't scrivere frasi in monospazio.",
+      "Don't sbiadire testo leggibile per segnare uno stato: la voce attiva si segna in negativo."
+    ]
+  }
+}

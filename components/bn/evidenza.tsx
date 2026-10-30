@@ -80,7 +80,7 @@ export function Evidenza() {
               )}
             </p>
             {orizzontale ? (
-              <p className="dato mt-10 flex items-center gap-3 text-tenue">
+              <p className="mt-10 flex items-center gap-3 text-sm text-tenue">
                 <span className="h-px w-16 bg-riga-forte" />
                 {t("Scorri, le tavole passano di lato", "Scroll, the plates slide sideways")}
               </p>
@@ -116,18 +116,14 @@ export function Evidenza() {
 
                 <div className="col-span-4 flex flex-col justify-between gap-8 md:col-span-5">
                   <div>
-                    <p className="dato flex justify-between text-tenue">
-                      <span>
-                        {String(i + 1).padStart(2, "0")} / {String(inEvidenza.length).padStart(2, "0")}
-                      </span>
-                      <span>
-                        {t(p.kind, en.kind)} · {p.year}
-                      </span>
-                    </p>
-                    <h3 className="mt-6 text-[clamp(2.4rem,5vw,5rem)] font-extrabold leading-[0.9] tracking-[-0.03em] transition-[font-variation-settings] duration-500 [font-variation-settings:'wdth'_78] group-hover:[font-variation-settings:'wdth'_100]">
+                    <h3 className="text-[clamp(2.4rem,5vw,5rem)] font-extrabold leading-[0.9] tracking-[-0.03em] transition-[font-variation-settings] duration-500 [font-variation-settings:'wdth'_78] group-hover:[font-variation-settings:'wdth'_100]">
                       {p.title}
                     </h3>
                     <p className="mt-5 max-w-[42ch] text-pretty text-lg leading-snug">{t(p.tagline, en.tagline)}</p>
+                    {/* Posizione nella sequenza e tipo: sotto il titolo, mai sopra. */}
+                    <p className="dato mt-5 text-tenue">
+                      {String(i + 1).padStart(2, "0")} / {String(inEvidenza.length).padStart(2, "0")} · {t(p.kind, en.kind)} · {p.year}
+                    </p>
                   </div>
                   <div>
                     {caso ? (

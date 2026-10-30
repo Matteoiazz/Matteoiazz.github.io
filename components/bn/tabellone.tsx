@@ -230,13 +230,12 @@ function Scheda({ p, chiudi }: { p: Project; chiudi: () => void }) {
         <button type="button" onClick={chiudi} aria-label={t("Chiudi", "Close")} className="absolute right-4 top-4 grid size-10 place-items-center border border-inchiostro hover:bg-inchiostro hover:text-carta">
           <X className="size-4" />
         </button>
-        <p className="dato text-tenue">
-          {t(p.kind, en.kind)} · {p.year}
-        </p>
-        <h2 id="scheda-titolo" className="mt-3 pr-12 text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[0.95] tracking-[-0.03em] [font-variation-settings:'wdth'_82]">
+        <h2 id="scheda-titolo" className="pr-12 text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[0.95] tracking-[-0.03em] [font-variation-settings:'wdth'_82]">
           {p.title}
         </h2>
-        <p className="mt-3 text-sm text-tenue">{t(p.team, en.team)}</p>
+        <p className="mt-3 text-sm text-tenue">
+          {t(p.kind, en.kind)} · {p.year} — {t(p.team, en.team)}
+        </p>
         <p className="mt-6 text-pretty leading-relaxed">{t(p.description, en.tagline)}</p>
 
         <ul className="mt-6 flex flex-wrap gap-2">

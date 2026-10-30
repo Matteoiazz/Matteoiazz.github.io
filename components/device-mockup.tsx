@@ -22,7 +22,7 @@ export function DeviceMockup({
 }) {
   if (shot.frame === "phone") {
     return (
-      <div className="shot-phone relative overflow-hidden rounded-[1.6rem] border-[3px] border-neutral-700 bg-neutral-900 shadow-2xl shadow-black/60 ring-1 ring-white/10">
+      <div className="shot-phone relative overflow-hidden rounded-[1.6rem] border-[3px] border-neutral-700 bg-neutral-900 ring-1 ring-white/10">
         {/* capsula altoparlante */}
         <div className="absolute left-1/2 top-2 z-10 h-1.5 w-10 -translate-x-1/2 rounded-full bg-neutral-700/90" />
         <Image
@@ -37,7 +37,7 @@ export function DeviceMockup({
   }
 
   return (
-    <div className="shot-browser relative flex flex-col overflow-hidden rounded-xl border border-neutral-700/80 bg-neutral-900 shadow-2xl shadow-black/60 ring-1 ring-white/10">
+    <div className="shot-browser relative flex flex-col overflow-hidden rounded-[2px] border border-neutral-700/80 bg-neutral-900">
       <div className="flex h-7 shrink-0 items-center gap-1.5 border-b border-neutral-700/80 bg-neutral-800/90 px-3">
         <span className="size-2 rounded-full bg-neutral-600" />
         <span className="size-2 rounded-full bg-neutral-600" />

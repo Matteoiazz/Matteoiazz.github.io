@@ -42,20 +42,10 @@ export function Apertura() {
       <div className="contenitore relative z-10 pb-6">
         <Nome righe={["MATTEO", "IAZZOLINO"]} etichetta={profile.name} subito massimo={0.3} />
 
+        {/* L'azione principale in basso a sinistra, sotto l'inizio del nome:
+            l'occhio finisce la parola e la trova lì. */}
         <div className="mt-6 grid grid-cols-4 items-end gap-x-[var(--passo)] gap-y-5 border-t border-riga-forte pt-4 md:grid-cols-12">
-          <p className="dato col-span-2 md:col-span-3" suppressHydrationWarning>
-            39°18′N 16°15′E
-            <br />
-            Cosenza · {ora || "--:--:--"}
-          </p>
-          <p className="col-span-2 flex items-center gap-2 text-sm md:col-span-3">
-            <span aria-hidden className="relative flex size-2">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-inchiostro opacity-40 motion-reduce:hidden" />
-              <span className="relative inline-flex size-2 rounded-full bg-inchiostro" />
-            </span>
-            {t("Aperto a nuove opportunità", "Open to new opportunities")}
-          </p>
-          <div className="col-span-4 flex flex-wrap gap-3 md:col-span-6 md:justify-end">
+          <div className="col-span-4 flex flex-wrap gap-3 md:col-span-6">
             <a
               href="#progetti"
               data-cursore={t("Vai", "Go")}
@@ -72,6 +62,18 @@ export function Apertura() {
               {t("Curriculum PDF", "CV (PDF)")}
             </a>
           </div>
+          <p className="col-span-2 flex items-center gap-2 text-sm md:col-span-3">
+            <span aria-hidden className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-inchiostro opacity-40 motion-reduce:hidden" />
+              <span className="relative inline-flex size-2 rounded-full bg-inchiostro" />
+            </span>
+            {t("Aperto a nuove opportunità", "Open to new opportunities")}
+          </p>
+          <p className="dato col-span-2 text-right md:col-span-3" suppressHydrationWarning>
+            39°18′N 16°15′E
+            <br />
+            Cosenza · {ora || "--:--:--"}
+          </p>
         </div>
       </div>
     </section>
