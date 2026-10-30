@@ -78,7 +78,11 @@ input, textarea { caret-color: var(--testo); }
    barra, menu, scheda, cursore. Costa: il browser ridisegna ciò che c'è
    sotto a ogni movimento. */
 .vetro {
-  background: linear-gradient(135deg, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.04));
+  /* Base scura sotto il riflesso: il testo resta leggibile anche quando
+     passa dietro qualcosa di chiaro, come il cromo delle parole giganti. */
+  background:
+    linear-gradient(135deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.03)),
+    rgb(14 14 16 / 0.6);
   -webkit-backdrop-filter: blur(22px) saturate(160%);
   backdrop-filter: blur(22px) saturate(160%);
   border: 1px solid rgb(255 255 255 / 0.14);
