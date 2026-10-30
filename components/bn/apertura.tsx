@@ -28,7 +28,7 @@ export function Apertura() {
               ["Junior Full-Stack Developer", "Java · Spring Boot · Angular", "React · Kotlin · Python", "Verso l'AI · Magistrale UniCal"],
               ["Junior Full-Stack Developer", "Java · Spring Boot · Angular", "React · Kotlin · Python", "Heading to AI · MSc UniCal"],
             )}
-            className="text-[clamp(0.7rem,2.9vw,2rem)]"
+            className="text-[clamp(0.7rem,2.9vw,1.55rem)]"
           />
         </div>
         <p className="col-span-4 max-w-[36ch] text-pretty text-lg leading-snug md:col-span-4 md:col-start-9 md:text-xl">
