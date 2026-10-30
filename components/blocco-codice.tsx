@@ -1,3 +1,7 @@
+"use client"
+
+import { useState } from "react"
+import { Check, Copy } from "lucide-react"
 import type { Codice } from "@/lib/casi-studio"
 
 // Dove comincia il commento in una riga: "//" e "#" dopo uno spazio, oppure
@@ -12,28 +16,45 @@ function dividi(riga: string): [string, string] {
 }
 
 /**
- * Estratto di codice nello stile delle finestre del sito: barra con il file,
- * testo monocromo e commenti attenuati. Niente evidenziazione a colori: il
- * sito è in bianco e nero, e i commenti (in italiano) sono la parte da leggere.
+ * Estratto di codice su lastra nera: barra con il file, numeri di riga,
+ * commenti attenuati (sono la parte da leggere) e il pulsante per copiarlo.
  */
 export function BloccoCodice({ codice }: { codice: Codice }) {
   const righe = codice.righe.split("\n")
+  const [copiato, setCopiato] = useState(false)
+  const copia = async () => {
+    try {
+      await navigator.clipboard.writeText(codice.righe)
+      setCopiato(true)
+      setTimeout(() => setCopiato(false), 1800)
+    } catch {}
+  }
   return (
-    <figure className="overflow-hidden rounded-xl border border-[var(--hairline-strong)] bg-[color-mix(in_oklch,var(--foreground)_3%,var(--background))] shadow-2xl shadow-black/40">
-      <figcaption className="flex items-center gap-1.5 border-b border-[var(--hairline)] bg-neutral-900/70 px-4 py-2.5">
-        <span className="size-2 rounded-full bg-neutral-600" />
-        <span className="size-2 rounded-full bg-neutral-600" />
-        <span className="size-2 rounded-full bg-neutral-600" />
-        <span className="eyebrow ml-3 truncate text-[0.7rem]">{codice.file}</span>
+    <figure className="scuro overflow-hidden border border-inchiostro">
+      <figcaption className="flex items-center justify-between gap-4 border-b border-riga-forte px-4 py-2.5">
+        <span className="dato truncate text-tenue">{codice.file}</span>
+        <button
+          type="button"
+          onClick={copia}
+          className="dato flex shrink-0 items-center gap-1.5 text-tenue transition-colors hover:text-testo"
+        >
+          {copiato ? <Check aria-hidden className="size-3.5" /> : <Copy aria-hidden className="size-3.5" />}
+          {copiato ? "Copiato" : "Copia"}
+        </button>
       </figcaption>
-      <pre className="overflow-x-auto px-4 py-4 font-mono text-[0.78rem] leading-[1.7] sm:px-5 sm:text-[0.8rem]">
+      <pre className="overflow-x-auto py-4 font-mono text-[0.78rem] leading-[1.7] sm:text-[0.8rem]">
         <code>
           {righe.map((riga, i) => {
             const [codiceRiga, commento] = dividi(riga)
             return (
-              <span key={i} className="block min-h-[1.7em]">
-                <span className="text-foreground/85">{codiceRiga}</span>
-                {commento ? <span className="text-muted-foreground/60">{commento}</span> : null}
+              <span key={i} className="flex min-h-[1.7em]">
+                <span aria-hidden className="w-10 shrink-0 select-none pr-4 text-right text-tenue/50">
+                  {i + 1}
+                </span>
+                <span className="pr-5">
+                  <span>{codiceRiga}</span>
+                  {commento ? <span className="text-tenue">{commento}</span> : null}
+                </span>
               </span>
             )
           })}

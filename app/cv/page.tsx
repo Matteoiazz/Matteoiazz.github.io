@@ -61,7 +61,7 @@ export default function Curriculum() {
         </a>
       </div>
 
-      <article className="glass-flat glass-edge fade-up mx-auto mt-6 max-w-4xl overflow-hidden rounded-2xl px-6 py-9 sm:px-12 sm:py-12">
+      <article className="glass-flat mx-auto mt-6 max-w-4xl overflow-hidden px-6 py-9 sm:px-12 sm:py-12">
         <header>
           <p className="eyebrow uppercase">Curriculum vitae</p>
           <h1 className="title-fade mt-4 text-[clamp(2.4rem,7vw,4rem)] font-semibold leading-[0.95] tracking-[-0.04em]">

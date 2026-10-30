@@ -1,24 +1,23 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Archivo, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import { AmbientBackground } from '@/components/ambient-background'
-import { Cursor } from '@/components/cursor'
-import { Luce } from '@/components/luce'
-import { ScrollProgress } from '@/components/scroll-progress'
+import { Cursore } from '@/components/bn/cursore'
+import { Lingua } from '@/components/bn/lingua'
+import { Comandi } from '@/components/bn/comandi'
+import { Segreti } from '@/components/bn/segreti'
 
-const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
+// Archivo variabile con l'asse della larghezza: il nome si allarga e si
+// stringe sotto il puntatore. Geist Mono solo per dati: ore, anni, conteggi.
+const archivo = Archivo({ subsets: ['latin'], axes: ['wdth'], variable: '--font-archivo' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
 const descrizione =
-  'Portfolio di Matteo Iazzolino, junior full-stack developer e studente di Informatica all’Università della Calabria. Progetti web, mobile e architetture enterprise.'
+  'Portfolio di Matteo Iazzolino, junior full-stack developer e studente di Informatica all’Università della Calabria, verso la magistrale in AI. Progetti web, mobile, desktop e microservizi.'
 
 export const metadata: Metadata = {
-  // Serve a rendere assoluti gli URL delle anteprime: senza, i link condivisi
-  // su WhatsApp o LinkedIn non mostrano l'immagine.
   metadataBase: new URL('https://matteoiazz.vercel.app'),
   title: 'Matteo Iazzolino — Junior Full-Stack Developer',
   description: descrizione,
-  // Monogramma "MI": prima c'era ancora il logo del template v0.
   icons: {
     icon: [
       { url: '/icon.svg', type: 'image/svg+xml' },
@@ -42,8 +41,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'dark',
-  themeColor: '#0f0f0f',
+  colorScheme: 'light',
+  themeColor: '#ffffff',
 }
 
 export default function RootLayout({
@@ -52,16 +51,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="it"
-      className={`dark scroll-smooth bg-background ${geistSans.variable} ${geistMono.variable}`}
-    >
-      <body className="antialiased font-sans">
-        <AmbientBackground />
-        <ScrollProgress />
-        {children}
-        <Cursor />
-        <Luce />
+    <html lang="it" className={`${archivo.variable} ${geistMono.variable}`}>
+      <body className="antialiased">
+        <Lingua>
+          {children}
+          <Comandi />
+        </Lingua>
+        <Cursore />
+        <Segreti />
       </body>
     </html>
   )
