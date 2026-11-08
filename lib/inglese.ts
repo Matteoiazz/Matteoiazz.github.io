@@ -3,43 +3,50 @@
 // Le chiavi sono gli slug dei progetti e i ruoli del percorso.
 // -----------------------------------------------------------------------------
 
-export const progettiEn: Record<string, { kind: string; team: string; tagline: string }> = {
+export const progettiEn: Record<string, { kind: string; team: string; squadra: string; tagline: string }> = {
   tripify: {
     kind: "Android app",
     team: "Team of four · Enterprise Architecture, UniCal · I built catalogue and itineraries, backend and app",
+    squadra: "Team of 4",
     tagline:
       "A travel platform of microservices for flights, hotels and activities. I built the catalogue and itineraries, from the Spring Boot services to the Android app.",
   },
   tesi: {
     kind: "Desktop app · Thesis",
     team: "Bachelor's thesis in Computer Science · UniCal · solo project",
+    squadra: "Solo",
     tagline:
       "A desktop app a lecturer uses to prepare programming exams for Moodle: tasks, solutions verified against tests, an export ready to import.",
   },
   goldenstay: {
     kind: "Web app",
     team: "Pair project · Web Application course, UniCal",
+    squadra: "Pair",
     tagline:
       "Bookings for a seaside resort in Tropea: search by dates, rooms and suites, payment and back office.",
   },
   moneymind: {
     kind: "Web app",
     team: "Team of four, my contribution full-stack",
+    squadra: "Team of 4",
     tagline: "Personal finance and investing: shared wallets, budgets, transactions and markets.",
   },
   "muscle-fitness": {
     kind: "Site and members area",
     team: "Personal project",
+    squadra: "Personal",
     tagline: "A site for a smart gym with a members area: memberships, QR badge and medical certificates.",
   },
   wavely: {
     kind: "Desktop app",
     team: "Exam project for three · refactored by me in 2026",
+    squadra: "Team of 3, rebuilt by me",
     tagline: "A JavaFX desktop music player: playlists, artists, equaliser and themes.",
   },
   "alghe-4d": {
     kind: "Desktop app · R&D",
     team: "Team of eight · Research and Development Methodologies, UniCal master's · for the Physics Department · just started",
+    squadra: "Team of 8",
     tagline:
       "A Python desktop app for a physics lab: it opens microscope acquisitions up to 8 GB, shows them in 3D over time and tracks the algae.",
   },

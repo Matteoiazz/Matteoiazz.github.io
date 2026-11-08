@@ -2,8 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react"
 import { contact, projects } from "@/lib/portfolio-data"
-import { useLingua } from "@/components/bn/lingua"
-import { avvisa, copia } from "@/components/bn/comuni"
+import { useLingua } from "@/components/foglio/lingua"
+import { avvisa, copia } from "@/components/foglio/comuni"
 
 type Comando = { id: string; testo: string; gruppo: string; scorciatoia?: string; fai: () => void }
 
@@ -16,11 +16,9 @@ const vai = (destinazione: string) => {
 }
 
 /**
- * Menu dei comandi (Ctrl+K o ⌘K, oppure "Menu" in alto): sezioni, casi di
- * studio, email, curriculum, lingua. Si filtra scrivendo e si usa da
- * tastiera. È anche il menu del telefono.
- *
- * Qui vivono anche gli avvisi in basso, che chiunque apre con avvisa().
+ * Menu dei comandi (Ctrl+K o ⌘K, oppure "Menu" in alto): sezioni, progetti,
+ * email, curriculum, lingua. Si filtra scrivendo e si usa da tastiera; sul
+ * telefono è il menu. Qui vivono anche gli avvisi in basso, aperti con avvisa().
  */
 export function Comandi() {
   const { t, cambia } = useLingua()
@@ -33,17 +31,16 @@ export function Comandi() {
   const comandi: Comando[] = useMemo(
     () => [
       { id: "progetti", gruppo: t("Vai a", "Go to"), testo: t("Progetti", "Work"), fai: () => vai("#progetti") },
-      { id: "profilo", gruppo: t("Vai a", "Go to"), testo: t("Profilo e competenze", "Profile and skills"), fai: () => vai("#profilo") },
+      { id: "chi-sono", gruppo: t("Vai a", "Go to"), testo: t("Chi sono", "About"), fai: () => vai("#chi-sono") },
+      { id: "stack", gruppo: t("Vai a", "Go to"), testo: "Stack", fai: () => vai("#stack") },
       { id: "percorso", gruppo: t("Vai a", "Go to"), testo: t("Percorso", "Path"), fai: () => vai("#percorso") },
       { id: "contatti", gruppo: t("Vai a", "Go to"), testo: t("Contatti", "Contact"), fai: () => vai("#contatti") },
-      ...projects
-        .filter((p) => p.casoStudio)
-        .map((p) => ({
-          id: `caso-${p.slug}`,
-          gruppo: t("Casi di studio", "Case studies"),
-          testo: p.title,
-          fai: () => vai(`/progetti/${p.slug}/`),
-        })),
+      ...projects.map((p) => ({
+        id: `progetto-${p.slug}`,
+        gruppo: t("Progetti", "Projects"),
+        testo: p.casoStudio ? `${p.title} · ${t("caso di studio", "case study")}` : p.title,
+        fai: () => vai(`/progetti/${p.slug}/`),
+      })),
       {
         id: "email",
         gruppo: t("Azioni", "Actions"),
@@ -51,8 +48,8 @@ export function Comandi() {
         scorciatoia: "E",
         fai: async () => avvisa((await copia(contact.email)) ? t("Email copiata", "Email copied") : contact.email),
       },
-      { id: "cv", gruppo: t("Azioni", "Actions"), testo: t("Scarica il curriculum (PDF)", "Download CV (PDF)"), fai: () => vai("/Matteo_Iazzolino_CV.pdf") },
-      { id: "cvpagina", gruppo: t("Azioni", "Actions"), testo: t("Curriculum in pagina", "CV page"), fai: () => vai("/cv/") },
+      { id: "cv", gruppo: t("Azioni", "Actions"), testo: t("Scarica il curriculum (PDF)", "Download résumé (PDF)"), fai: () => vai("/Matteo_Iazzolino_CV.pdf") },
+      { id: "cvpagina", gruppo: t("Azioni", "Actions"), testo: t("Curriculum in pagina", "Résumé page"), fai: () => vai("/cv/") },
       { id: "lingua", gruppo: t("Azioni", "Actions"), testo: t("Switch to English", "Passa all'italiano"), scorciatoia: "L", fai: () => cambia() },
       {
         id: "griglia",
@@ -118,9 +115,9 @@ export function Comandi() {
         ref={dialogo}
         aria-label={t("Menu dei comandi", "Command menu")}
         onClick={(e) => e.target === e.currentTarget && e.currentTarget.close()}
-        className="scheda stretta"
+        className="menu-comandi"
       >
-        <div className="flex items-center gap-3 border-b border-riga-forte px-5 py-4">
+        <div className="flex items-center gap-3 border-b border-riga px-5 py-4">
           <input
             ref={campo}
             value={filtro}
@@ -140,55 +137,47 @@ export function Comandi() {
                 esegui(visibili[scelto])
               }
             }}
-            placeholder={t("Cerca un comando o un progetto…", "Search a command or a project…")}
-            aria-label={t("Cerca un comando", "Search a command")}
-            className="w-full bg-transparent text-lg outline-none placeholder:text-tenue"
+            placeholder={t("Cerca una sezione, un progetto, un'azione…", "Search a section, a project, an action…")}
+            aria-label={t("Cerca nel menu", "Search the menu")}
+            className="w-full bg-transparent text-lg outline-none placeholder:text-grigio"
           />
-          <kbd className="dato shrink-0 border border-riga-forte px-1.5 py-0.5 text-tenue">Esc</kbd>
+          <kbd className="shrink-0 rounded-md px-1.5 py-0.5 font-sans text-xs text-grigio shadow-[inset_0_0_0_1px_var(--riga-forte)]">Esc</kbd>
         </div>
-        <ul role="listbox" className="max-h-[55vh] overflow-y-auto py-2">
+        <ul role="listbox" aria-label={t("Comandi", "Commands")} className="max-h-[56vh] overflow-y-auto py-2">
           {visibili.length === 0 ? (
-            <li className="px-5 py-6 text-tenue">{t("Nessun comando con queste parole.", "No command matches.")}</li>
+            <li className="px-5 py-6 text-grigio">{t("Niente con queste parole. Prova con «progetti» o «email».", "Nothing matches. Try “work” or “email”.")}</li>
           ) : null}
           {visibili.map((c, i) => {
             const intestazione = c.gruppo !== gruppoPrima
             gruppoPrima = c.gruppo
             return (
               <li key={c.id} role="option" aria-selected={i === scelto}>
-                {intestazione ? <p className="dato px-5 pb-1 pt-3 uppercase text-tenue">{c.gruppo}</p> : null}
+                {intestazione ? <p className="px-5 pb-1 pt-3 text-xs font-medium text-grigio">{c.gruppo}</p> : null}
                 <button
                   type="button"
                   onPointerEnter={() => setScelto(i)}
                   onClick={() => esegui(c)}
-                  className={`flex w-full items-center justify-between px-5 py-2.5 text-left ${
-                    i === scelto ? "bg-white/10" : ""
-                  }`}
+                  className={`flex w-full items-center justify-between px-5 py-2.5 text-left transition-colors ${i === scelto ? "bg-palco" : ""}`}
                 >
                   {c.testo}
-                  {c.scorciatoia ? <kbd className="dato opacity-60">{c.scorciatoia}</kbd> : null}
+                  {c.scorciatoia ? <kbd className="font-sans text-xs text-grigio">{c.scorciatoia}</kbd> : null}
                 </button>
               </li>
             )
           })}
         </ul>
-        <p className="dato flex flex-wrap gap-x-4 gap-y-1 border-t border-riga-forte px-5 py-3 text-tenue">
+        <p className="flex flex-wrap gap-x-4 gap-y-1 border-t border-riga px-5 py-3 text-xs text-grigio">
           <span>↑ ↓ {t("scegli", "move")}</span>
-          <span>Invio {t("apri", "open")}</span>
-          <span>E {t("copia email", "copy email")}</span>
+          <span>{t("Invio apre", "Enter opens")}</span>
+          <span>E {t("copia l'email", "copies the email")}</span>
           <span>L {t("lingua", "language")}</span>
-          <span>G {t("griglia", "grid")}</span>
         </p>
       </dialog>
 
       {avviso ? (
-        <div
-          key={avviso.n}
-          role="status"
-          className="pointer-events-none fixed bottom-6 left-1/2 z-[80] -translate-x-1/2 overflow-hidden"
-          data-no-stampa
-        >
+        <div key={avviso.n} role="status" className="pointer-events-none fixed bottom-6 left-1/2 z-[80] -translate-x-1/2" data-no-stampa>
           <p
-            className="vetro rounded-full px-5 py-3 text-sm text-testo"
+            className="rounded-full bg-[#0a0a0a] px-5 py-3 text-sm font-medium text-white shadow-[0_12px_30px_-12px_rgb(0_0_0/0.5)]"
             style={{ animation: "avviso 2.6s cubic-bezier(0.16, 1, 0.3, 1) both" }}
           >
             {avviso.testo}

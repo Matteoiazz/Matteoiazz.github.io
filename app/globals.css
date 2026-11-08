@@ -1,329 +1,279 @@
 @import 'tailwindcss';
 
 /* ============================================================
-   VETRO SCURO
-   Fondo quasi nero, il fiore cromato come protagonista, superfici di vetro
-   liquido che raccolgono la luce del cursore. Nessun colore: il cromo e il
-   vetro fanno tutto il lavoro. Le chicche del portfolio (tabellone a
-   palette, binario orizzontale, Ctrl+K...) vivono dentro questo mondo.
+   FOGLIO BIANCO
+   Una pagina bianca e pulita: un solo carattere (Mona Sans), l'inchiostro e
+   un grigio come seconda voce di ogni titolo, filetti sottili, molto spazio.
+   Il lavoro sta davanti, già nella prima schermata; il fiore è l'unico
+   oggetto; la pagina chiude in nero con il nome a tutta larghezza.
    ============================================================ */
 
 @theme inline {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-archivo), var(--font-geist-sans), ui-sans-serif, sans-serif;
+  --font-sans: var(--font-mona), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-  --color-fondo: var(--fondo);
-  --color-testo: var(--testo);
-  --color-tenue: var(--tenue);
+  --color-carta: var(--carta);
+  --color-inchiostro: var(--inchiostro);
+  --color-grigio: var(--grigio);
   --color-riga: var(--riga);
   --color-riga-forte: var(--riga-forte);
-  --color-carta: #f4f4f5;
-  --color-inchiostro: #0b0b0c;
+  --color-palco: var(--palco);
+  /* Alias per la pagina /cv, scritta con i nomi di shadcn. */
+  --color-foreground: var(--inchiostro);
+  --color-background: var(--carta);
+  --color-muted-foreground: var(--grigio);
 }
 
 :root {
-  --fondo: #0b0b0c;
-  --testo: #f4f4f5;
-  --tenue: #a1a1a1;
-  --riga: rgb(255 255 255 / 0.08);
-  --riga-forte: rgb(255 255 255 / 0.18);
-  --lati: max(1.25rem, 4vw);
-  --colonne: 4;
+  --carta: #ffffff;
+  --inchiostro: #0a0a0a;
+  --grigio: #737373;
+  --riga: #e8e8e8;
+  --riga-forte: #cfcfcf;
+  --palco: #f4f4f4;
+  --lati: clamp(1.125rem, 3.4vw, 3.5rem);
   --passo: 1.25rem;
-  color-scheme: dark;
+  --uscita: cubic-bezier(0.16, 1, 0.3, 1);
+  --hairline: var(--riga);
+  --hairline-strong: var(--riga-forte);
+  color-scheme: light;
 }
 @media (width >= 48rem) {
-  :root { --colonne: 12; --passo: 1.5rem; }
+  :root { --passo: 1.5rem; }
 }
 
-/* I capitoli restano tutti sul fondo scuro: le classi dei capitoli
-   sopravvivono solo come aggancio, il ritmo lo danno vetro e nebbia. */
-.scuro, .chiaro { background-color: var(--fondo); color: var(--testo); }
+/* Il capitolo nero: stessi nomi, valori rovesciati. Testo, grigio, filetti e
+   pulsanti che ci stanno dentro si girano da soli. */
+.notte {
+  --carta: #0a0a0a;
+  --inchiostro: #f5f5f5;
+  --grigio: #8c8c8c;
+  --riga: rgb(255 255 255 / 0.13);
+  --riga-forte: rgb(255 255 255 / 0.3);
+  --palco: #161616;
+  background: var(--carta);
+  color: var(--inchiostro);
+  color-scheme: dark;
+}
 
 html {
-  background: var(--fondo);
-  color: var(--testo);
+  background: var(--carta);
+  color: var(--inchiostro);
   scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
   -webkit-text-size-adjust: 100%;
 }
 body {
   font-family: var(--font-sans);
-  background: var(--fondo);
-  color: var(--testo);
+  font-size: 1rem;
+  line-height: 1.6;
+  background: var(--carta);
+  color: var(--inchiostro);
 }
 
-/* Superfici del browser nel linguaggio del sito. */
-::selection { background: var(--testo); color: var(--fondo); }
-:focus-visible { outline: 2px solid var(--testo); outline-offset: 3px; }
-* { scrollbar-width: thin; scrollbar-color: rgb(255 255 255 / 0.22) transparent; }
-a { text-underline-offset: 0.22em; text-decoration-thickness: 1px; }
-input, textarea { caret-color: var(--testo); }
+/* Le parti del browser parlano la stessa lingua della pagina. */
+::selection { background: var(--inchiostro); color: var(--carta); }
+:focus-visible { outline: 2px solid var(--inchiostro); outline-offset: 3px; }
+* { scrollbar-width: thin; scrollbar-color: var(--riga-forte) transparent; }
+a { text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+input, textarea { caret-color: var(--inchiostro); }
+.cifre { font-variant-numeric: tabular-nums; }
 
 @utility contenitore {
   width: 100%;
+  max-width: 104rem;
   margin-inline: auto;
   padding-inline: var(--lati);
 }
 
-/* Riga di dati in mono: ore, anni, conteggi, file. */
-.dato {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.02em;
-  font-variant-numeric: tabular-nums;
+/* ---------- Tipografia ---------- */
+/* Ogni titolo ha due voci: l'inchiostro dice cosa, il grigio aggiunge il resto. */
+.titolo-1 {
+  font-size: clamp(2.5rem, 1.2rem + 4.2vw, 4.75rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
 }
+.titolo-2 {
+  font-size: clamp(2.1rem, 1.3rem + 2.8vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.032em;
+  text-wrap: balance;
+}
+.titolo-3 {
+  font-size: clamp(1.3rem, 1rem + 0.9vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+}
+.lead {
+  font-size: clamp(1.125rem, 0.95rem + 0.55vw, 1.4rem);
+  line-height: 1.5;
+  letter-spacing: -0.012em;
+  text-wrap: pretty;
+}
+.seconda { color: var(--grigio); }
 
-/* ---------- Vetro ---------- */
-/* Vetro vero (backdrop-filter): solo per ciò che galleggia ed è piccolo,
-   barra, menu, scheda, cursore. Costa: il browser ridisegna ciò che c'è
-   sotto a ogni movimento. */
-.vetro {
-  /* Base scura sotto il riflesso: il testo resta leggibile anche quando
-     passa dietro qualcosa di chiaro, come il cromo delle parole giganti. */
-  background:
-    linear-gradient(135deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.03)),
-    rgb(14 14 16 / 0.6);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
-  backdrop-filter: blur(22px) saturate(160%);
-  border: 1px solid rgb(255 255 255 / 0.14);
-  box-shadow:
-    inset 0 1px 0 0 rgb(255 255 255 / 0.3),
-    inset 0 -1px 0 0 rgb(255 255 255 / 0.05),
-    0 12px 40px -12px rgb(0 0 0 / 0.65);
+/* ---------- Pulsanti e link ---------- */
+.pillola {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
-/* Vetro piatto per le superfici grandi e numerose: stessa resa senza
-   sfocare lo sfondo, che sul nero non si noterebbe. La luce del cursore
-   (components/luce.tsx scrive --mx/--my) lo attraversa. */
-.vetro-piatto {
-  position: relative;
-  --mx: -1000px;
-  --my: -1000px;
-  background:
-    radial-gradient(520px circle at var(--mx) var(--my), rgb(255 255 255 / 0.07), transparent 45%),
-    linear-gradient(135deg, #1a1a1c, #111113);
-  border: 1px solid rgb(255 255 255 / 0.1);
-  box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.16), 0 18px 50px -24px rgb(0 0 0 / 0.8);
-}
-@media (hover: hover) and (pointer: fine) {
-  .vetro-piatto::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    pointer-events: none;
-    background: radial-gradient(240px circle at var(--mx) var(--my), rgb(255 255 255 / 0.55), transparent 65%);
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.35s ease;
-  }
-  .vetro-piatto:hover::after { opacity: 1; }
-}
-/* Pulsanti a pillola di vetro. */
-.pillola-vetro {
-  background: linear-gradient(135deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.05));
-  border: 1px solid rgb(255 255 255 / 0.16);
-  box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.3);
-  transition: background 0.25s ease, border-color 0.25s ease;
-}
-.pillola-vetro:hover { background: rgb(255 255 255 / 0.18); border-color: rgb(255 255 255 / 0.3); }
+.pillola > svg { width: 1rem; height: 1rem; flex: none; transition: transform 0.4s var(--uscita); }
+.pillola:hover > svg { transform: translateX(2px); }
+.pillola[data-verso="su"]:hover > svg { transform: translate(2px, -2px); }
+.pillola[data-verso="giu"]:hover > svg { transform: translateY(2px); }
+.pillola-piena { background: var(--inchiostro); color: var(--carta); }
+.pillola-piena:hover { background: color-mix(in srgb, var(--inchiostro) 80%, var(--carta)); }
+.pillola-filo { box-shadow: inset 0 0 0 1px var(--riga-forte); color: var(--inchiostro); }
+.pillola-filo:hover { box-shadow: inset 0 0 0 1px var(--inchiostro); }
 
-/* ---------- Cromo ---------- */
-/* Lo stesso materiale del fiore: chiaro in alto, una banda scura a metà,
-   il riflesso in basso. Usato solo sulle parole giganti dei capitoli. */
-.cromo {
-  background-image: linear-gradient(180deg, #ffffff 0%, #dcdcdc 36%, #6b6b6b 50%, #232325 62%, #8d8d8f 80%, #ededed 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Sottolineatura che si disegna da sinistra al passaggio. */
+.traccia {
+  background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 1px;
+  transition: background-size 0.5s var(--uscita);
 }
+.traccia:hover, .group:hover .traccia, .traccia:focus-visible { background-size: 100% 1px; }
 
-/* ---------- La griglia di costruzione ---------- */
-/* Nascosta: compare solo in modalità progettista (codice Konami). */
-.griglia {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  display: none;
-  grid-template-columns: repeat(var(--colonne), 1fr);
-  column-gap: var(--passo);
-  padding-inline: var(--lati);
-  z-index: 0;
-}
-.griglia > span { border-inline: 1px solid rgb(255 255 255 / 0.14); background: rgb(255 255 255 / 0.02); }
-html.progettista .griglia { display: grid; }
-html.progettista main *:not(svg *) { outline: 1px dashed rgb(255 255 255 / 0.18); }
+/* ---------- Schermate ---------- */
+/* Le cornici si adattano al riquadro che le contiene senza mai uscirne. */
+.palco-schermo { container-type: size; }
+.schermo-finestra { width: min(100cqw, calc((100cqh - 1.5rem) * 1.6)); }
+.schermo-telefono { height: 100cqh; aspect-ratio: 9 / 19.5; }
 
-/* ---------- Il nome che emerge dal vetro ---------- */
-/* Ogni lettera sale da una sfocatura, come dietro un vetro appannato che si
-   schiarisce. Aspetta: la prima schermata la fine dell'ingresso, le altre
-   parole di entrare in vista. */
-.lettera {
-  display: inline-block;
-  font-variation-settings: "wdth" var(--w, 100), "wght" var(--p, 800);
-  transition: font-variation-settings 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.nome .lettera > .vista {
-  display: inline-block;
-  opacity: 0;
-  filter: blur(18px);
-  transform: translateY(0.12em) scale(1.04);
-}
-html.pronto .nome-subito .lettera > .vista,
-.nome-visto .lettera > .vista {
-  animation: lettera-emerge 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: calc(var(--d, 0) * 1ms);
-}
-@keyframes lettera-emerge {
-  from { opacity: 0; filter: blur(18px); transform: translateY(0.12em) scale(1.04); }
-  to   { opacity: 1; filter: blur(0); transform: none; }
-}
-
-/* ---------- Tabellone a palette (Solari) ---------- */
-.paletta {
-  display: inline-block;
-  position: relative;
-  min-width: 0.62em;
-  text-align: center;
-  perspective: 400px;
-}
-.paletta.gira { animation: paletta-giro 0.09s linear; }
-@keyframes paletta-giro {
-  0%   { transform: rotateX(0); }
-  50%  { transform: rotateX(-90deg); }
-  100% { transform: rotateX(0); }
-}
-
-/* ---------- Nebbia: il vetro che si appanna ai bordi dello schermo ---------- */
-/* Tre lastre sovrapposte con sfocature crescenti e maschere a gradino:
-   il contenuto che sale sotto la barra si appanna per gradi, come dietro
-   un vetro smerigliato. Stessa cosa, più lieve, in basso. */
-.nebbia { position: fixed; inset-inline: 0; pointer-events: none; z-index: 40; }
-.nebbia > i { position: absolute; inset: 0; }
-.nebbia-su { top: 0; height: 28vh; }
-.nebbia-giu { bottom: 0; height: 14vh; }
-.nebbia-su > i:nth-child(1) { backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); mask-image: linear-gradient(to bottom, #000 30%, transparent); -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent); }
-.nebbia-su > i:nth-child(2) { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); mask-image: linear-gradient(to bottom, #000 15%, transparent 65%); -webkit-mask-image: linear-gradient(to bottom, #000 15%, transparent 65%); }
-.nebbia-su > i:nth-child(3) { backdrop-filter: blur(22px) saturate(140%); -webkit-backdrop-filter: blur(22px) saturate(140%); mask-image: linear-gradient(to bottom, #000, transparent 45%); -webkit-mask-image: linear-gradient(to bottom, #000, transparent 45%); background: linear-gradient(to bottom, rgb(11 11 12 / 0.5), rgb(255 255 255 / 0.025) 35%, transparent 60%); }
-.nebbia-giu > i:nth-child(1) { backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); mask-image: linear-gradient(to top, #000 30%, transparent); -webkit-mask-image: linear-gradient(to top, #000 30%, transparent); }
-.nebbia-giu > i:nth-child(2) { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); mask-image: linear-gradient(to top, #000, transparent 55%); -webkit-mask-image: linear-gradient(to top, #000, transparent 55%); background: linear-gradient(to top, rgb(11 11 12 / 0.4), transparent 60%); }
-
-/* ---------- Manifesto che si accende ---------- */
-@keyframes accesa { from { opacity: 0.14; } to { opacity: 1; } }
-
-/* ---------- Marquee ---------- */
-.nastro { display: flex; width: max-content; will-change: transform; }
-
-/* ---------- Animazioni legate allo scorrimento ---------- */
-@supports (animation-timeline: view()) {
-  .manifesto { view-timeline-name: --manifesto; }
-  .manifesto > span {
-    animation: accesa linear both;
-    animation-timeline: --manifesto;
-    animation-range:
-      cover calc(18% + var(--i) / var(--n) * 30%)
-      cover calc(24% + var(--i) / var(--n) * 30%);
-  }
-  /* Ciò che esce dall'alto si appanna anche da sé, oltre alla nebbia. */
-  .appanna {
-    animation: appanna linear both;
-    animation-timeline: view();
-    animation-range: exit 30% exit 100%;
+/* In casa le schermate sono in bianco e nero e si colorano al passaggio;
+   sui telefoni si sviluppano da sole quando arrivano al centro. */
+.monocromo img { filter: grayscale(1) contrast(1.04); transition: filter 0.7s ease; }
+.group:hover .monocromo img, .group:focus-visible .monocromo img { filter: none; }
+@media (hover: none) {
+  @supports (animation-timeline: view()) {
+    .monocromo img {
+      animation: sviluppa linear both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 50%;
+    }
   }
 }
-@keyframes appanna {
-  from { filter: blur(0); opacity: 1; }
-  to   { filter: blur(10px); opacity: 0.35; }
+@keyframes sviluppa {
+  from { filter: grayscale(1) contrast(1.04); }
+  to { filter: none; }
 }
 
-/* ---------- Cornici delle schermate (components/device-mockup.tsx) ---------- */
-.shot-stage { container-type: size; }
-.shot-browser { width: min(100cqw, calc((100cqh - 1.75rem) * 1.6)); }
-.shot-phone { height: 100cqh; aspect-ratio: 9 / 19.5; }
+/* ---------- L'apertura: un solo momento ---------- */
+@keyframes sale { from { opacity: 0; transform: translateY(0.4em); filter: blur(8px); } }
+.sale { animation: sale 1.1s var(--uscita) both; animation-delay: calc(var(--i, 0) * 85ms + 60ms); }
+@keyframes compare { from { opacity: 0; transform: translateY(1.5rem); } }
+.compare { animation: compare 1.2s var(--uscita) both; animation-delay: calc(var(--i, 0) * 90ms + 420ms); }
+@keyframes fiorisce { from { opacity: 0; transform: scale(0.9) rotate(-10deg); filter: blur(12px); } }
+.fiorisce { animation: fiorisce 1.8s var(--uscita) 0.15s both; }
 
-/* Schermate in bianco e nero che tornano a colori al passaggio. */
-.monocromo img { filter: grayscale(1) contrast(1.05); transition: filter 0.6s ease; }
-.group:hover .monocromo img, .group:focus-within .monocromo img, .monocromo:hover img { filter: none; }
+/* Il fiore gira piano mentre si scende. */
+@supports (animation-timeline: scroll()) {
+  .fiore-gira {
+    animation: gira linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 110vh;
+  }
+}
+@keyframes gira { to { transform: rotate(32deg) translateY(-8%) scale(0.92); } }
 
-/* ---------- Scheda di dettaglio e menu: vetro sopra la pagina ---------- */
-.scheda {
-  margin: auto;
-  width: min(72rem, calc(100vw - 1rem));
+/* ---------- Indice dei progetti ---------- */
+.titolo-largo {
+  font-variation-settings: 'wdth' 100;
+  transition: font-variation-settings 0.6s var(--uscita), color 0.3s ease;
+}
+@media (hover: hover) {
+  .indice:has(.riga-progetto:hover) .riga-progetto:not(:hover) .titolo-largo { color: var(--grigio); }
+  .riga-progetto:hover .titolo-largo { font-variation-settings: 'wdth' 118; }
+}
+
+/* ---------- Stack ---------- */
+.tecnologia, .voce-progetto { transition: color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease; }
+
+/* ---------- Avvisi e menu dei comandi ---------- */
+@keyframes avviso {
+  0% { opacity: 0; transform: translateY(12px); }
+  12%, 82% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(-4px); }
+}
+.menu-comandi {
+  margin: 12vh auto auto;
+  width: min(36rem, calc(100vw - 2rem));
   max-width: none;
-  max-height: calc(100svh - 1rem);
+  max-height: calc(100svh - 14vh);
   padding: 0;
-  border-radius: 22px;
-  border: 1px solid rgb(255 255 255 / 0.14);
-  background: rgb(20 20 22 / 0.72);
-  -webkit-backdrop-filter: blur(26px) saturate(160%);
-  backdrop-filter: blur(26px) saturate(160%);
-  box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.22), 0 40px 120px -20px rgb(0 0 0 / 0.85);
-  color: var(--testo);
+  border: 0;
+  border-radius: 16px;
+  background: var(--carta);
+  color: var(--inchiostro);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.06), 0 40px 90px -30px rgb(0 0 0 / 0.4);
   overflow: hidden;
 }
-.scheda::backdrop { background: rgb(0 0 0 / 0.45); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
-.scheda[open] { animation: scheda-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
-@keyframes scheda-in {
-  from { opacity: 0; transform: translateY(16px) scale(0.98); filter: blur(8px); }
-  to   { opacity: 1; transform: none; filter: blur(0); }
-}
-html.scheda-aperta { overflow: hidden; }
-/* Il menu dei comandi: una lastra più stretta, in alto come Spotlight. */
-.scheda.stretta { width: min(36rem, calc(100vw - 1.5rem)); margin-top: 12vh; }
+.menu-comandi::backdrop { background: rgb(10 10 10 / 0.3); }
+.menu-comandi[open] { animation: apre 0.4s var(--uscita); }
+@keyframes apre { from { opacity: 0; transform: translateY(10px) scale(0.98); } }
 
-/* ---------- Cursore: una lente di vetro ---------- */
-.lente {
-  -webkit-backdrop-filter: blur(1.5px) brightness(1.35) contrast(1.1);
-  backdrop-filter: blur(1.5px) brightness(1.35) contrast(1.1);
-  border: 1px solid rgb(255 255 255 / 0.55);
-  box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.5), 0 6px 18px -6px rgb(0 0 0 / 0.6);
-  transition: scale 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+/* ---------- Lettura dei casi di studio ---------- */
+.lettura { display: none; }
+@supports (animation-timeline: scroll()) {
+  .lettura {
+    display: block;
+    transform-origin: 0 50%;
+    animation: lettura linear both;
+    animation-timeline: scroll(root);
+  }
 }
+@keyframes lettura { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
-/* ---------- Avviso (email copiata) ---------- */
-@keyframes avviso {
-  0% { transform: translateY(120%); }
-  12%, 85% { transform: none; }
-  100% { transform: translateY(120%); }
+/* ---------- Transizioni tra le pagine ---------- */
+/* La copertina di un progetto passa dalla casa alla sua pagina come un solo oggetto. */
+::view-transition-group(.passaggio) {
+  animation-duration: 620ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
+::view-transition-image-pair(.passaggio) { animation-name: via-sfocata; }
+@keyframes via-sfocata { 35% { filter: blur(3px); } }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 280ms; }
 
+/* ---------- Modalità progettista (codice Konami) ---------- */
+.griglia-progettista { display: none; }
+html.progettista .griglia-progettista {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+}
+html.progettista .griglia-progettista > div { height: 100%; }
+html.progettista .griglia-progettista span { background: rgb(10 10 10 / 0.035); box-shadow: inset 1px 0 0 rgb(10 10 10 / 0.08), inset -1px 0 0 rgb(10 10 10 / 0.08); }
+html.progettista main * { outline: 1px dashed rgb(10 10 10 / 0.1); outline-offset: -1px; }
+
+/* ---------- Movimento ridotto ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .manifesto > span, .paletta.gira, .scheda[open], .appanna { animation: none !important; }
-  .nome .lettera > .vista { animation: none !important; opacity: 1 !important; filter: none !important; transform: none !important; }
-  .lettera { transition: none; }
-  .manifesto > span { opacity: 1 !important; }
-  .nebbia { display: none; }
+  html { scroll-behavior: auto; }
+  .sale, .compare, .fiorisce, .fiore-gira { animation: none !important; }
+  .titolo-largo, .traccia, .pillola > svg { transition: none; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
 
-/* ---------- Stampa: esce pulita come un curriculum ---------- */
+/* ---------- Stampa (pagina /cv) ---------- */
 @media print {
-  .griglia, .nebbia, [data-no-stampa] { display: none !important; }
-  :root, .scuro, .chiaro { --fondo: #fff; --testo: #000; --tenue: #444; }
-  html, body { background: #fff; color: #000; }
-  .cromo { color: #000; background: none; }
-  body { font-size: 11pt; }
-  section { break-inside: avoid-page; }
+  [data-no-stampa], .griglia-progettista { display: none !important; }
+  html, body { background: #ffffff; color: #0a0a0a; }
 }
 
-/* ============================================================
-   Classi dei siti precedenti usate dalla pagina del curriculum e da
-   componenti non più montati: tradotte nel vetro scuro.
-   ============================================================ */
-@theme inline {
-  --color-foreground: var(--testo);
-  --color-background: var(--fondo);
-  --color-muted-foreground: var(--tenue);
-}
-:root { --hairline: var(--riga); --hairline-strong: var(--riga-forte); }
-.eyebrow { font-family: var(--font-mono); font-size: 0.75rem; color: var(--tenue); }
-.hairline { height: 1px; background: var(--riga-forte); }
-.title-fade { color: var(--testo); }
-.glass-flat {
-  position: relative;
-  background: linear-gradient(135deg, #1a1a1c, #111113);
-  border: 1px solid rgb(255 255 255 / 0.1);
-  box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.16);
-}
-.glass, .glass-dyn { border: 1px solid rgb(255 255 255 / 0.16); background: rgb(255 255 255 / 0.06); }
+/* ---------- Pagina /cv: vecchi nomi ---------- */
+.eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; color: var(--grigio); }
+.hairline { height: 1px; background: var(--riga); }
+.title-fade { color: var(--inchiostro); }

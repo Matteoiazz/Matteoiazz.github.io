@@ -1,21 +1,19 @@
 import type { Metadata, Viewport } from 'next'
-import { Archivo, Geist, Geist_Mono } from 'next/font/google'
+import { Geist_Mono, Mona_Sans } from 'next/font/google'
 import './globals.css'
-import { Cursore } from '@/components/bn/cursore'
-import { Lingua } from '@/components/bn/lingua'
-import { Comandi } from '@/components/bn/comandi'
-import { Segreti } from '@/components/bn/segreti'
-import { Luce } from '@/components/luce'
+import { Lingua } from '@/components/foglio/lingua'
+import { Segreti } from '@/components/foglio/segreti'
+import { Comandi } from '@/components/foglio/comandi'
+import { Etichetta } from '@/components/foglio/etichetta'
 
-// Archivo variabile (larghezza e peso) per i nomi giganti e i titoli: le
-// lettere si allargano sotto il puntatore. Geist per il testo, come nel
-// primo sito; Geist Mono solo per i dati.
-const archivo = Archivo({ subsets: ['latin'], axes: ['wdth'], variable: '--font-archivo' })
-const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
+// Un solo carattere per tutto il sito: Mona Sans, quello di GitHub, dove vive
+// il codice dei progetti. Variabile anche in larghezza: serve al nome in fondo
+// e ai titoli dell'indice. Geist Mono resta solo per il codice.
+const mona = Mona_Sans({ subsets: ['latin'], axes: ['wdth'], variable: '--font-mona', display: 'swap' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
 const descrizione =
-  'Portfolio di Matteo Iazzolino, junior full-stack developer e studente di Informatica all’Università della Calabria, verso la magistrale in AI. Progetti web, mobile, desktop e microservizi.'
+  'Portfolio di Matteo Iazzolino, junior full-stack developer e studente di Informatica all’Università della Calabria, con la magistrale in AI. Progetti web, mobile, desktop e microservizi, con il codice vero.'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://matteoiazz.vercel.app'),
@@ -44,8 +42,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'dark',
-  themeColor: '#0b0b0c',
+  colorScheme: 'light',
+  themeColor: '#ffffff',
 }
 
 export default function RootLayout({
@@ -54,15 +52,22 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="it" className={`${archivo.variable} ${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="it" className={`${mona.variable} ${geistMono.variable}`}>
       <body className="antialiased">
         <Lingua>
           {children}
           <Comandi />
         </Lingua>
-        <Cursore />
-        <Luce />
+        <Etichetta />
         <Segreti />
+        {/* Modalità progettista (codice Konami o tasto G): la griglia a 12 colonne. */}
+        <div className="griglia-progettista" aria-hidden>
+          <div className="contenitore grid h-full grid-cols-4 gap-x-[var(--passo)] md:grid-cols-12">
+            {Array.from({ length: 12 }, (_, i) => (
+              <span key={i} className={i >= 4 ? 'hidden md:block' : ''} />
+            ))}
+          </div>
+        </div>
       </body>
     </html>
   )

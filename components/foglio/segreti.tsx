@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
-import { avvisa } from "@/components/bn/comuni"
+import { avvisa } from "@/components/foglio/comuni"
 
 const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"]
 

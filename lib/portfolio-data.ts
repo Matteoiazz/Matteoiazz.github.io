@@ -38,6 +38,8 @@ export type Project = {
   /** Tipo di progetto, mostrato sulla copertina della card. */
   kind: string
   team: string
+  /** Chi l'ha fatto, in breve: per l'indice dei progetti. */
+  squadra: string
   /** Una o due righe: è il testo della card nella home. */
   tagline: string
   /** Descrizione completa, nella scheda che si apre cliccando la card. */
@@ -69,6 +71,7 @@ export const projects: Project[] = [
     // itinerari, sia i due microservizi sia i moduli dell'app Android
     // (DOCUMENTAZIONE-TECNICA-CATALOG-ITINERARY.md nel repository).
     team: "Progetto di gruppo in quattro · Enterprise Architecture, UniCal · miei catalogo e itinerari, backend e app",
+    squadra: "Team di 4",
     tagline:
       "Piattaforma di viaggi a microservizi per voli, hotel e attività. Ho costruito catalogo e itinerari, dai servizi Spring Boot all'app Android.",
     description:
@@ -119,6 +122,7 @@ export const projects: Project[] = [
     year: "2026",
     kind: "App desktop · Tesi",
     team: "Tesi di laurea triennale in Informatica · UniCal · progetto individuale",
+    squadra: "Individuale",
     tagline:
       "App desktop con cui il docente prepara gli esami di programmazione per Moodle: tracce, soluzioni verificate sui test ed export pronto da importare.",
     description:
@@ -170,6 +174,7 @@ export const projects: Project[] = [
     year: "2026",
     kind: "Web app",
     team: "Progetto in coppia · corso di Web Application, UniCal",
+    squadra: "In coppia",
     tagline:
       "Prenotazioni per un resort sul mare di Tropea: ricerca per date, camere e suite, pagamento e back office.",
     description:
@@ -230,6 +235,7 @@ export const projects: Project[] = [
     year: "2026",
     kind: "Web app",
     team: "Progetto di gruppo · 4 persone, mio contributo full-stack",
+    squadra: "Team di 4",
     tagline: "Finanze personali e investimenti: wallet condivisi, budget, movimenti e mercati.",
     description:
       "Piattaforma web per gestire le finanze personali e seguire gli investimenti. Entrate e uscite sono organizzate in wallet, anche condivisi con altre persone tramite invito o codice, con budget e trasferimenti tra wallet; la dashboard riassume saldo e andamento con i grafici. Nella sezione mercati si consultano azioni, ETF e crypto, il grafico di ogni titolo e le notizie finanziarie, e si simulano operazioni sul proprio portafoglio.",
@@ -282,6 +288,7 @@ export const projects: Project[] = [
     year: "2026",
     kind: "Sito e area soci",
     team: "Progetto personale",
+    squadra: "Personale",
     tagline: "Sito per una palestra smart con area soci: abbonamenti, badge QR e certificati medici.",
     description:
       "Sito per la palestra A.S.D. Muscle & Fitness di Spezzano Piccolo, con un'area riservata ai soci e un pannello di amministrazione. Dalla home si scoprono discipline, attrezzature e abbonamenti e si acquista il piano dal checkout, con pagamento simulato. Il socio ritrova nella dashboard il badge QR per entrare, lo stato dell'abbonamento, il certificato medico e lo storico delle attività: l'ingresso è consentito solo con un accesso valido e un certificato approvato. L'amministratore gestisce gli iscritti, approva o rifiuta i certificati e consulta le statistiche.",
@@ -335,6 +342,7 @@ export const projects: Project[] = [
     year: "2025",
     kind: "App desktop",
     team: "Progetto d'esame in tre · rifattorizzato da me nel 2026",
+    squadra: "Team di 3, rifatto da me",
     tagline: "Lettore musicale desktop in JavaFX: playlist, artisti, equalizzatore e temi.",
     description:
       "Applicazione desktop per ascoltare e organizzare musica, nata come progetto d'esame in un gruppo di tre e poi rifattorizzata interamente da me. Dopo l'accesso si esplorano brani e artisti, si creano playlist e preferiti, si cerca nel catalogo e si personalizzano profilo e tema; il player gestisce la coda e riprende l'ascolto da dove era stato interrotto.",
@@ -389,6 +397,7 @@ export const projects: Project[] = [
     year: "2026",
     kind: "App desktop · R&D",
     team: "Progetto di gruppo in otto · Research and Development Methodologies, magistrale UniCal · per il Dipartimento di Fisica · appena iniziato",
+    squadra: "Team di 8",
     tagline:
       "App desktop in Python per un laboratorio di fisica: apre acquisizioni al microscopio fino a 8 GB, le mostra in 3D nel tempo e traccia le alghe.",
     description:

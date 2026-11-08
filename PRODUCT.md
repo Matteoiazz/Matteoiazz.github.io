@@ -32,8 +32,9 @@ Il sito si apre da link nel CV, su LinkedIn e nelle candidature, su desktop e su
 ## Brand Commitments
 
 - Bianco e nero, senza colori particolari; sezioni chiare e scure che possono alternarsi (richiesta esplicita).
-- Riferimenti indicati dall'utente: darioelia.it e lorenzoiaccino.it (da cui prendere spirito e ambizione, non la copia: Dario è un compagno di progetto e i due siti mostrano gli stessi lavori).
-- Prima schermata: il nome come protagonista, con tipografia viva.
+- Riferimento scelto dall'utente (novembre 2026): la pulizia e il concept di lorenzoiaccino.it (pagina bianca, un solo carattere, titoli a due toni, molto spazio, progetti mostrati in modo semplice, pagine progetto editoriali), rivisitati e resi suoi, mai copiati: Lorenzo e Dario sono compagni di corso e i siti vengono visti dalle stesse persone.
+- Direzioni già scartate, da non riproporre: vetro liquido e vetro scuro con cromo, specimen in bianco e nero a griglia con tabellone a palette (troppo vicino a darioelia.it).
+- Il nome apre la frase della prima schermata e chiude la pagina a tutta larghezza.
 - Ruolo pubblico: "Junior Full-Stack Developer", come sul curriculum.
 
 ## Evidence on Hand

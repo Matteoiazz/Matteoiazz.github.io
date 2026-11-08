@@ -1,229 +1,317 @@
 ---
 name: Matteo Iazzolino — Portfolio
-description: Vetro scuro e cromo, con il fiore davanti al nome e le chicche del tabellone a palette.
+description: Un foglio bianco con un solo carattere, una voce grigia, il fiore come unico oggetto e una chiusura in nero.
 colors:
-  notte: "#0b0b0c"
-  latte: "#f4f4f5"
-  fumo: "#a1a1a1"
-  lastra-alta: "#1a1a1c"
-  lastra-bassa: "#111113"
-  palco: "#121214"
-  riga: "rgb(255 255 255 / 0.08)"
-  riga-forte: "rgb(255 255 255 / 0.18)"
-  vetro-luce: "rgb(255 255 255 / 0.12)"
-  vetro-ombra: "rgb(255 255 255 / 0.04)"
+  carta: "#ffffff"
+  inchiostro: "#0a0a0a"
+  grigio: "#737373"
+  riga: "#e8e8e8"
+  riga-forte: "#cfcfcf"
+  palco: "#f4f4f4"
+  latte: "#f5f5f5"
+  grigio-notte: "#8c8c8c"
+  riga-notte: "rgb(255 255 255 / 0.13)"
+  riga-forte-notte: "rgb(255 255 255 / 0.3)"
+  pillola-hover: "#3b3b3b"
 typography:
-  display:
-    fontFamily: "Archivo, Geist, ui-sans-serif, sans-serif"
-    fontSize: "adattata alla larghezza, fino a 30vw"
-    fontWeight: 760
-    lineHeight: 0.84
-    letterSpacing: "-0.025em"
-    fontVariation: "'wdth' 92"
+  display-nome:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "adattata alla larghezza del contenitore (circa 9vw)"
+    fontWeight: 600
+    lineHeight: 0.8
+    letterSpacing: "-0.02em"
+    fontVariation: "'wdth' 100 a riposo, da 82 a 125 sotto il puntatore"
+  display-progetto:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2.75rem, 1rem + 6vw, 6rem)"
+    fontWeight: 500
+    lineHeight: 0.98
+    letterSpacing: "-0.04em"
   headline:
-    fontFamily: "Archivo, Geist, ui-sans-serif, sans-serif"
-    fontSize: "clamp(2.6rem, 7vw, 7rem)"
-    fontWeight: 800
-    lineHeight: 0.88
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2.5rem, 1.2rem + 4.2vw, 4.75rem)"
+    fontWeight: 500
+    lineHeight: 1.02
     letterSpacing: "-0.035em"
-    fontVariation: "'wdth' 80"
   title:
-    fontFamily: "Archivo, Geist, ui-sans-serif, sans-serif"
-    fontSize: "clamp(1.5rem, 2.6vw, 2.25rem)"
-    fontWeight: 700
-    lineHeight: 1.05
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2.1rem, 1.3rem + 2.8vw, 3.5rem)"
+    fontWeight: 500
+    lineHeight: 1.04
+    letterSpacing: "-0.032em"
+  subtitle:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.3rem, 1rem + 0.9vw, 1.75rem)"
+    fontWeight: 500
+    lineHeight: 1.12
+    letterSpacing: "-0.022em"
+  voce-indice:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.3rem, 0.9rem + 0.9vw, 1.65rem)"
+    fontWeight: 500
+    lineHeight: 1.25
+    letterSpacing: "-0.022em"
+    fontVariation: "'wdth' 100, 112 sotto il puntatore"
+  email:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.3rem, 0.9rem + 1.7vw, 2.25rem)"
+    fontWeight: 500
     letterSpacing: "-0.02em"
   lead:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(1.3rem, 2.3vw, 1.9rem)"
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.125rem, 0.95rem + 0.55vw, 1.4rem)"
+    fontWeight: 400
+    lineHeight: 1.5
+    letterSpacing: "-0.012em"
+  voce:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1.15rem"
     fontWeight: 500
-    lineHeight: 1.3
+    letterSpacing: "-0.01em"
+  numero:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1.25rem"
+    fontWeight: 500
+    lineHeight: 1
     letterSpacing: "-0.015em"
-  body:
-    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontFeature: "'tnum'"
+  body-largo:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
     fontSize: "1.05rem"
     fontWeight: 400
     lineHeight: 1.625
-  label:
-    fontFamily: "Geist Mono, ui-monospace, monospace"
-    fontSize: "0.75rem"
+  body:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1rem"
     fontWeight: 400
-    letterSpacing: "0.02em"
-    fontFeature: "'tnum'"
-  flap:
-    fontFamily: "Archivo, ui-sans-serif, sans-serif"
-    fontWeight: 600
-    fontVariation: "'wdth' 78"
+    lineHeight: 1.6
+  scheda:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.95rem"
+    fontWeight: 400
+    lineHeight: 1.5
+  controllo:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 500
+    lineHeight: 1
+  navigazione:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.9rem"
+    fontWeight: 400
+  controllo-piccolo:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.85rem"
+    fontWeight: 500
+  meta:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 400
+    lineHeight: 1.45
+  codice:
+    fontFamily: "Geist Mono, ui-monospace, monospace"
+    fontSize: "0.8rem"
+    fontWeight: 400
+    lineHeight: 1.7
+  etichetta:
+    fontFamily: "Mona Sans, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.75rem"
+    fontWeight: 500
 rounded:
-  tessera: "3px"
-  cornice: "12px"
-  codice: "18px"
-  lastra: "22px"
-  palco: "26px"
   pillola: "9999px"
+  menu: "16px"
+  palco: "14px"
+  blocco: "12px"
+  finestra: "10px"
+  miniatura: "6px"
+  telefono: "1.35rem"
 spacing:
-  lati: "max(1.25rem, 4vw)"
+  lati: "clamp(1.125rem, 3.4vw, 3.5rem)"
   passo: "1.25rem"
   passo-largo: "1.5rem"
-  capitolo: "6rem"
-  capitolo-largo: "8rem"
+  capitolo: "7rem"
+  capitolo-largo: "10rem"
+  contenitore: "104rem"
 components:
   button-primary:
-    backgroundColor: "{colors.latte}"
-    textColor: "{colors.notte}"
+    backgroundColor: "{colors.inchiostro}"
+    textColor: "{colors.carta}"
+    typography: "{typography.controllo}"
     rounded: "{rounded.pillola}"
-    padding: "12px 20px"
-  button-glass:
-    backgroundColor: "{colors.vetro-luce}"
-    textColor: "{colors.latte}"
+    padding: "0.65rem 1.25rem"
+    height: "2.75rem"
+  button-primary-hover:
+    backgroundColor: "{colors.pillola-hover}"
+    textColor: "{colors.carta}"
+  button-filo:
+    textColor: "{colors.inchiostro}"
+    typography: "{typography.controllo}"
     rounded: "{rounded.pillola}"
-    padding: "12px 20px"
-  flap-tile:
-    backgroundColor: "{colors.vetro-luce}"
-    textColor: "{colors.latte}"
-    typography: "{typography.flap}"
-    rounded: "{rounded.tessera}"
-    padding: "0.08em 0.12em"
-  glass-card:
-    backgroundColor: "{colors.lastra-alta}"
-    textColor: "{colors.latte}"
-    rounded: "{rounded.lastra}"
-  chip-stack:
-    textColor: "{colors.latte}"
+    padding: "0.65rem 1.25rem"
+    height: "2.75rem"
+  chip-tecnologia:
+    textColor: "{colors.inchiostro}"
     rounded: "{rounded.pillola}"
-    padding: "4px 10px"
+    padding: "0.375rem 0.75rem 0.375rem 0.625rem"
+  chip-tecnologia-accesa:
+    backgroundColor: "{colors.inchiostro}"
+    textColor: "{colors.carta}"
+    rounded: "{rounded.pillola}"
+  palco:
+    backgroundColor: "{colors.palco}"
+    rounded: "{rounded.palco}"
+  barra:
+    backgroundColor: "{colors.carta}"
+    textColor: "{colors.inchiostro}"
+    height: "4rem"
+  riga-indice:
+    textColor: "{colors.inchiostro}"
+    typography: "{typography.voce-indice}"
+    padding: "1.75rem 0"
+  etichetta-cursore:
+    backgroundColor: "{colors.inchiostro}"
+    textColor: "{colors.carta}"
+    typography: "{typography.etichetta}"
+    rounded: "{rounded.pillola}"
+    padding: "0.375rem 0.75rem"
 ---
 
 # Design System: Matteo Iazzolino — Portfolio
 
 ## Overview
 
-**Creative North Star: "Il fiore sotto vetro"**
+**Creative North Star: "Il foglio bianco"**
 
-Una notte quasi nera, un solo oggetto, il fiore cromato, e tutto il resto come vetro che lo circonda. È il mondo del primo sito portato al massimo: il fiore, ritagliato con la sua stessa alfa, sta davanti al nome gigante come il soggetto davanti alla testata di una rivista; le superfici che galleggiano (la capsula in alto, il menu, la scheda, il cursore) sono vetro liquido che sfoca e illumina ciò che sta sotto; le parole dei capitoli sono nello stesso cromo del fiore. Ai bordi dello schermo il vetro si appanna: il contenuto che sale sotto la barra si sfoca per gradi.
+Una pagina bianca tenuta come un buon curriculum stampato: un solo carattere, l'inchiostro e una sola voce grigia, filetti sottili, molto spazio tra un capitolo e l'altro. La pulizia viene dalla rinuncia: niente vetro, niente cromo sul testo, niente colori. Ogni titolo parla a due voci, l'inchiostro dice cosa, il grigio aggiunge il resto, ed è questa la firma tipografica del sito.
 
-Densità editoriale e impatto: pochi elementi per schermata, scala estrema tra le parole giganti e i dati in mono. Nessun colore: il cromo e il vetro bastano. Le chicche (tabellone a palette, binario orizzontale, Ctrl+K, contatore, matrice, contachilometri) vivono dentro questo materiale: le caselle del tabellone sono tessere di vetro, il menu è uno Spotlight di vetro.
+Il lavoro sta davanti: già nella prima schermata le schermate vere dei progetti si affacciano sotto la frase che apre con il nome. Il fiore cromato, ritagliato con la sua alfa e appoggiato sul bianco, è l'unico oggetto della pagina e l'unico segno personale. Il movimento è poco e scritto una volta: la frase che sale dalla sfocatura all'arrivo, l'anteprima che segue il puntatore nell'indice, la copertina che passa dalla casa alla pagina del progetto. In fondo la pagina si rovescia in nero e chiude con il nome a tutta larghezza.
 
-Rifiuti confermati: niente fondo bianco con capitoli neri e griglia visibile (il linguaggio del sito di riferimento), niente colori d'accento, niente estetica da terminale.
+Rifiuti confermati: vetro liquido e vetro scuro con cromo, tabellone a palette e griglia a vista dello specimen in bianco e nero, etichette numerate sopra le sezioni, prezzi da freelance.
 
 **Key Characteristics:**
-- Fondo notte unico; il ritmo lo danno il fiore, il vetro e la nebbia ai bordi.
-- Il fiore ritagliato davanti al nome, che emerge da una sfocatura e si allarga sotto il puntatore.
-- Vetro vero solo su ciò che galleggia; vetro piatto con la luce del cursore su card e tabelloni.
-- Cromo solo sulle parole giganti dei capitoli e sulla firma finale.
-- Pillole per le azioni, lastre arrotondate per i contenitori.
+- Fondo bianco unico, con un solo capitolo nero in chiusura.
+- Titoli a due voci: inchiostro e un grigio, mai un terzo tono.
+- Mona Sans per tutto; l'asse della larghezza solo sotto il puntatore.
+- Le schermate vere come immagini, in bianco e nero in casa e a colori al passaggio.
+- Il fiore come unico oggetto; nessuna illustrazione decorativa.
 
 ## Colors
 
-Una notte, un latte e i grigi del vetro: niente tinte.
+Inchiostro su carta, una voce grigia e i grigi chiarissimi dei filetti e dei palchi: niente tinte.
 
 ### Primary
-- **Latte** (latte): testo principale, pulsante principale a pillola, la riga del tabellone sotto il puntatore, il blocco della propria parte negli schemi.
+- **Inchiostro** (inchiostro): tutto il testo principale, il pulsante pieno, la tecnologia accesa nello stack, i blocchi della propria parte negli schemi, la riga di lettura dei casi di studio, il fondo del capitolo nero.
 
 ### Neutral
-- **Notte** (notte): il fondo di tutta la pagina e il testo sui pulsanti chiari.
-- **Fumo** (fumo): testo secondario sulla notte (contrasto circa 7.5:1).
-- **Lastra alta e lastra bassa** (lastra-alta, lastra-bassa): le due estremità del gradiente del vetro piatto.
-- **Palco** (palco): il fondo dietro le schermate e nelle anteprime.
-- **Riga e riga forte** (riga, riga-forte): filetti e separatori.
-- **Vetro luce e vetro ombra** (vetro-luce, vetro-ombra): il gradiente del vetro vero e delle pillole di vetro.
+- **Carta** (carta): il fondo della pagina, il testo sui pulsanti pieni e sulle etichette nere.
+- **Grigio** (grigio): la seconda voce di ogni titolo, i dati secondari (tipo, squadra, anno), le didascalie; contrasto 4.7:1 sul bianco.
+- **Riga e riga forte** (riga, riga-forte): i filetti tra le righe di indice, tabelle e percorso; il filo dei pulsanti e delle chip.
+- **Palco** (palco): il grigio chiarissimo dietro ogni schermata e dietro i blocchi di codice.
+- **Latte, grigio notte, righe notte** (latte, grigio-notte, riga-notte, riga-forte-notte): gli stessi ruoli dentro il capitolo nero, dove testo e filetti si rovesciano; grigio notte a 5.9:1 sul nero.
 
 ### Named Rules
-**The Una Notte Rule.** Esiste un solo fondo. Le sezioni non si alternano di colore: si separano con lo spazio, il vetro e la nebbia.
+**The Una Voce Grigia Rule.** Esiste un solo grigio per il testo. Dove serve distinguere, si cambia peso, corpo o posizione, non si aggiunge un altro tono.
 
-**The Niente Tinta Rule.** Nessun colore d'accento. La luce è bianca: nel cromo, nei riflessi del vetro, nella luce del cursore.
+**The Un Solo Capitolo Nero Rule.** Il nero pieno è riservato alla chiusura (contatti e nome). Il resto della pagina è carta; un secondo capitolo nero toglierebbe peso al finale.
+
+**The Lavoro In Bianco E Nero Rule.** In casa le schermate dei progetti sono in scala di grigi e prendono colore al passaggio del mouse (sui telefoni quando arrivano al centro dello schermo). Nelle pagine dei progetti sono sempre a colori: lì il colore è il progetto.
 
 ## Typography
 
-**Display Font:** Archivo variabile, assi larghezza e peso (con fallback Geist)
-**Body Font:** Geist (con fallback ui-sans-serif, system-ui)
-**Label/Mono Font:** Geist Mono
+**Display Font:** Mona Sans variabile, assi larghezza e peso (con fallback ui-sans-serif, system-ui)
+**Body Font:** Mona Sans
+**Label/Mono Font:** Geist Mono, solo dentro i blocchi di codice
 
-**Character:** Archivo dà l'impatto e l'effetto vivo (le lettere si allargano e si appesantiscono sotto il puntatore); Geist, il carattere del primo sito, tiene il testo pulito e leggibile. Il mono resta ai dati.
+**Character:** Un grottesco unico, quello di GitHub, dove vive il codice dei progetti: pulito e professionale a riposo, espressivo solo quando l'asse della larghezza entra in gioco sotto il puntatore.
 
 ### Hierarchy
-- **Display** (760→900, adattato alla larghezza con un tetto tra 20 e 30vw, interlinea 0.84): il nome in apertura (latte), le parole dei capitoli (cromo), i titoli dei casi di studio (cromo).
-- **Headline** (800, clamp(2.6rem, 7vw, 7rem), 0.88, larghezza 80): titoli di sezione e dei progetti.
-- **Title** (700, clamp(1.5rem, 2.6vw, 2.25rem), 1.05): voci del percorso, titoli delle schede.
-- **Lead** (Geist 500, clamp(1.3rem, 2.3vw, 1.9rem), 1.3): manifesto e riassunti.
-- **Body** (Geist 400, 1.05rem, 1.625, massimo 65ch): descrizioni e capitoli.
-- **Label** (Geist Mono 400, 0.75rem, 0.02em, cifre tabellari): ore, anni, conteggi, file.
+- **Display nome** (600, adattato alla larghezza del contenitore, interlinea 0.8): il nome in maiuscolo a tutta larghezza nel capitolo nero.
+- **Display progetto** (500, clamp(2.75rem, 1rem + 6vw, 6rem), 0.98): il titolo in testa alla pagina di un progetto.
+- **Headline** (500, clamp(2.5rem, 1.2rem + 4.2vw, 4.75rem), 1.02): la frase d'apertura a due voci, l'invito della chiusura, il titolo del progetto successivo.
+- **Title** (500, clamp(2.1rem, 1.3rem + 2.8vw, 3.5rem), 1.04): i titoli di capitolo a due voci (Progetti, Chi sono, Stack, Percorso) e quelli dei capitoli dei casi di studio.
+- **Subtitle** (500, clamp(1.3rem, 1rem + 0.9vw, 1.75rem), 1.12): le voci del percorso.
+- **Voce indice** (500, clamp(1.3rem, 0.9rem + 0.9vw, 1.65rem)): i titoli dell'indice dei progetti, che si allargano sotto il puntatore.
+- **Lead** (400, clamp(1.125rem, 0.95rem + 0.55vw, 1.4rem), 1.5): presentazioni e riassunti, massimo 46 caratteri per riga in apertura.
+- **Body** (400, 1rem e 1.05rem, 1.6): descrizioni e capitoli, massimo 65 caratteri per riga.
+- **Meta, navigazione e controlli** (0.875rem, 0.9rem, 0.9375rem): dati secondari, voci della barra, testo dei pulsanti.
+- **Codice** (Geist Mono 400, 0.8rem, 1.7): solo gli estratti dai repository.
 
 ### Named Rules
-**The Cromo Dei Capitoli Rule.** Il cromo è il materiale del fiore e compare sulle lettere solo nelle parole giganti dei capitoli, nei titoli dei casi di studio e nella firma finale. Mai su testo corrente, numeri o pulsanti. È l'unico testo a gradiente del sito, ed è voluto.
+**The Due Voci Rule.** Ogni titolo di capitolo è una frase in due parti: la parola in inchiostro, il resto in grigio. Niente occhielli o numeri sopra il titolo: il titolo basta.
 
-**The Mono Solo Dati Rule.** Il monospazio compare solo su dati misurabili o codice. Una frase in mono è un costume.
+**The Larghezza Che Si Guadagna Rule.** L'asse della larghezza si muove solo come risposta al puntatore (titoli dell'indice, nome finale). A riposo tutto sta a larghezza 100.
+
+**The Mono Solo Codice Rule.** Il monospazio compare solo dentro i blocchi di codice. Anni, ore e numeri usano le cifre tabellari di Mona Sans.
 
 ## Layout
 
-Contenitore a tutta larghezza con margini laterali max(1.25rem, 4vw); 12 colonne con spazio di 1.5rem (4 colonne e 1.25rem sotto i 48rem). La griglia non si vede: compare solo in modalità progettista (codice Konami). Capitoli con 6rem di respiro verticale (8rem da 48rem). In apertura il fiore è ancorato al blocco del nome, non allo schermo: su desktop al centro destra sopra le due righe, sul telefono sopra il nome con i petali bassi sulla cima di MATTEO. I progetti in evidenza scorrono su un binario orizzontale bloccato; sotto i 48rem o con il movimento ridotto diventano una colonna. La nebbia occupa il 28% alto e il 14% basso dello schermo.
+Contenitore largo fino a 104rem, centrato, con margini laterali clamp(1.125rem, 3.4vw, 3.5rem). Griglia di 12 colonne da 48rem in su (4 sotto), con spazio di 1.5rem (1.25rem sotto i 48rem). I capitoli respirano 7rem sopra (10rem da 48rem), sempre più spazio sopra un titolo che sotto. I titoli di capitolo occupano le prime otto colonne; la frase di servizio sta a destra, allineata alla base del titolo.
+
+In apertura la frase occupa circa otto colonne e il fiore galleggia a destra solo da 80rem in su; sotto quella misura il fiore scende sotto i pulsanti, piccolo. Le tre copertine principali si affacciano prima della piega, con larghezze diverse (3, 5 e 4 colonne): stretto per i telefoni, largo per le finestre. Sotto i 48rem tutto diventa una colonna e le righe dell'indice mostrano una miniatura al posto delle colonne di dati.
 
 ## Elevation & Depth
 
-Profondità a strati, come vetro sopra la notte. Il vetro vero (sfocatura di ciò che sta sotto, riflesso in alto, ombra morbida) è riservato a ciò che galleggia: capsula, menu dei comandi, scheda, cursore a lente, avvisi. Le superfici grandi e numerose sono vetro piatto: gradiente tra due lastre, filo di luce in alto, ombra profonda, e la luce del cursore che le attraversa. Il fiore ha la sua ombra portata, che lo stacca dalle lettere.
+Il sito è piatto: la profondità la danno lo spazio, i filetti e il grigio dei palchi. Le ombre esistono solo su ciò che è un oggetto sollevato dalla pagina: le cornici delle schermate, l'anteprima che segue il puntatore, il menu dei comandi, l'avviso in basso. Mai un filo e un'ombra sullo stesso elemento.
 
 ### Shadow Vocabulary
-- **Vetro sospeso** (`box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.3), inset 0 -1px 0 0 rgb(255 255 255 / 0.05), 0 12px 40px -12px rgb(0 0 0 / 0.65)`): capsula e pillole di vetro.
-- **Lastra** (`box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.16), 0 18px 50px -24px rgb(0 0 0 / 0.8)`): card, tabellone, matrice, blocchi di codice.
-- **Scheda** (`box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.22), 0 40px 120px -20px rgb(0 0 0 / 0.85)`): scheda di dettaglio e menu.
-- **Ombra del fiore** (`filter: drop-shadow(0 40px 60px rgb(0 0 0 / 0.75)) drop-shadow(0 6px 14px rgb(0 0 0 / 0.6))`): solo il fiore.
+- **Finestra** (`box-shadow: 0 1px 3px rgb(0 0 0 / 0.08), 0 28px 50px -28px rgb(0 0 0 / 0.4)`): la cornice delle app web e desktop sul palco.
+- **Telefono** (`box-shadow: 0 2px 4px rgb(0 0 0 / 0.08), 0 24px 40px -22px rgb(0 0 0 / 0.45)`): la cornice delle app mobile.
+- **Anteprima** (`box-shadow: 0 2px 6px rgb(0 0 0 / 0.06), 0 30px 60px -24px rgb(0 0 0 / 0.35)`): il palco che segue il puntatore nell'indice.
+- **Menu** (`box-shadow: 0 2px 6px rgb(0 0 0 / 0.06), 0 40px 90px -30px rgb(0 0 0 / 0.4)`): il menu dei comandi, sopra un velo nero al 30%.
 
 ### Named Rules
-**The Vetro Che Galleggia Rule.** Il vetro vero (backdrop-filter) solo su elementi piccoli e sospesi, più la nebbia ai bordi. Tutto ciò che è grande o ripetuto usa il vetro piatto: costa niente e sul nero non si distingue.
+**The Ombra Solo Sugli Oggetti Rule.** Card, righe e tabelle non hanno ombra né riquadro: si separano con un filetto di 1px. L'ombra è il segno che qualcosa si è staccato dalla carta.
 
 ## Shapes
 
-Forme morbide e pulite: lastre arrotondate a 22px (palchi delle schermate 26px, codice 18px, cornici delle finestre 12px), pillole per ogni azione e per le voci dello stack, tessere del tabellone a 3px. Filetti di 1px. Il fiore è l'unica forma organica, ed è un ritaglio vero, non una maschera geometrica.
+Forme morbide ma asciutte: palchi delle schermate e blocchi di codice a 14px, menu a 16px, blocchi degli schemi a 12px, cornici delle finestre a 10px, miniature a 6px. Pillole per ogni azione e per le chip dello stack. Filetti di 1px. Il fiore è l'unica forma organica, ed è un ritaglio vero con la sua alfa, ripulito dei fili sottili per stare sul bianco.
 
 ## Components
 
 ### Buttons
-Pillole: piene per l'azione principale, di vetro per le altre.
-- **Shape:** pillola (9999px).
-- **Primary:** latte pieno, testo notte, 12px × 20px, freccia disegnata (Lucide) che si sposta di 2px al passaggio.
-- **Glass:** gradiente vetro-luce → vetro-ombra, filo 1px bianco al 16%, riflesso in alto; al passaggio si schiarisce.
-- **Email da copiare:** grande pillola latte con un alone chiaro, attirata dal puntatore; un clic copia e mostra l'avviso.
+Pillole basse e precise.
+- **Shape:** pillola (9999px), alta 2.75rem.
+- **Primary:** inchiostro pieno, testo carta, 0.65rem × 1.25rem, freccia Lucide che si sposta di 2px nella sua direzione al passaggio.
+- **Hover / Focus:** il pieno si schiarisce al grigio scuro; il focus è un contorno di 2px in inchiostro a 3px di distanza.
+- **Filo:** testo inchiostro con un filo interno di 1px riga forte, che diventa inchiostro al passaggio.
 
 ### Chips
-- **Style:** pillola con filo riga-forte, testo latte 0.75rem con l'icona della tecnologia.
+- **Style:** le tecnologie dello stack: pillola con filo riga forte, icona del marchio, nome e numero di progetti in grigio (o "corso" se viene dai corsi).
+- **State:** accesa in inchiostro pieno quando è scelta o quando appartiene al progetto scelto; spenta in grigio con il filo leggero.
 
 ### Cards / Containers
-- **Corner Style:** 22px.
-- **Background:** vetro piatto (lastra-alta → lastra-bassa) con la luce del cursore e un filo di luce che corre sul bordo.
-- **Shadow Strategy:** lastra (vedi Elevation & Depth).
-- **Internal Padding:** 24px per le card, righe da 16–20px nel tabellone.
+- **Corner Style:** 14px.
+- **Background:** palco (#f4f4f4) con la schermata nella sua cornice.
+- **Shadow Strategy:** nessuna sul palco; l'ombra sta sulla cornice (vedi Elevation & Depth).
+- **Border:** nessuno.
+- **Internal Padding:** la schermata sta a circa il 9% dai bordi del palco.
 
 ### Inputs / Fields
-- **Style:** la ricerca del menu dei comandi: testo grande su vetro, separato da un filetto.
-- **Focus:** contorno 2px latte a 3px di distanza.
+- **Style:** la ricerca del menu dei comandi: testo grande senza riquadro, separato da un filetto.
+- **Focus:** il cursore di testo in inchiostro; il contorno del focus come per i pulsanti.
 
 ### Navigation
-- **Style:** capsula di vetro sospesa al centro in alto, che si stringe scorrendo: monogramma MI in un cerchio latte, nome, sezioni che si decifrano al passaggio, ora di Cosenza, IT/EN e la pillola latte "Menu" con Ctrl K.
+- **Style:** barra bianca alta 4rem con il fiore e il nome a sinistra, le sezioni in grigio a destra (quella in corso in inchiostro), IT/EN e la pillola Menu con la scorciatoia. Scendendo si nasconde, risalendo torna; appena la pagina si muove compare un filetto sotto. Sui telefoni restano nome, lingua e Menu, che apre il menu dei comandi.
 
-### Tabellone a palette
-Tessere di vetro (bianco al 9% con riflesso in alto e taglio scuro a metà), Archivo condensato maiuscolo; cambiando testo ogni tessera gira su caratteri a caso prima di fermarsi. Nel tabellone dei progetti la riga sotto il puntatore diventa latte e le sue tessere notte.
+### Indice dei progetti
+Righe separate da filetti: titolo, tipo, squadra, anno, la pillola "Caso di studio" dove c'è e la freccia. Con il mouse il titolo sotto il puntatore si allarga, gli altri passano al grigio e la copertina segue il puntatore su un palco con l'ombra di anteprima; al clic quella copertina diventa la testata della pagina del progetto con una view transition.
 
-### Nome che emerge
-Parola display le cui lettere salgono da una sfocatura in sequenza (all'arrivo in apertura, all'entrata in vista altrove) e si allargano sotto il puntatore. In latte per il nome, in cromo per i capitoli.
-
-### Nebbia
-Due lastre fisse ai bordi dello schermo con sfocatura progressiva a tre livelli: il contenuto si appanna salendo sotto la barra.
-
-### Cursore a lente
-Un piccolo cerchio di vetro che schiarisce e mette a fuoco ciò che ha sotto; sui link si allarga, sugli elementi con un'azione diventa una pillola latte con la parola ("Apri", "Copia", "Leggi").
+### Etichetta del cursore
+Una piccola pillola inchiostro con la parola dell'azione ("Apri", "Copia") che accompagna il puntatore sopra copertine ed email; sul capitolo nero si rovescia bianca. Il puntatore resta quello del sistema.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** tenere un solo fondo notte e separare le sezioni con spazio, vetro e nebbia.
-- **Do** usare il vetro vero solo su ciò che galleggia ed è piccolo.
-- **Do** dare a ogni azione la forma di una pillola: latte per la principale, vetro per le altre.
-- **Do** mostrare le schermate in bianco e nero e ridare il colore al passaggio.
-- **Do** rispettare il movimento ridotto: niente ingresso, nebbia o sfocature, lettere subito a fuoco.
+- **Do** tenere ogni titolo di capitolo a due voci, inchiostro e grigio (#737373).
+- **Do** mostrare i progetti con le loro schermate vere dentro la cornice giusta (telefono, finestra, browser) su un palco a 14px.
+- **Do** separare righe, tabelle e capitoli con filetti di 1px e spazio, non con riquadri.
+- **Do** usare l'asse della larghezza di Mona Sans solo come risposta al puntatore.
+- **Do** rispettare il movimento ridotto: niente ingresso, anteprima o transizioni, tutto subito visibile.
 
 ### Don't:
-- **Don't** tornare al fondo bianco con capitoli neri e griglia visibile.
-- **Don't** introdurre colori d'accento.
-- **Don't** usare il cromo su testo corrente, numeri o pulsanti.
-- **Don't** mettere etichette o occhielli sopra i titoli.
-- **Don't** scrivere frasi in monospazio.
+- **Don't** mettere occhielli, etichette o numeri sopra i titoli.
+- **Don't** introdurre colori d'accento o un secondo grigio per il testo.
+- **Don't** usare vetro, sfocature decorative o testo a gradiente.
+- **Don't** usare il monospazio fuori dai blocchi di codice.
+- **Don't** aggiungere un secondo capitolo nero oltre alla chiusura.
+- **Don't** mettere filo e ombra sullo stesso elemento.
