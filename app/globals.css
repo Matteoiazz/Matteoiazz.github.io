@@ -4,8 +4,8 @@
    FOGLIO BIANCO
    Una pagina bianca e pulita: un solo carattere (Mona Sans), l'inchiostro e
    un grigio come seconda voce di ogni titolo, filetti sottili, molto spazio.
-   Il lavoro sta davanti, già nella prima schermata; il fiore è l'unico
-   oggetto; la pagina chiude in nero con il nome a tutta larghezza.
+   Il lavoro sta davanti, già nella prima schermata; la pagina chiude in nero
+   con il nome a tutta larghezza.
    ============================================================ */
 
 @theme inline {
@@ -175,18 +175,6 @@ input, textarea { caret-color: var(--inchiostro); }
 .sale { animation: sale 1.1s var(--uscita) both; animation-delay: calc(var(--i, 0) * 85ms + 60ms); }
 @keyframes compare { from { opacity: 0; transform: translateY(1.5rem); } }
 .compare { animation: compare 1.2s var(--uscita) both; animation-delay: calc(var(--i, 0) * 90ms + 420ms); }
-@keyframes fiorisce { from { opacity: 0; transform: scale(0.9) rotate(-10deg); filter: blur(12px); } }
-.fiorisce { animation: fiorisce 1.8s var(--uscita) 0.15s both; }
-
-/* Il fiore gira piano mentre si scende. */
-@supports (animation-timeline: scroll()) {
-  .fiore-gira {
-    animation: gira linear both;
-    animation-timeline: scroll(root);
-    animation-range: 0 110vh;
-  }
-}
-@keyframes gira { to { transform: rotate(32deg) translateY(-8%) scale(0.92); } }
 
 /* ---------- Indice dei progetti ---------- */
 .titolo-largo {
@@ -262,7 +250,7 @@ html.progettista main * { outline: 1px dashed rgb(10 10 10 / 0.1); outline-offse
 /* ---------- Movimento ridotto ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .sale, .compare, .fiorisce, .fiore-gira { animation: none !important; }
+  .sale, .compare { animation: none !important; }
   .titolo-largo, .traccia, .pillola > svg { transition: none; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }

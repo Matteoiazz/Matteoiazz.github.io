@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-08T17:39:39.795Z",
+  "generatedAt": "2026-11-08T17:53:48.285Z",
   "title": "Design System: Matteo Iazzolino — Portfolio",
   "extensions": {
     "colorMeta": {
@@ -332,6 +332,14 @@
       "css": ".ds-palco { display: flex; align-items: center; justify-content: center; width: 22rem; height: 15rem; padding: 9%; border-radius: 14px; background: #f4f4f4; } .ds-finestra { width: 100%; border-radius: 10px; overflow: hidden; background: #ffffff; box-shadow: 0 1px 3px rgb(0 0 0 / 0.08), 0 28px 50px -28px rgb(0 0 0 / 0.4); } .ds-barra-finestra { display: flex; gap: 5px; align-items: center; height: 1.5rem; padding: 0 0.625rem; background: #f1f1f1; } .ds-barra-finestra i { width: 7px; height: 7px; border-radius: 50%; background: #d4d4d4; } .ds-schermo { aspect-ratio: 16 / 10; background: #fafafa; }"
     },
     {
+      "name": "Tessera logo",
+      "kind": "custom",
+      "refersTo": "tessera-logo",
+      "description": "Il logo di un'istituzione del percorso: in scala di grigi, a colori al passaggio.",
+      "html": "<span class=\"ds-tessera\"><svg viewBox=\"3.4 28.5 112 59.6\" aria-hidden=\"true\"><path fill=\"#b61918\" d=\"M5.4 74.4h69.3v11.7H5.4zM5.4 60h69.3v11.7H5.4zM5.4 45.6h69.3v10.8H5.4zM5.4 30.8h69.3v11.7H5.4z\"/><path fill=\"#9e9e9d\" d=\"M78 30.5h35.4v10.9H78zM78 45.7h35.4v10.9H78z\"/><path fill=\"#000\" d=\"M78.3 60h25.6L78.3 85.2z\"/></svg></span>",
+      "css": ".ds-tessera { display: inline-grid; place-items: center; width: 64px; height: 64px; padding: 13%; border-radius: 12px; background: #f4f4f4; } .ds-tessera svg { width: 100%; height: 100%; filter: grayscale(1); transition: filter 0.7s ease; } .ds-tessera:hover svg { filter: none; }"
+    },
+    {
       "name": "Etichetta del cursore",
       "kind": "custom",
       "refersTo": "etichetta-cursore",
@@ -342,13 +350,13 @@
   ],
   "narrative": {
     "northStar": "Il foglio bianco",
-    "overview": "Una pagina bianca tenuta come un buon curriculum stampato: un solo carattere, l'inchiostro e una sola voce grigia, filetti sottili, molto spazio tra un capitolo e l'altro. La pulizia viene dalla rinuncia: niente vetro, niente cromo sul testo, niente colori. Ogni titolo parla a due voci, l'inchiostro dice cosa, il grigio aggiunge il resto, ed è questa la firma tipografica del sito.\n\nIl lavoro sta davanti: già nella prima schermata le schermate vere dei progetti si affacciano sotto la frase che apre con il nome. Il fiore cromato, ritagliato con la sua alfa e appoggiato sul bianco, è l'unico oggetto della pagina e l'unico segno personale. Il movimento è poco e scritto una volta: la frase che sale dalla sfocatura all'arrivo, l'anteprima che segue il puntatore nell'indice, la copertina che passa dalla casa alla pagina del progetto. In fondo la pagina si rovescia in nero e chiude con il nome a tutta larghezza.\n\nRifiuti confermati: vetro liquido e vetro scuro con cromo, tabellone a palette e griglia a vista dello specimen in bianco e nero, etichette numerate sopra le sezioni, prezzi da freelance.",
+    "overview": "Una pagina bianca tenuta come un buon curriculum stampato: un solo carattere, l'inchiostro e una sola voce grigia, filetti sottili, molto spazio tra un capitolo e l'altro. La pulizia viene dalla rinuncia: niente vetro, niente cromo sul testo, niente colori. Ogni titolo parla a due voci, l'inchiostro dice cosa, il grigio aggiunge il resto, ed è questa la firma tipografica del sito.\n\nIl lavoro sta davanti: già nella prima schermata le schermate vere dei progetti si affacciano sotto la frase che apre con il nome. Le sole immagini sono quelle schermate e i loghi delle istituzioni nel percorso: nessuna illustrazione decorativa. Il movimento è poco e scritto una volta: la frase che sale dalla sfocatura all'arrivo, l'anteprima che segue il puntatore nell'indice, la copertina che passa dalla casa alla pagina del progetto. In fondo la pagina si rovescia in nero e chiude con il nome a tutta larghezza.\n\nRifiuti confermati: vetro liquido e vetro scuro con cromo, il fiore cromato, tabellone a palette e griglia a vista dello specimen in bianco e nero, etichette numerate sopra le sezioni, prezzi da freelance.",
     "keyCharacteristics": [
       "Fondo bianco unico, con un solo capitolo nero in chiusura.",
       "Titoli a due voci: inchiostro e un grigio, mai un terzo tono.",
       "Mona Sans per tutto; l'asse della larghezza solo sotto il puntatore.",
       "Le schermate vere come immagini, in bianco e nero in casa e a colori al passaggio.",
-      "Il fiore come unico oggetto; nessuna illustrazione decorativa."
+      "Nessuna illustrazione decorativa: oltre alle schermate, solo i loghi del percorso."
     ],
     "rules": [
       {
@@ -363,7 +371,7 @@
       },
       {
         "name": "The Lavoro In Bianco E Nero Rule",
-        "body": "In casa le schermate dei progetti sono in scala di grigi e prendono colore al passaggio del mouse (sui telefoni quando arrivano al centro dello schermo). Nelle pagine dei progetti sono sempre a colori: lì il colore è il progetto.",
+        "body": "In casa le schermate dei progetti e i loghi del percorso sono in scala di grigi e prendono colore al passaggio del mouse (sui telefoni quando arrivano al centro dello schermo). Nelle pagine dei progetti le schermate sono sempre a colori: lì il colore è il progetto.",
         "section": "colors"
       },
       {

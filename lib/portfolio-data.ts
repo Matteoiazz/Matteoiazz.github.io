@@ -442,6 +442,8 @@ export type Experience = {
   company: string
   period: string
   description: string
+  /** Logo dell'istituzione, in public/loghi/: compare nel percorso. */
+  logo?: string
 }
 
 export const experiences: Experience[] = [
@@ -452,6 +454,7 @@ export const experiences: Experience[] = [
     period: "Da ottobre 2026",
     description:
       "Magistrale in intelligenza artificiale e informatica, in continuità con la triennale. Nel primo semestre Deep Learning e Research and Development Methodologies, con un progetto Scrum in otto per il Dipartimento di Fisica: l'analisi 3D di alghe al microscopio.",
+    logo: "/loghi/unical.svg",
   },
   {
     tipo: "Formazione",
@@ -460,6 +463,7 @@ export const experiences: Experience[] = [
     period: "In corso · prevista dic. 2026",
     description:
       "Terzo anno. Progetti universitari in ambito web, mobile e architetture enterprise, affiancati da progetti personali.",
+    logo: "/loghi/unical.svg",
   },
   {
     tipo: "Esperienza",
@@ -468,6 +472,7 @@ export const experiences: Experience[] = [
     period: "Set 2025 · set 2026",
     description:
       "Un anno di Servizio Civile Universale come operatore volontario, svolto in parallelo agli studi.",
+    logo: "/loghi/servizio-civile.webp",
   },
   {
     tipo: "Formazione",
@@ -476,6 +481,7 @@ export const experiences: Experience[] = [
     period: "2023 · 97/100",
     description:
       "Percorso con indirizzo Scienze Applicate, primo contatto strutturato con la programmazione.",
+    logo: "/loghi/scorza.webp",
   },
 ]
 

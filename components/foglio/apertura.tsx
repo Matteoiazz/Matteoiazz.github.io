@@ -1,8 +1,7 @@
 "use client"
 
-import Image from "next/image"
 import Link from "next/link"
-import { ViewTransition, useEffect, useRef, type CSSProperties } from "react"
+import { ViewTransition, type CSSProperties } from "react"
 import { ArrowDown, ArrowUpRight } from "lucide-react"
 import { profile, projects } from "@/lib/portfolio-data"
 import { progettiEn } from "@/lib/inglese"
@@ -21,56 +20,52 @@ const VETRINA = [
 const ritardo = (i: number) => ({ "--i": i }) as CSSProperties
 
 /**
- * Prima schermata: la frase a due voci che si apre con il nome, due righe di
- * presentazione, le due azioni; il fiore a destra; sotto, i tre progetti
- * principali che si affacciano già prima di scorrere.
+ * Prima schermata: la frase a due voci che si apre con il nome; sotto, a
+ * sinistra le due azioni e a destra la presentazione; poi i tre progetti
+ * principali, che si affacciano già prima di scorrere.
  */
 export function Apertura() {
   const { t } = useLingua()
   return (
-    <section aria-labelledby="apertura-titolo" className="relative pt-28 md:pt-36">
+    <section aria-labelledby="apertura-titolo" className="relative pt-28 md:pt-32">
       <div className="contenitore">
-        <div className="relative">
-          <div className="relative z-10 max-w-[62rem]">
-            <h1 id="apertura-titolo" className="titolo-1">
-              <span className="sale block" style={ritardo(0)}>
-                {profile.name},
-              </span>
-              <span className="sale block" style={ritardo(1)}>
-                {profile.role}.
-              </span>
-              <span className="sale seconda block" style={ritardo(2)}>
-                {t("Dal database all'interfaccia,", "From database to interface,")}
-              </span>
-              <span className="sale seconda block" style={ritardo(3)}>
-                {t("verso l'AI.", "heading into AI.")}
-              </span>
-            </h1>
-            <p className="sale lead mt-8 max-w-[46ch]" style={ritardo(4)}>
-              {t(
-                "Studio Informatica all'Università della Calabria e, da ottobre 2026, anche la magistrale in intelligenza artificiale. Qui ci sono i miei progetti, con il codice vero.",
-                "I study Computer Science at the University of Calabria and, since October 2026, an AI master's too. Here is my work, with the real code.",
-              )}
-            </p>
-            <div className="sale mt-9 flex flex-wrap gap-3" style={ritardo(5)}>
-              <a href="#progetti" className="pillola pillola-piena" data-verso="giu">
-                {t("Vedi i progetti", "See the work")}
-                <ArrowDown aria-hidden />
-              </a>
-              <Link href="/cv/" className="pillola pillola-filo" data-verso="su">
-                {t("Curriculum", "Résumé")}
-                <ArrowUpRight aria-hidden />
-              </Link>
-            </div>
-          </div>
+        <h1 id="apertura-titolo" className="titolo-1 max-w-[62rem]">
+          <span className="sale block" style={ritardo(0)}>
+            {profile.name},
+          </span>
+          <span className="sale block" style={ritardo(1)}>
+            {profile.role}.
+          </span>
+          <span className="sale seconda block" style={ritardo(2)}>
+            {t("Dal database all'interfaccia,", "From database to interface,")}
+          </span>
+          <span className="sale seconda block" style={ritardo(3)}>
+            {t("verso l'AI.", "heading into AI.")}
+          </span>
+        </h1>
 
-          <Fiore className="pointer-events-none absolute right-[-1.5%] top-1/2 hidden w-[min(25vw,27rem)] -translate-y-1/2 xl:block" />
-          <Fiore className="pointer-events-none mx-auto mt-10 w-[min(46vw,14rem)] md:w-[min(34vw,17rem)] xl:hidden" />
+        <div className="mt-8 grid grid-cols-4 gap-x-[var(--passo)] gap-y-8 md:grid-cols-12 lg:mt-12">
+          <p className="sale lead col-span-4 max-w-[46ch] md:col-span-8 lg:order-2 lg:col-span-5 lg:col-start-8" style={ritardo(4)}>
+            {t(
+              "Studio Informatica all'Università della Calabria e, da ottobre 2026, anche la magistrale in intelligenza artificiale. Qui ci sono i miei progetti, con il codice vero.",
+              "I study Computer Science at the University of Calabria and, since October 2026, an AI master's too. Here is my work, with the real code.",
+            )}
+          </p>
+          <div className="sale col-span-4 flex flex-wrap gap-3 self-start md:col-span-8 lg:order-1 lg:col-span-6" style={ritardo(5)}>
+            <a href="#progetti" className="pillola pillola-piena" data-verso="giu">
+              {t("Vedi i progetti", "See the work")}
+              <ArrowDown aria-hidden />
+            </a>
+            <Link href="/cv/" className="pillola pillola-filo" data-verso="su">
+              {t("Curriculum", "Résumé")}
+              <ArrowUpRight aria-hidden />
+            </Link>
+          </div>
         </div>
 
         <ul
           aria-label={t("Progetti principali", "Featured work")}
-          className="mt-14 grid grid-cols-1 gap-x-[var(--passo)] gap-y-10 md:mt-20 md:grid-cols-12 xl:mt-24"
+          className="mt-14 grid grid-cols-1 gap-x-[var(--passo)] gap-y-10 md:mt-16 md:grid-cols-12 lg:mt-20"
         >
           {VETRINA.map(({ slug, colonne }, i) => (
             <Vetrina key={slug} slug={slug} colonne={colonne} i={i} />
@@ -116,60 +111,5 @@ function Vetrina({ slug, colonne, i }: { slug: string; colonne: string; i: numbe
         </div>
       </Link>
     </li>
-  )
-}
-
-/**
- * Il fiore cromato, unico oggetto della pagina: sboccia all'arrivo, gira
- * piano scendendo e si piega appena verso il puntatore.
- */
-function Fiore({ className }: { className: string }) {
-  const piega = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    const el = piega.current
-    if (!el) return
-    if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return
-    let frame = 0
-    let x = 0
-    let y = 0
-    let tx = 0
-    let ty = 0
-    const passo = () => {
-      x += (tx - x) * 0.08
-      y += (ty - y) * 0.08
-      el.style.transform = `perspective(900px) rotateX(${(-y * 9).toFixed(2)}deg) rotateY(${(x * 11).toFixed(2)}deg)`
-      frame = Math.abs(tx - x) + Math.abs(ty - y) > 0.001 ? requestAnimationFrame(passo) : 0
-    }
-    const muovi = (e: PointerEvent) => {
-      tx = e.clientX / innerWidth - 0.5
-      ty = e.clientY / innerHeight - 0.5
-      if (!frame) frame = requestAnimationFrame(passo)
-    }
-    window.addEventListener("pointermove", muovi, { passive: true })
-    return () => {
-      window.removeEventListener("pointermove", muovi)
-      cancelAnimationFrame(frame)
-    }
-  }, [])
-  return (
-    <div aria-hidden className={className}>
-      <div className="fiorisce">
-        <div className="fiore-gira">
-          <div ref={piega}>
-            <Image
-              src="/fiore-bianco.webp"
-              alt=""
-              width={723}
-              height={664}
-              priority
-              draggable={false}
-              sizes="(min-width: 1280px) 27rem, 64vw"
-              className="h-auto w-full select-none"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
   )
 }

@@ -1,4 +1,0 @@
-{
-  "prompt": "Ritaglio per il fondo bianco derivato da public/fiore-ritaglio.webp (a sua volta ricavato da public/hero-chrome.png, render cromato originale del sito): apertura morfologica sull'alfa (sfocatura 2.2 e soglia 215, poi sfocatura 2.2, soglia 40 e sfocatura 0.8) per togliere i fili sottili staccati dal bordo; la nuova alfa non supera mai quella originale. Nessuna generazione.",
-  "createdAt": "2026-11-08T17:23:58.123Z"
-}

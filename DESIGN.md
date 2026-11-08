@@ -1,6 +1,6 @@
 ---
 name: Matteo Iazzolino — Portfolio
-description: Un foglio bianco con un solo carattere, una voce grigia, il fiore come unico oggetto e una chiusura in nero.
+description: Un foglio bianco con un solo carattere, una voce grigia, le schermate vere dei progetti e una chiusura in nero.
 colors:
   carta: "#ffffff"
   inchiostro: "#0a0a0a"
@@ -168,6 +168,10 @@ components:
     textColor: "{colors.inchiostro}"
     typography: "{typography.voce-indice}"
     padding: "1.75rem 0"
+  tessera-logo:
+    backgroundColor: "{colors.palco}"
+    rounded: "{rounded.blocco}"
+    size: "64px"
   etichetta-cursore:
     backgroundColor: "{colors.inchiostro}"
     textColor: "{colors.carta}"
@@ -184,16 +188,16 @@ components:
 
 Una pagina bianca tenuta come un buon curriculum stampato: un solo carattere, l'inchiostro e una sola voce grigia, filetti sottili, molto spazio tra un capitolo e l'altro. La pulizia viene dalla rinuncia: niente vetro, niente cromo sul testo, niente colori. Ogni titolo parla a due voci, l'inchiostro dice cosa, il grigio aggiunge il resto, ed è questa la firma tipografica del sito.
 
-Il lavoro sta davanti: già nella prima schermata le schermate vere dei progetti si affacciano sotto la frase che apre con il nome. Il fiore cromato, ritagliato con la sua alfa e appoggiato sul bianco, è l'unico oggetto della pagina e l'unico segno personale. Il movimento è poco e scritto una volta: la frase che sale dalla sfocatura all'arrivo, l'anteprima che segue il puntatore nell'indice, la copertina che passa dalla casa alla pagina del progetto. In fondo la pagina si rovescia in nero e chiude con il nome a tutta larghezza.
+Il lavoro sta davanti: già nella prima schermata le schermate vere dei progetti si affacciano sotto la frase che apre con il nome. Le sole immagini sono quelle schermate e i loghi delle istituzioni nel percorso: nessuna illustrazione decorativa. Il movimento è poco e scritto una volta: la frase che sale dalla sfocatura all'arrivo, l'anteprima che segue il puntatore nell'indice, la copertina che passa dalla casa alla pagina del progetto. In fondo la pagina si rovescia in nero e chiude con il nome a tutta larghezza.
 
-Rifiuti confermati: vetro liquido e vetro scuro con cromo, tabellone a palette e griglia a vista dello specimen in bianco e nero, etichette numerate sopra le sezioni, prezzi da freelance.
+Rifiuti confermati: vetro liquido e vetro scuro con cromo, il fiore cromato, tabellone a palette e griglia a vista dello specimen in bianco e nero, etichette numerate sopra le sezioni, prezzi da freelance.
 
 **Key Characteristics:**
 - Fondo bianco unico, con un solo capitolo nero in chiusura.
 - Titoli a due voci: inchiostro e un grigio, mai un terzo tono.
 - Mona Sans per tutto; l'asse della larghezza solo sotto il puntatore.
 - Le schermate vere come immagini, in bianco e nero in casa e a colori al passaggio.
-- Il fiore come unico oggetto; nessuna illustrazione decorativa.
+- Nessuna illustrazione decorativa: oltre alle schermate, solo i loghi del percorso.
 
 ## Colors
 
@@ -214,7 +218,7 @@ Inchiostro su carta, una voce grigia e i grigi chiarissimi dei filetti e dei pal
 
 **The Un Solo Capitolo Nero Rule.** Il nero pieno è riservato alla chiusura (contatti e nome). Il resto della pagina è carta; un secondo capitolo nero toglierebbe peso al finale.
 
-**The Lavoro In Bianco E Nero Rule.** In casa le schermate dei progetti sono in scala di grigi e prendono colore al passaggio del mouse (sui telefoni quando arrivano al centro dello schermo). Nelle pagine dei progetti sono sempre a colori: lì il colore è il progetto.
+**The Lavoro In Bianco E Nero Rule.** In casa le schermate dei progetti e i loghi del percorso sono in scala di grigi e prendono colore al passaggio del mouse (sui telefoni quando arrivano al centro dello schermo). Nelle pagine dei progetti le schermate sono sempre a colori: lì il colore è il progetto.
 
 ## Typography
 
@@ -247,7 +251,7 @@ Inchiostro su carta, una voce grigia e i grigi chiarissimi dei filetti e dei pal
 
 Contenitore largo fino a 104rem, centrato, con margini laterali clamp(1.125rem, 3.4vw, 3.5rem). Griglia di 12 colonne da 48rem in su (4 sotto), con spazio di 1.5rem (1.25rem sotto i 48rem). I capitoli respirano 7rem sopra (10rem da 48rem), sempre più spazio sopra un titolo che sotto. I titoli di capitolo occupano le prime otto colonne; la frase di servizio sta a destra, allineata alla base del titolo.
 
-In apertura la frase occupa circa otto colonne e il fiore galleggia a destra solo da 80rem in su; sotto quella misura il fiore scende sotto i pulsanti, piccolo. Le tre copertine principali si affacciano prima della piega, con larghezze diverse (3, 5 e 4 colonne): stretto per i telefoni, largo per le finestre. Sotto i 48rem tutto diventa una colonna e le righe dell'indice mostrano una miniatura al posto delle colonne di dati.
+In apertura la frase occupa circa otto colonne; sotto, da 64rem in su, le due azioni stanno a sinistra e la presentazione a destra (colonne 8-12), più stretto una sotto l'altra. Le tre copertine principali si affacciano prima della piega, con larghezze diverse (3, 5 e 4 colonne): stretto per i telefoni, largo per le finestre. Sotto i 48rem tutto diventa una colonna e le righe dell'indice mostrano una miniatura al posto delle colonne di dati.
 
 ## Elevation & Depth
 
@@ -264,7 +268,7 @@ Il sito è piatto: la profondità la danno lo spazio, i filetti e il grigio dei 
 
 ## Shapes
 
-Forme morbide ma asciutte: palchi delle schermate e blocchi di codice a 14px, menu a 16px, blocchi degli schemi a 12px, cornici delle finestre a 10px, miniature a 6px. Pillole per ogni azione e per le chip dello stack. Filetti di 1px. Il fiore è l'unica forma organica, ed è un ritaglio vero con la sua alfa, ripulito dei fili sottili per stare sul bianco.
+Forme morbide ma asciutte: palchi delle schermate e blocchi di codice a 14px, menu a 16px, blocchi degli schemi e tessere dei loghi a 12px, cornici delle finestre a 10px, miniature a 6px. Pillole per ogni azione e per le chip dello stack. Filetti di 1px. Nessuna forma organica o decorativa: le forme sono quelle delle schermate e dei loghi.
 
 ## Components
 
@@ -291,10 +295,13 @@ Pillole basse e precise.
 - **Focus:** il cursore di testo in inchiostro; il contorno del focus come per i pulsanti.
 
 ### Navigation
-- **Style:** barra bianca alta 4rem con il fiore e il nome a sinistra, le sezioni in grigio a destra (quella in corso in inchiostro), IT/EN e la pillola Menu con la scorciatoia. Scendendo si nasconde, risalendo torna; appena la pagina si muove compare un filetto sotto. Sui telefoni restano nome, lingua e Menu, che apre il menu dei comandi.
+- **Style:** barra bianca alta 4rem con il nome a sinistra, le sezioni in grigio a destra (quella in corso in inchiostro), IT/EN e la pillola Menu con la scorciatoia. Scendendo si nasconde, risalendo torna; appena la pagina si muove compare un filetto sotto. Sui telefoni restano nome, lingua e Menu, che apre il menu dei comandi.
 
 ### Indice dei progetti
 Righe separate da filetti: titolo, tipo, squadra, anno, la pillola "Caso di studio" dove c'è e la freccia. Con il mouse il titolo sotto il puntatore si allarga, gli altri passano al grigio e la copertina segue il puntatore su un palco con l'ombra di anteprima; al clic quella copertina diventa la testata della pagina del progetto con una view transition.
+
+### Loghi del percorso
+Ogni voce del percorso ha il logo dell'istituzione (Università della Calabria, Servizio Civile Universale, Liceo Scorza) dentro una tessera palco a 12px, 64px sul desktop e 48px sul telefono, con il logo al 13% dai bordi. In scala di grigi a riposo, a colori al passaggio sulla riga. I file sono quelli ufficiali, presi dai siti delle istituzioni.
 
 ### Etichetta del cursore
 Una piccola pillola inchiostro con la parola dell'azione ("Apri", "Copia") che accompagna il puntatore sopra copertine ed email; sul capitolo nero si rovescia bianca. Il puntatore resta quello del sistema.

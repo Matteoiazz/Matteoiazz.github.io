@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { profile } from "@/lib/portfolio-data"
@@ -16,7 +15,7 @@ export const sezioni = [
 ]
 
 /**
- * Barra in alto: il nome con il fiore a sinistra, le sezioni, la lingua e il
+ * Barra in alto: il nome a sinistra, le sezioni, la lingua e il
  * menu a destra. Scendendo si toglie di mezzo, risalendo torna; appena la
  * pagina si muove le compare sotto un filetto.
  */
@@ -60,14 +59,7 @@ export function Barra({ home = true }: { home?: boolean }) {
       } ${staccata ? "shadow-[0_1px_0_var(--riga)]" : ""}`}
     >
       <nav aria-label={t("Principale", "Main")} className="contenitore flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="group flex items-center gap-2.5 text-[0.95rem] font-medium tracking-[-0.01em]">
-          <Image
-            src="/fiore-bianco.webp"
-            alt=""
-            width={24}
-            height={24}
-            className="size-6 object-contain transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-[60deg]"
-          />
+        <Link href="/" className="text-[0.95rem] font-medium tracking-[-0.01em]">
           {profile.name}
         </Link>
 
