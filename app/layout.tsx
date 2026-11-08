@@ -5,6 +5,7 @@ import { Lingua } from '@/components/foglio/lingua'
 import { Segreti } from '@/components/foglio/segreti'
 import { Comandi } from '@/components/foglio/comandi'
 import { Etichetta } from '@/components/foglio/etichetta'
+import { ScorrimentoLento } from '@/components/foglio/scorrimento'
 
 // Un solo carattere per tutto il sito: Mona Sans, quello di GitHub, dove vive
 // il codice dei progetti. Variabile anche in larghezza: serve al nome in fondo
@@ -60,6 +61,7 @@ export default function RootLayout({
         </Lingua>
         <Etichetta />
         <Segreti />
+        <ScorrimentoLento />
         {/* Modalità progettista (codice Konami o tasto G): la griglia a 12 colonne. */}
         <div className="griglia-progettista" aria-hidden>
           <div className="contenitore grid h-full grid-cols-4 gap-x-[var(--passo)] md:grid-cols-12">

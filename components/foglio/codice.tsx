@@ -45,7 +45,7 @@ export function Codice({ codice }: { codice: TipoCodice }) {
           {copiato ? t("Copiato", "Copied") : t("Copia", "Copy")}
         </button>
       </figcaption>
-      <pre className="overflow-x-auto py-4 font-mono text-[0.78rem] leading-[1.7] sm:text-[0.8rem]">
+      <pre data-lenis-prevent-horizontal className="overflow-x-auto py-4 font-mono text-[0.78rem] leading-[1.7] sm:text-[0.8rem]">
         <code>
           {righe.map((riga, i) => {
             const [codiceRiga, commento] = dividi(riga)

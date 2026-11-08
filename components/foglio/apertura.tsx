@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { ViewTransition, type CSSProperties } from "react"
 import { ArrowDown, ArrowUpRight } from "lucide-react"
@@ -20,8 +21,9 @@ const VETRINA = [
 const ritardo = (i: number) => ({ "--i": i }) as CSSProperties
 
 /**
- * Prima schermata: la frase a due voci che si apre con il nome; sotto, a
- * sinistra le due azioni e a destra la presentazione; poi i tre progetti
+ * Prima schermata: la frase a due voci che si apre con il nome, la
+ * presentazione e le due azioni; sui desktop larghi, accanto, il disegno degli
+ * strati (database, server, interfaccia, rete neurale). Sotto, i tre progetti
  * principali, che si affacciano già prima di scorrere.
  */
 export function Apertura() {
@@ -29,37 +31,56 @@ export function Apertura() {
   return (
     <section aria-labelledby="apertura-titolo" className="relative pt-28 md:pt-32">
       <div className="contenitore">
-        <h1 id="apertura-titolo" className="titolo-1 max-w-[62rem]">
-          <span className="sale block" style={ritardo(0)}>
-            {profile.name},
-          </span>
-          <span className="sale block" style={ritardo(1)}>
-            {profile.role}.
-          </span>
-          <span className="sale seconda block" style={ritardo(2)}>
-            {t("Dal database all'interfaccia,", "From database to interface,")}
-          </span>
-          <span className="sale seconda block" style={ritardo(3)}>
-            {t("verso l'AI.", "heading into AI.")}
-          </span>
-        </h1>
+        <div className="min-[90rem]:grid min-[90rem]:grid-cols-12 min-[90rem]:items-center min-[90rem]:gap-x-[var(--passo)]">
+          <div className="min-[90rem]:col-span-9">
+            <h1 id="apertura-titolo" className="titolo-1 max-w-[62rem]">
+              <span className="sale block" style={ritardo(0)}>
+                {profile.name},
+              </span>
+              <span className="sale block" style={ritardo(1)}>
+                {profile.role}.
+              </span>
+              <span className="sale seconda block" style={ritardo(2)}>
+                {t("Dal database all'interfaccia,", "From database to interface,")}
+              </span>
+              <span className="sale seconda block" style={ritardo(3)}>
+                {t("verso l'AI.", "heading into AI.")}
+              </span>
+            </h1>
 
-        <div className="mt-8 grid grid-cols-4 gap-x-[var(--passo)] gap-y-8 md:grid-cols-12 lg:mt-12">
-          <p className="sale lead col-span-4 max-w-[46ch] md:col-span-8 lg:order-2 lg:col-span-5 lg:col-start-8" style={ritardo(4)}>
-            {t(
-              "Studio Informatica all'Università della Calabria e, da ottobre 2026, anche la magistrale in intelligenza artificiale. Qui ci sono i miei progetti, con il codice vero.",
-              "I study Computer Science at the University of Calabria and, since October 2026, an AI master's too. Here is my work, with the real code.",
-            )}
-          </p>
-          <div className="sale col-span-4 flex flex-wrap gap-3 self-start md:col-span-8 lg:order-1 lg:col-span-6" style={ritardo(5)}>
-            <a href="#progetti" className="pillola pillola-piena" data-verso="giu">
-              {t("Vedi i progetti", "See the work")}
-              <ArrowDown aria-hidden />
-            </a>
-            <Link href="/cv/" className="pillola pillola-filo" data-verso="su">
-              {t("Curriculum", "Résumé")}
-              <ArrowUpRight aria-hidden />
-            </Link>
+            {/* Da 64rem le azioni a sinistra e la presentazione a destra; da 90rem, con il disegno accanto, di nuovo una sotto l'altra. */}
+            <div className="mt-8 grid grid-cols-4 gap-x-[var(--passo)] gap-y-8 md:grid-cols-12 lg:mt-12 min-[90rem]:mt-9 min-[90rem]:flex min-[90rem]:flex-col min-[90rem]:gap-9">
+              <p className="sale lead col-span-4 max-w-[46ch] md:col-span-8 lg:order-2 lg:col-span-5 lg:col-start-8 min-[90rem]:order-none" style={ritardo(4)}>
+                {t(
+                  "Studio Informatica all'Università della Calabria e, da ottobre 2026, anche la magistrale in intelligenza artificiale. Qui ci sono i miei progetti, con il codice vero.",
+                  "I study Computer Science at the University of Calabria and, since October 2026, an AI master's too. Here is my work, with the real code.",
+                )}
+              </p>
+              <div className="sale col-span-4 flex flex-wrap gap-3 self-start md:col-span-8 lg:order-1 lg:col-span-6 min-[90rem]:order-none" style={ritardo(5)}>
+                <a href="#progetti" className="pillola pillola-piena" data-verso="giu">
+                  {t("Vedi i progetti", "See the work")}
+                  <ArrowDown aria-hidden />
+                </a>
+                <Link href="/cv/" className="pillola pillola-filo" data-verso="su">
+                  {t("Curriculum", "Résumé")}
+                  <ArrowUpRight aria-hidden />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* La frase del titolo disegnata: dal database all'interfaccia, verso l'AI. */}
+          <div aria-hidden className="sale hidden justify-center min-[90rem]:col-span-3 min-[90rem]:flex" style={ritardo(3)}>
+            <Image
+              src="/apertura/strati.webp"
+              alt=""
+              width={624}
+              height={1141}
+              priority
+              sizes="(min-width: 1440px) 20rem, 0px"
+              className="h-[min(33rem,62vh)] w-auto select-none"
+              draggable={false}
+            />
           </div>
         </div>
 

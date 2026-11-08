@@ -188,7 +188,7 @@ components:
 
 Una pagina bianca tenuta come un buon curriculum stampato: un solo carattere, l'inchiostro e una sola voce grigia, filetti sottili, molto spazio tra un capitolo e l'altro. La pulizia viene dalla rinuncia: niente vetro, niente cromo sul testo, niente colori. Ogni titolo parla a due voci, l'inchiostro dice cosa, il grigio aggiunge il resto, ed è questa la firma tipografica del sito.
 
-Il lavoro sta davanti: già nella prima schermata le schermate vere dei progetti si affacciano sotto la frase che apre con il nome. Le sole immagini sono quelle schermate e i loghi delle istituzioni nel percorso: nessuna illustrazione decorativa. Il movimento è poco e scritto una volta: la frase che sale dalla sfocatura all'arrivo, l'anteprima che segue il puntatore nell'indice, la copertina che passa dalla casa alla pagina del progetto. In fondo la pagina si rovescia in nero e chiude con il nome a tutta larghezza.
+Il lavoro sta davanti: già nella prima schermata le schermate vere dei progetti si affacciano sotto la frase che apre con il nome. Le immagini sono quelle schermate, i loghi delle istituzioni nel percorso e, da 90rem in su, il disegno tecnico degli strati accanto al titolo (database, server, interfaccia, rete neurale): tratto nero sottile su fondo trasparente. Il movimento è poco e scritto una volta: la frase che sale dalla sfocatura all'arrivo, l'anteprima che segue il puntatore nell'indice, la copertina che passa dalla casa alla pagina del progetto. In fondo la pagina si rovescia in nero e chiude con il nome a tutta larghezza.
 
 Rifiuti confermati: vetro liquido e vetro scuro con cromo, il fiore cromato, tabellone a palette e griglia a vista dello specimen in bianco e nero, etichette numerate sopra le sezioni, prezzi da freelance.
 
@@ -197,7 +197,7 @@ Rifiuti confermati: vetro liquido e vetro scuro con cromo, il fiore cromato, tab
 - Titoli a due voci: inchiostro e un grigio, mai un terzo tono.
 - Mona Sans per tutto; l'asse della larghezza solo sotto il puntatore.
 - Le schermate vere come immagini, in bianco e nero in casa e a colori al passaggio.
-- Nessuna illustrazione decorativa: oltre alle schermate, solo i loghi del percorso.
+- Un solo disegno, quello degli strati accanto al titolo; oltre a lui, schermate e loghi del percorso.
 
 ## Colors
 
@@ -313,7 +313,7 @@ Una piccola pillola inchiostro con la parola dell'azione ("Apri", "Copia") che a
 - **Do** mostrare i progetti con le loro schermate vere dentro la cornice giusta (telefono, finestra, browser) su un palco a 14px.
 - **Do** separare righe, tabelle e capitoli con filetti di 1px e spazio, non con riquadri.
 - **Do** usare l'asse della larghezza di Mona Sans solo come risposta al puntatore.
-- **Do** rispettare il movimento ridotto: niente ingresso, anteprima o transizioni, tutto subito visibile.
+- **Do** rispettare il movimento ridotto: niente ingresso, scorrimento lento, anteprima o transizioni, tutto subito visibile.
 
 ### Don't:
 - **Don't** mettere occhielli, etichette o numeri sopra i titoli.

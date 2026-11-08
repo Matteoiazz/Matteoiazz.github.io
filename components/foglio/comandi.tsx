@@ -4,12 +4,17 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { contact, projects } from "@/lib/portfolio-data"
 import { useLingua } from "@/components/foglio/lingua"
 import { avvisa, copia } from "@/components/foglio/comuni"
+import { scorrimento } from "@/components/foglio/scorrimento"
 
 type Comando = { id: string; testo: string; gruppo: string; scorciatoia?: string; fai: () => void }
 
 const vai = (destinazione: string) => {
-  if (destinazione.startsWith("#") && document.querySelector(destinazione)) {
-    document.querySelector(destinazione)?.scrollIntoView({ behavior: "smooth" })
+  const bersaglio = destinazione.startsWith("#") ? document.querySelector<HTMLElement>(destinazione) : null
+  if (bersaglio) {
+    // Con lo scorrimento lento attivo ci arriva lui, alla sua velocità.
+    const lento = scorrimento()
+    if (lento) lento.scrollTo(bersaglio)
+    else bersaglio.scrollIntoView({ behavior: "smooth" })
   } else {
     window.location.href = destinazione.startsWith("#") ? `/${destinazione}` : destinazione
   }
@@ -70,6 +75,8 @@ export function Comandi() {
     setFiltro("")
     setScelto(0)
     if (!dialogo.current?.open) dialogo.current?.showModal()
+    // La pagina sotto il menu resta ferma finché il menu è aperto.
+    scorrimento()?.stop()
     requestAnimationFrame(() => campo.current?.focus())
   }
   const esegui = (c?: Comando) => {
@@ -115,7 +122,9 @@ export function Comandi() {
         ref={dialogo}
         aria-label={t("Menu dei comandi", "Command menu")}
         onClick={(e) => e.target === e.currentTarget && e.currentTarget.close()}
+        onClose={() => scorrimento()?.start()}
         className="menu-comandi"
+        data-lenis-prevent
       >
         <div className="flex items-center gap-3 border-b border-riga px-5 py-4">
           <input
