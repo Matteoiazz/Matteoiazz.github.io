@@ -47,3 +47,20 @@ export function useScorciatoia() {
   }, [])
   return tasti
 }
+
+/**
+ * Movimento ridotto, deciso dopo il primo render: server e browser partono
+ * dalla stessa pagina (quella animata) e chi ha chiesto meno movimento passa
+ * subito alla versione ferma, senza errori di idratazione.
+ */
+export function useMovimentoRidotto() {
+  const [ridotto, setRidotto] = useState(false)
+  useEffect(() => {
+    const mq = matchMedia("(prefers-reduced-motion: reduce)")
+    const aggiorna = () => setRidotto(mq.matches)
+    aggiorna()
+    mq.addEventListener("change", aggiorna)
+    return () => mq.removeEventListener("change", aggiorna)
+  }, [])
+  return ridotto
+}

@@ -7,10 +7,10 @@ import { useLingua } from "@/components/foglio/lingua"
 import { apriComandi, useScorciatoia } from "@/components/foglio/comuni"
 
 export const sezioni = [
+  { id: "storia", it: "Storia", en: "Story" },
   { id: "progetti", it: "Progetti", en: "Work" },
-  { id: "chi-sono", it: "Chi sono", en: "About" },
   { id: "stack", it: "Stack", en: "Stack" },
-  { id: "percorso", it: "Percorso", en: "Path" },
+  { id: "in-breve", it: "In breve", en: "In short" },
   { id: "contatti", it: "Contatti", en: "Contact" },
 ]
 

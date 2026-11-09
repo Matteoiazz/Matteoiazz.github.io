@@ -35,10 +35,10 @@ export function Comandi() {
 
   const comandi: Comando[] = useMemo(
     () => [
+      { id: "storia", gruppo: t("Vai a", "Go to"), testo: t("La storia", "The story"), fai: () => vai("#storia") },
       { id: "progetti", gruppo: t("Vai a", "Go to"), testo: t("Progetti", "Work"), fai: () => vai("#progetti") },
-      { id: "chi-sono", gruppo: t("Vai a", "Go to"), testo: t("Chi sono", "About"), fai: () => vai("#chi-sono") },
       { id: "stack", gruppo: t("Vai a", "Go to"), testo: "Stack", fai: () => vai("#stack") },
-      { id: "percorso", gruppo: t("Vai a", "Go to"), testo: t("Percorso", "Path"), fai: () => vai("#percorso") },
+      { id: "in-breve", gruppo: t("Vai a", "Go to"), testo: t("In breve, con il curriculum", "In short, with the résumé"), fai: () => vai("#in-breve") },
       { id: "contatti", gruppo: t("Vai a", "Go to"), testo: t("Contatti", "Contact"), fai: () => vai("#contatti") },
       ...projects.map((p) => ({
         id: `progetto-${p.slug}`,

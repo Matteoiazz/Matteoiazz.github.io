@@ -1,23 +1,27 @@
 import { Barra } from "@/components/foglio/barra"
 import { Apertura } from "@/components/foglio/apertura"
-import { Indice } from "@/components/foglio/indice"
-import { ChiSono } from "@/components/foglio/chi-sono"
+import { Prologo } from "@/components/foglio/prologo"
+import { Capitoli } from "@/components/foglio/capitoli"
+import { Binario } from "@/components/foglio/binario"
 import { Stack } from "@/components/foglio/stack"
-import { Percorso } from "@/components/foglio/percorso"
+import { InBreve } from "@/components/foglio/in-breve"
 import { Chiusura } from "@/components/foglio/chiusura"
 
-// Una pagina bianca: la frase con il nome e i tre progetti principali subito,
-// poi tutti i progetti, chi sono, lo stack, il percorso; si chiude in nero.
+// La casa come una storia da scorrere: la frase con il nome e i tre progetti
+// principali, poi il prologo che si accende parola per parola, i capitoli che
+// costruiscono gli strati dal database all'AI, i progetti che scorrono di lato,
+// gli strumenti, il riassunto; si chiude in nero.
 export default function Pagina() {
   return (
     <>
       <Barra />
       <main className="overflow-x-clip">
         <Apertura />
-        <Indice />
-        <ChiSono />
+        <Prologo />
+        <Capitoli />
+        <Binario />
         <Stack />
-        <Percorso />
+        <InBreve />
       </main>
       <Chiusura />
     </>

@@ -188,7 +188,7 @@ components:
 
 Una pagina bianca tenuta come un buon curriculum stampato: un solo carattere, l'inchiostro e una sola voce grigia, filetti sottili, molto spazio tra un capitolo e l'altro. La pulizia viene dalla rinuncia: niente vetro, niente cromo sul testo, niente colori. Ogni titolo parla a due voci, l'inchiostro dice cosa, il grigio aggiunge il resto, ed è questa la firma tipografica del sito.
 
-Il lavoro sta davanti: già nella prima schermata le schermate vere dei progetti si affacciano sotto la frase che apre con il nome. Le immagini sono quelle schermate, i loghi delle istituzioni nel percorso e, da 90rem in su, il disegno tecnico degli strati accanto al titolo (database, server, interfaccia, rete neurale): tratto nero sottile su fondo trasparente. Il movimento è poco e scritto una volta: la frase che sale dalla sfocatura all'arrivo, l'anteprima che segue il puntatore nell'indice, la copertina che passa dalla casa alla pagina del progetto. In fondo la pagina si rovescia in nero e chiude con il nome a tutta larghezza.
+Il lavoro sta davanti: già nella prima schermata le schermate vere dei progetti si affacciano sotto la frase che apre con il nome. Le immagini sono quelle schermate, i loghi delle istituzioni nel percorso e, da 90rem in su, il disegno tecnico degli strati accanto al titolo (database, server, interfaccia, rete neurale): tratto nero sottile su fondo trasparente. La casa si legge come una storia: lo scorrimento è lento e le scene si fermano finché non sono state lette. Il prologo si accende una parola alla volta, quattro capitoli costruiscono il disegno degli strati dal database all'AI, i progetti scorrono di lato; aprendone uno, la copertina diventa la testata della sua pagina. In fondo la pagina si rovescia in nero e chiude con il nome a tutta larghezza.
 
 Rifiuti confermati: vetro liquido e vetro scuro con cromo, il fiore cromato, tabellone a palette e griglia a vista dello specimen in bianco e nero, etichette numerate sopra le sezioni, prezzi da freelance.
 
@@ -251,7 +251,9 @@ Inchiostro su carta, una voce grigia e i grigi chiarissimi dei filetti e dei pal
 
 Contenitore largo fino a 104rem, centrato, con margini laterali clamp(1.125rem, 3.4vw, 3.5rem). Griglia di 12 colonne da 48rem in su (4 sotto), con spazio di 1.5rem (1.25rem sotto i 48rem). I capitoli respirano 7rem sopra (10rem da 48rem), sempre più spazio sopra un titolo che sotto. I titoli di capitolo occupano le prime otto colonne; la frase di servizio sta a destra, allineata alla base del titolo.
 
-In apertura la frase occupa circa otto colonne; sotto, da 64rem in su, le due azioni stanno a sinistra e la presentazione a destra (colonne 8-12), più stretto una sotto l'altra. Le tre copertine principali si affacciano prima della piega, con larghezze diverse (3, 5 e 4 colonne): stretto per i telefoni, largo per le finestre. Sotto i 48rem tutto diventa una colonna e le righe dell'indice mostrano una miniatura al posto delle colonne di dati.
+In apertura la frase occupa circa otto colonne; da 64rem in su le due azioni stanno a sinistra e la presentazione a destra (colonne 8-12), da 90rem il testo prende nove colonne e il disegno degli strati le ultime tre. Le tre copertine principali si affacciano prima della piega, con larghezze diverse (3, 5 e 4 colonne): stretto per i telefoni, largo per le finestre.
+
+Dopo l'apertura la pagina è una sequenza di scene. Il prologo è alto 240svh con la frase ferma al centro (sticky) per 140svh di scorrimento. I cinque capitoli sono alti almeno uno schermo ciascuno, con il racconto nelle colonne 1-7 e, da 64rem, il disegno degli strati fermo nelle colonne 8-12; sotto quella misura ogni capitolo porta il suo disegno piccolo (8rem). Il binario dei progetti è alto uno schermo più la sua corsa orizzontale: la sezione si ferma e le carte (fino a 30rem) scorrono di lato, partendo allineate al contenuto. Con il movimento ridotto le scene non si fermano: la frase è subito a fuoco e il binario si scorre a mano.
 
 ## Elevation & Depth
 
@@ -297,11 +299,17 @@ Pillole basse e precise.
 ### Navigation
 - **Style:** barra bianca alta 4rem con il nome a sinistra, le sezioni in grigio a destra (quella in corso in inchiostro), IT/EN e la pillola Menu con la scorciatoia. Scendendo si nasconde, risalendo torna; appena la pagina si muove compare un filetto sotto. Sui telefoni restano nome, lingua e Menu, che apre il menu dei comandi.
 
-### Indice dei progetti
-Righe separate da filetti: titolo, tipo, squadra, anno, la pillola "Caso di studio" dove c'è e la freccia. Con il mouse il titolo sotto il puntatore si allarga, gli altri passano al grigio e la copertina segue il puntatore su un palco con l'ombra di anteprima; al clic quella copertina diventa la testata della pagina del progetto con una view transition.
+### Prologo
+La frase che apre la storia, in Mona Sans 500 a clamp(1.75rem, 1rem + 2.6vw, 3.25rem), ferma al centro dello schermo: ogni parola parte al 16% di opacità e arriva all'inchiostro nel suo tratto di scorrimento, in ordine. Per andare avanti bisogna leggerla.
 
-### Loghi del percorso
-Ogni voce del percorso ha il logo dell'istituzione (Università della Calabria, Servizio Civile Universale, Liceo Scorza) dentro una tessera palco a 12px, 64px sul desktop e 48px sul telefono, con il logo al 13% dai bordi. In scala di grigi a riposo, a colori al passaggio sulla riga. I file sono quelli ufficiali, presi dai siti delle istituzioni.
+### Strati della storia
+Il disegno degli strati con un velo color carta per fascia (AI, interfaccia, server, database): lo strato del capitolo in lettura è acceso, quelli già raccontati restano al 45%, quelli da raccontare al 10%. Lo stack si costruisce dal basso; nell'ultimo capitolo è tutto acceso. Accanto, i nomi degli strati con il filetto che si allunga su quello attivo.
+
+### Tappe
+Le date dei capitoli (diploma, triennale, magistrale, servizio civile) in righe con filetto: il logo ufficiale dell'istituzione in una tessera palco a 12px (48px), in scala di grigi e a colori al passaggio sulla riga, la data in grigio con le cifre tabellari e il titolo in inchiostro.
+
+### Binario dei progetti
+Le carte dei sette progetti: palco con la schermata, titolo con la sottolineatura che si disegna, tipo, squadra, anno, "caso di studio" dove c'è e una riga di presentazione in grigio. Sotto il binario un filetto si riempie d'inchiostro man mano che si va avanti. Al clic la copertina diventa la testata della pagina del progetto.
 
 ### Etichetta del cursore
 Una piccola pillola inchiostro con la parola dell'azione ("Apri", "Copia") che accompagna il puntatore sopra copertine ed email; sul capitolo nero si rovescia bianca. Il puntatore resta quello del sistema.
@@ -313,7 +321,8 @@ Una piccola pillola inchiostro con la parola dell'azione ("Apri", "Copia") che a
 - **Do** mostrare i progetti con le loro schermate vere dentro la cornice giusta (telefono, finestra, browser) su un palco a 14px.
 - **Do** separare righe, tabelle e capitoli con filetti di 1px e spazio, non con riquadri.
 - **Do** usare l'asse della larghezza di Mona Sans solo come risposta al puntatore.
-- **Do** rispettare il movimento ridotto: niente ingresso, scorrimento lento, anteprima o transizioni, tutto subito visibile.
+- **Do** rispettare il movimento ridotto: niente ingresso, scorrimento lento, scene ferme o transizioni, tutto subito visibile.
+- **Do** calcolare in JavaScript (forma a funzione di useTransform) ogni valore legato allo scorrimento dentro una scena ferma: la timeline nativa del browser lì sbaglia gli intervalli.
 
 ### Don't:
 - **Don't** mettere occhielli, etichette o numeri sopra i titoli.

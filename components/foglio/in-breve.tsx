@@ -2,12 +2,10 @@
 
 import Link from "next/link"
 import { ArrowDown, ArrowRight } from "lucide-react"
-import { profile } from "@/lib/portfolio-data"
-import { introEn } from "@/lib/inglese"
 import { useLingua } from "@/components/foglio/lingua"
 
-/** Chi sono: la presentazione a sinistra, i fatti in una tabella a destra, il curriculum. */
-export function ChiSono() {
+/** Dopo la storia, il riassunto per chi deve decidere in fretta: i fatti in una tabella e il curriculum. */
+export function InBreve() {
   const { t } = useLingua()
   const fatti = [
     { k: t("Università", "University"), v: t("Università della Calabria, Rende", "University of Calabria, Rende") },
@@ -21,14 +19,12 @@ export function ChiSono() {
     { k: t("Fuori dal codice", "Away from code"), v: t("Palestra e sport", "Gym and sport") },
   ]
   return (
-    <section id="chi-sono" aria-labelledby="chi-sono-titolo" className="pt-28 md:pt-40">
-      <div className="contenitore grid grid-cols-4 gap-x-[var(--passo)] md:grid-cols-12">
-        <h2 id="chi-sono-titolo" className="titolo-2 col-span-4 md:col-span-9">
-          {t("Chi sono.", "About.")} <span className="seconda">{t("Studio, costruisco, mi alleno.", "I study, I build, I train.")}</span>
-        </h2>
-
-        <div className="col-span-4 mt-10 md:col-span-6 md:mt-14">
-          <p className="lead">{t(profile.intro, introEn)}</p>
+    <section id="in-breve" aria-labelledby="in-breve-titolo" className="pt-28 md:pt-40">
+      <div className="contenitore grid grid-cols-4 gap-x-[var(--passo)] gap-y-12 md:grid-cols-12">
+        <div className="col-span-4 md:col-span-5">
+          <h2 id="in-breve-titolo" className="titolo-2">
+            {t("In breve.", "In short.")} <span className="seconda">{t("Il riassunto, con il curriculum.", "The summary, with the résumé.")}</span>
+          </h2>
           <div className="mt-9 flex flex-wrap gap-3">
             <a href="/Matteo_Iazzolino_CV.pdf" download className="pillola pillola-piena" data-verso="giu">
               {t("Scarica il curriculum", "Download résumé")}
@@ -40,8 +36,7 @@ export function ChiSono() {
             </Link>
           </div>
         </div>
-
-        <dl className="col-span-4 mt-14 border-t border-riga md:col-span-5 md:col-start-8 md:mt-16">
+        <dl className="col-span-4 self-end border-t border-riga md:col-span-6 md:col-start-7">
           {fatti.map((f) => (
             <div key={f.k} className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-4 border-b border-riga py-4">
               <dt className="text-grigio">{f.k}</dt>

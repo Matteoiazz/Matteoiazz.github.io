@@ -8,7 +8,7 @@
  * stesso nome non esistono mai; la testata della pagina del progetto prende
  * il nome del posto da cui si è partiti, segnato al momento del clic.
  */
-export type Origine = "copertina" | "anteprima" | "miniatura" | "nessuna"
+export type Origine = "copertina" | "binario" | "nessuna"
 
 let origine: Origine = "copertina"
 
