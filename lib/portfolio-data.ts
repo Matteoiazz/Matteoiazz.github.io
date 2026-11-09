@@ -58,7 +58,7 @@ export type Project = {
 }
 
 // Progetti reali: descrizioni ricavate dal codice dei singoli repository.
-// L'ordine conta: Tripify apre il mosaico nella card più grande, la tesi gli sta accanto.
+// L'ordine conta: Tripify racchiude la triennale, la tesi la chiude, ApKit4D apre la magistrale.
 export const projects: Project[] = [
   {
     slug: "tripify",
@@ -124,44 +124,88 @@ export const projects: Project[] = [
     team: "Tesi di laurea triennale in Informatica · UniCal · progetto individuale",
     squadra: "Individuale",
     tagline:
-      "App desktop con cui il docente prepara gli esami di programmazione per Moodle: tracce, soluzioni verificate sui test ed export pronto da importare.",
+      "App desktop con cui il docente prepara gli esami di programmazione per Moodle: soluzioni verificate sui test e un'AI che genera, rivede e corregge, sempre con la sua conferma.",
     description:
-      "Applicazione desktop per il docente di Fondamenti di Programmazione dell'UniCal, che prepara esami e pretest in Python per Moodle con le domande CodeRunner. Per ogni esercizio si scrivono il testo, la soluzione nascosta, il codice di partenza per gli studenti e i test; l'app calcola gli output attesi eseguendo la soluzione, controlla che ogni test passi ed esporta un file XML che Moodle importa al primo colpo. Le tracce restano in un archivio con salvataggio automatico, pronte da duplicare per l'appello successivo. La seconda parte della tesi, in sviluppo, è un assistente AI con RAG sul materiale del corso che propone tracce e test case.",
+      "Applicazione desktop per il docente di Fondamenti di Programmazione dell'UniCal, che prepara esami e pretest in Python per Moodle con le domande CodeRunner. Per ogni esercizio si scrivono testo, soluzione nascosta, codice per gli studenti e test; l'app calcola gli output eseguendo la soluzione, verifica ogni test ed esporta un XML che Moodle importa al primo colpo. La seconda parte della tesi porta l'intelligenza artificiale dentro lo strumento: con una chiave di OpenRouter genera la soluzione dal testo, la rivede cercando errori, casi limite e test mancanti, propone correzioni ed esercizi simili nello stile del docente. Ogni proposta viene controllata sui test, prima di ogni richiesta si vede cosa parte verso il modello e niente cambia senza conferma.",
     highlights: [
       "Import ed export nello stesso formato XML degli export di Moodle, con CDATA e immagini incorporate nel testo, verificato su esercizi d'esame reali del docente",
       "Output attesi calcolati eseguendo la soluzione come fa CodeRunner, con tempo limite di 3 secondi e output massimo di 1 MB: l'esportazione resta bloccata finché ogni test non è superato",
-      "Codice per gli studenti generato dalla soluzione, test comuni a tutta la traccia con i 9 test standard del docente ed esclusione dei singoli test per esercizio",
-      "Archivio SQLite con salvataggio automatico, duplicazione per un nuovo appello, cestino, riuso degli esercizi, backup e ripristino",
-      "Backend FastAPI con architettura esagonale, avviato da Electron su una porta libera e protetto da un codice segreto diverso a ogni avvio; nella pagina Content Security Policy e contextIsolation",
-      "Installer per Windows, macOS e Linux con Python incluso, creati da GitHub Actions dopo i test con pytest e Vitest",
+      "Funzioni AI dietro una porta LanguageModel del backend esagonale, con l'adattatore per OpenRouter: soluzione generata dal testo e controllata sui test fino a tre tentativi, revisione per tipo di problema con i test suggeriti già eseguiti, correzioni mostrate come differenze, esercizi simili nello stile del docente",
+      "Niente cambia senza conferma: la richiesta al modello si vede prima dell'invio, con le indicazioni del docente; la chiave resta nel portachiavi del sistema o protetta da una master password e la aggiunge il processo principale di Electron a ogni richiesta",
+      "Archivio SQLite a schede con salvataggio automatico: tracce per anno, esercizi da riusare, cestino, filtri per tipo e data, importazione di più XML, backup e ripristino",
+      "Installer per Windows, macOS e Linux con Python incluso, creati da GitHub Actions dopo più di 500 test (pytest e Vitest), e aggiornamento automatico dalle release di GitHub",
     ],
-    stack: ["Electron", "React", "TypeScript", "Python", "FastAPI", "SQLite", "GitHub Actions"],
+    stack: ["Electron", "React", "TypeScript", "Python", "FastAPI", "SQLite", "OpenRouter", "GitHub Actions"],
     repo: "https://github.com/Matteoiazz/editor-tracce-coderunner",
-    // Schermate dell'app con gli XML d'esame pubblicati nel repository
-    // (backend/tests/fixtures/moodle), importati e verificati.
+    // Schermate della versione 1.4.0 con gli XML d'esame pubblicati nel repository
+    // (backend/tests/fixtures/moodle), importati in un archivio di prova.
     cover: {
       src: "/projects/tesi/cover.webp",
-      alt: "Esercizio 3 dell'esame del 3 luglio 2026 aperto nell'editor: testo della traccia, sezioni completate e due esercizi con tutti i test superati",
-      caption: "Un esame reale importato da Moodle e verificato",
+      alt: "Esame del 3 luglio 2026 aperto nell'editor: tre esercizi pronti, 45 test su 45 superati e il testo dell'esercizio 3",
+      caption: "Un esame reale importato da Moodle: 45 test su 45 superati",
       frame: "window",
     },
     gallery: [
       {
-        src: "/projects/tesi/soluzione.webp",
-        alt: "Soluzione nascosta dell'esercizio nell'editor Monaco e, sotto, il codice per gli studenti generato dalla soluzione",
-        caption: "Soluzione e codice per gli studenti",
+        src: "/projects/tesi/ai.webp",
+        alt: "La soluzione dell'esercizio 3 nell'editor con il menu AI aperto: Genera la soluzione e Rivedi la soluzione",
+        caption: "Le funzioni AI sulla soluzione: generarla dal testo o rivederla",
         frame: "window",
       },
       {
-        src: "/projects/tesi/test.webp",
-        alt: "Tabella dei test con input, output atteso, esempio, visibilità ed esito: 14 test su 14 superati",
-        caption: "Test con output calcolati e verificati",
+        src: "/projects/tesi/richiesta.webp",
+        alt: "Finestra Richiesta all'AI per la revisione della soluzione, con lo spazio per le indicazioni del docente, prima dell'invio",
+        caption: "Prima di ogni richiesta si vede cosa parte verso il modello",
         frame: "window",
       },
       {
         src: "/projects/tesi/archivio.webp",
-        alt: "Archivio con le tracce salvate, i pulsanti per duplicarle o spostarle nel cestino e la sezione di backup",
-        caption: "Archivio delle tracce, con backup",
+        alt: "Archivio a schede con le tracce raggruppate per anno, i filtri per tipo, anno e data e la sezione di backup",
+        caption: "Archivio delle tracce, con filtri e backup",
+        frame: "window",
+      },
+      {
+        src: "/projects/tesi/impostazioni.webp",
+        alt: "Impostazioni con la chiave di OpenRouter mascherata, il modello scelto e l'opzione per vedere la richiesta prima dell'invio",
+        caption: "Impostazioni: la chiave di OpenRouter e il modello",
+        frame: "window",
+      },
+    ],
+  },
+  {
+    // Progetto della magistrale (repository del gruppo physics-3d-group-7).
+    slug: "apkit4d",
+    platform: "desktop",
+    casoStudio: true,
+    title: "ApKit4D",
+    year: "2026",
+    kind: "App desktop · R&D",
+    team: "Progetto di gruppo in otto · Research and Development Methodologies, magistrale UniCal · per il Dipartimento di Fisica · mie la ricerca sulla GUI e la vista 3D veloce",
+    squadra: "Team di 8",
+    tagline:
+      "App desktop in Python per un laboratorio di fisica: apre le acquisizioni 4D di un microscopio Zeiss, le mostra in 3D nel tempo e segue le alghe. Mie la ricerca sulla vista 3D e la sua velocità.",
+    description:
+      "Progetto della magistrale per una ricercatrice del Dipartimento di Fisica che studia alghe acquisite con un microscopio light-field Zeiss: file .czi con un volume 3D che cambia nel tempo. Il gruppo lavora in Scrum, con la ricercatrice come Product Owner, e costruisce un'app in Python con PySide6 e PyVista che apre l'acquisizione, la mostra in 3D frame per frame e la porta lungo una pipeline: ritaglio della regione di interesse, preprocessing, rilevamento delle alghe, tracce nel tempo ed export. La mia parte: la ricerca sulla GUI, dal prototipo di partenza alla base della finestra fino alle demo napari e PyVista misurate a confronto; poi la vista 3D che con lo zoom diventava lenta, il pannello di sinistra e i controlli dell'aspetto della vista.",
+    highlights: [
+      "Lettura dei .czi con czifile al posto della libreria del prototipo: stessi dati, da 3 a 6 volte più veloce e compatibile con Python 3.14",
+      "Base della GUI in PySide6: finestra, menu File, segnale file_opened e funzione run(path) usata anche dalla riga di comando",
+      "Due demo con le stesse funzioni (volume 3D, tempo, contrasto, blob cliccabili, tracce, regione di interesse), una in napari e una in PyVista, misurate sugli stessi dati reali; una prima serie di misure era sbagliata, l'abbiamo rifatta e il report lo dice. Il gruppo ha scelto PyVista",
+      "Vista 3D veloce con lo zoom: un solo disegno per ogni cambiamento, niente ridisegni da ferma, mezza risoluzione solo mentre la vista si muove. Scatto della rotella da circa 300 a 34–45 ms, trascinamento da 165–182 a 57–76 ms, cambio frame da 206 a 106 ms",
+      "La qualità ridotta di VTK trasformava le alghe in rombi durante il movimento: la mezza risoluzione è altrettanto veloce e da ferma l'immagine resta identica, pixel per pixel",
+      "Scrum con backlog su Jira, pull request con review (tredici commenti sulla vista 3D, risolti uno per uno con test nuovi) e CI su GitHub con test, linting e controllo dei tipi",
+    ],
+    stack: ["Python", "PySide6", "PyVista", "VTK", "napari", "pytest", "Jira", "GitHub Actions"],
+    cover: {
+      src: "/projects/apkit4d/cover.webp",
+      alt: "ApKit4D con un'acquisizione del microscopio aperta: il volume 3D con le alghe, la barra del tempo sui 600 frame e i cinque passi della pipeline a destra",
+      caption: "Un'acquisizione del laboratorio aperta in ApKit4D, frame 1 di 600",
+      frame: "window",
+    },
+    gallery: [
+      {
+        src: "/projects/apkit4d/scuro.webp",
+        alt: "La stessa vista di ApKit4D con il tema scuro",
+        caption: "La stessa vista con il tema scuro",
         frame: "window",
       },
     ],
@@ -387,38 +431,6 @@ export const projects: Project[] = [
       },
     ],
   },
-  {
-    // Progetto della magistrale appena partito: niente schermate finché non c'è
-    // un'interfaccia, la copertina è un'illustrazione e lo dice la didascalia.
-    // Il nome dell'app non è ancora deciso dal gruppo ("biolight" o "ApKit4D").
-    slug: "alghe-4d",
-    platform: "desktop",
-    title: "Alghe in 4D",
-    year: "2026",
-    kind: "App desktop · R&D",
-    team: "Progetto di gruppo in otto · Research and Development Methodologies, magistrale UniCal · per il Dipartimento di Fisica · appena iniziato",
-    squadra: "Team di 8",
-    tagline:
-      "App desktop in Python per un laboratorio di fisica: apre acquisizioni al microscopio fino a 8 GB, le mostra in 3D nel tempo e traccia le alghe.",
-    description:
-      "Progetto della magistrale per una ricercatrice del Dipartimento di Fisica che studia alghe acquisite con un microscopio Zeiss. Oggi usa ZEISS arivis, che con file così grandi non è fluido: serve uno strumento più reattivo per aprire un'acquisizione, vederla in 3D frame per frame, scegliere una regione di interesse, rilevare le alghe e collegarle in tracce, calcolare le statistiche ed esportare i risultati. Il gruppo lavora in Scrum con la ricercatrice come Product Owner. Il progetto è appena partito: qui ci sono il problema e le scelte fatte finora, le schermate arriveranno con i primi sprint.",
-    highlights: [
-      "Dati 4D da un microscopio Zeiss: file .czi da 500 MB a 8 GB con un volume 3D che cambia nel tempo, da aprire e scorrere senza caricarlo tutto in memoria",
-      "Prima il core, poi la grafica: caricamento e analisi come libreria testata e usabile da riga di comando, con l'interfaccia che arriva dopo e usa lo stesso codice",
-      "Proposta al team: l'analisi come pipeline di step indipendenti (lettura, ritaglio della regione di interesse, rilevamento delle alghe, tracce, statistiche, export in CSV, JSON e HDF5), ognuno testabile da solo",
-      "Si riparte da un prototipo di circa 2500 righe senza versionamento: prima nel repository e coperto da test sul tracking, poi migliorato",
-      "Vista 3D con napari, nato per le immagini scientifiche multidimensionali, e PyVista pronto come alternativa se con i volumi grandi non è fluido",
-      "Backlog su Jira, pull request con review e CI su GitHub con test, linting e controllo dei tipi",
-    ],
-    stack: ["Python", "napari", "PyVista", "Jira", "GitHub Actions"],
-    cover: {
-      src: "/projects/alghe/cover.webp",
-      alt: "Illustrazione di un volume 3D con la regione di interesse tratteggiata, le alghe come punti luminosi e le loro tracce nel tempo",
-      caption: "Illustrazione: volume 3D, regione di interesse e tracce delle alghe",
-      frame: "window",
-    },
-    gallery: [],
-  },
 ]
 
 // Le tecnologie che compaiono anche nello stack di un progetto mostrano dove
@@ -427,7 +439,7 @@ export const stack: { group: string; items: string[] }[] = [
   { group: "Linguaggi", items: ["Java", "Kotlin", "Python", "TypeScript", "C++", "C"] },
   { group: "Frontend", items: ["Angular", "React", "Tailwind CSS"] },
   { group: "Backend e database", items: ["Spring Boot", "FastAPI", "Node.js", "PostgreSQL", "SQLite", "MySQL"] },
-  { group: "Mobile e desktop", items: ["Kotlin", "Jetpack Compose", "JavaFX", "Electron"] },
+  { group: "Mobile e desktop", items: ["Kotlin", "Jetpack Compose", "JavaFX", "Electron", "PySide6", "PyVista"] },
   { group: "Infrastruttura", items: ["Docker", "Keycloak", "RabbitMQ", "GitHub Actions"] },
 ]
 
@@ -453,7 +465,7 @@ export const experiences: Experience[] = [
     company: "Università della Calabria",
     period: "Da ottobre 2026",
     description:
-      "Magistrale in intelligenza artificiale e informatica, in continuità con la triennale. Nel primo semestre Deep Learning e Research and Development Methodologies, con un progetto Scrum in otto per il Dipartimento di Fisica: l'analisi 3D di alghe al microscopio.",
+      "Magistrale in intelligenza artificiale e informatica, in continuità con la triennale. Nel primo semestre Deep Learning e Research and Development Methodologies, con un progetto Scrum in otto per il Dipartimento di Fisica: ApKit4D, l'analisi 3D di alghe al microscopio.",
     logo: "/loghi/unical.svg",
   },
   {

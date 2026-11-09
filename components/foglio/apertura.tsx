@@ -10,12 +10,13 @@ import { useLingua } from "@/components/foglio/lingua"
 import { Palco } from "./schermo"
 import { nomePassaggio, segnaOrigine } from "./anteprima"
 
-// I tre progetti con il caso di studio, già nella prima schermata. Larghezze
+// I tre progetti più importanti, già nella prima schermata: Tripify (la triennale), la tesi
+// e ApKit4D (la magistrale). Larghezze
 // diverse: i telefoni stanno in un riquadro stretto, le finestre in uno largo.
 const VETRINA = [
   { slug: "tripify", colonne: "md:col-span-3" },
   { slug: "tesi", colonne: "md:col-span-5" },
-  { slug: "goldenstay", colonne: "md:col-span-4" },
+  { slug: "apkit4d", colonne: "md:col-span-4" },
 ]
 
 const ritardo = (i: number) => ({ "--i": i }) as CSSProperties

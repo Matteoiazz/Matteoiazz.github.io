@@ -39,8 +39,8 @@ Il sito si apre da link nel CV, su LinkedIn e nelle candidature, su desktop e su
 
 ## Evidence on Hand
 
-- Progetti reali con schermate in public/projects/: Tripify (app Android a microservizi, in gruppo di quattro), Editor tracce CodeRunner (tesi, individuale, repo pubblico), GoldenStay (web app, in coppia, online), MoneyMind (web app, gruppo di quattro), Muscle & Fitness (sito con area soci, personale, online), WAVE.LY (app desktop JavaFX), Alghe in 4D (progetto R&D della magistrale, appena iniziato, solo copertina illustrata).
-- Casi di studio con codice reale per Tripify, tesi e GoldenStay (lib/casi-studio.ts).
+- Progetti reali con schermate in public/projects/: Tripify (app Android a microservizi, in gruppo di quattro), Editor tracce CodeRunner (tesi, individuale, repo pubblico), GoldenStay (web app, in coppia, online), MoneyMind (web app, gruppo di quattro), Muscle & Fitness (sito con area soci, personale, online), WAVE.LY (app desktop JavaFX), ApKit4D (progetto R&D della magistrale in otto, per il Dipartimento di Fisica: mie la ricerca sulla GUI e la vista 3D veloce; schermate dell'app vera).
+- Casi di studio con codice reale per Tripify, tesi, ApKit4D e GoldenStay (lib/casi-studio.ts). I tre progetti principali sono Tripify (racchiude la triennale), la tesi (con le funzioni AI via OpenRouter, versione 1.4.0) e ApKit4D (apre la magistrale).
 - Percorso: magistrale (da ottobre 2026), triennale (prevista dicembre 2026), Servizio Civile Universale (set 2025 - set 2026), diploma scientifico 97/100.
 - Lingue: italiano madrelingua, inglese B2. Fuori dal codice: sport e palestra.
 - Assenti, da non inventare: foto personale, testimonianze, clienti, esperienze di lavoro retribuite, numeri di utenti.

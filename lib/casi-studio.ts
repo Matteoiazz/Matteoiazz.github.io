@@ -209,11 +209,11 @@ private Long version = 0L;`,
   {
     slug: "tesi",
     sommario:
-      "La mia tesi triennale: un'app desktop con cui il docente di Fondamenti di Programmazione prepara gli esami in Python per Moodle. Prima si scrivevano a mano, domanda per domanda, e un output atteso sbagliato arrivava agli studenti durante l'esame. Qui ogni test viene verificato eseguendo la soluzione, e si esporta solo quando tutto passa.",
-    ruolo: "Tutto: interfaccia, backend, installer. Progetto individuale",
+      "La mia tesi triennale: un'app desktop con cui il docente di Fondamenti di Programmazione prepara gli esami in Python per Moodle. Prima si scrivevano a mano, domanda per domanda, e un output atteso sbagliato arrivava agli studenti durante l'esame. Qui ogni test viene verificato eseguendo la soluzione, si esporta solo quando tutto passa, e un modello linguistico aiuta a scrivere e rivedere: ogni sua proposta passa dai test e niente cambia senza conferma.",
+    ruolo: "Tutto: interfaccia, backend, funzioni AI, installer. Progetto individuale",
     architettura: {
       didascalia:
-        "Electron avvia il backend Python su una porta libera e gli passa un codice segreto diverso a ogni avvio. La pagina non vede Node.js: parla solo col preload e, via HTTP, col backend. Il backend è esagonale: il dominio non dipende da niente, i dettagli stanno negli adattatori.",
+        "Electron avvia il backend Python su una porta libera e gli passa un codice segreto diverso a ogni avvio; tiene anche la chiave di OpenRouter, che la pagina non vede mai. La pagina non vede Node.js: parla solo col preload e, via HTTP, col backend. Il backend è esagonale: il dominio non dipende da niente, il modello linguistico è una porta come l'esecuzione del codice, i dettagli stanno negli adattatori.",
       livelli: [
         {
           nome: "Finestra",
@@ -224,13 +224,16 @@ private Long version = 0L;`,
         },
         {
           nome: "Electron",
-          blocchi: [{ nome: "Processo principale", nota: "porta libera · codice segreto · finestra", mio: true }],
+          blocchi: [
+            { nome: "Processo principale", nota: "porta libera · codice segreto · finestra", mio: true },
+            { nome: "Chiave OpenRouter", nota: "portachiavi · master password", mio: true },
+          ],
         },
         {
           nome: "Backend",
           blocchi: [
             { nome: "API FastAPI", nota: "X-App-Token · solo 127.0.0.1", mio: true },
-            { nome: "Applicazione", nota: "verifica · codice studenti · archivio", mio: true },
+            { nome: "Applicazione", nota: "verifica · AI · archivio", mio: true },
             { nome: "Dominio", nota: "esercizi · tracce", mio: true },
           ],
         },
@@ -240,6 +243,7 @@ private Long version = 0L;`,
             { nome: "Esecuzione Python", nota: "3 s · 1 MB", mio: true },
             { nome: "Moodle XML", nota: "import · export", mio: true },
             { nome: "Archivio SQLite", nota: "backup · cestino", mio: true },
+            { nome: "OpenRouter", nota: "porta LanguageModel", mio: true },
           ],
         },
       ],
@@ -316,7 +320,7 @@ function getFreePort() {
         titolo: "Dominio al centro, dettagli ai bordi",
         testo: [
           "Il backend segue l'architettura esagonale. Il dominio (esercizi e tracce) non importa niente di FastAPI, SQLite o subprocess; l'applicazione usa solo le porte, cioè le interfacce per eseguire codice e per l'archivio; gli adattatori sono le implementazioni concrete.",
-          "Così i test del dominio non hanno bisogno di un database o di un processo Python, e cambiare il modo di eseguire il codice tocca un solo file. In tutto più di 200 test automatici, tra pytest sul backend e Vitest sull'interfaccia, girano anche su GitHub Actions prima di ogni installer.",
+          "Così i test del dominio non hanno bisogno di un database o di un processo Python, e cambiare il modo di eseguire il codice tocca un solo file. Lo stesso vale per l'AI: i casi d'uso conoscono solo la porta LanguageModel, e nei test al posto di OpenRouter c'è un modello finto. In tutto più di 500 test automatici, tra pytest sul backend e Vitest sull'interfaccia, girano anche su GitHub Actions prima di ogni installer.",
         ],
         codice: {
           file: "backend/src/tesi/",
@@ -326,30 +330,164 @@ function getFreePort() {
 │   └── track.py
 ├── ports/           # interfacce di cui l'applicazione ha bisogno
 │   ├── code_runner.py
+│   ├── language_model.py
 │   └── track_archive.py
 ├── application/     # casi d'uso
 │   ├── verification.py
 │   ├── student_code.py
+│   ├── generate.py · review.py · fix.py · similar.py
 │   └── archive.py
 ├── adapters/        # implementazioni concrete
 │   ├── local_runner.py
 │   ├── moodle_xml.py
+│   ├── openrouter.py
 │   └── sqlite_archive.py
 └── api/             # FastAPI: rotte, codice segreto, CORS`,
         },
       },
       {
-        titolo: "Prossimo passo: l'assistente AI",
+        titolo: "L'AI propone, i test decidono",
         testo: [
-          "La seconda parte della tesi è un assistente basato su RAG: recupera i passaggi giusti dal materiale del corso e li usa per proporre tracce e test case coerenti con quello che è stato spiegato a lezione. È in sviluppo: la prima parte doveva prima funzionare da sola, con soluzioni verificate e un export affidabile.",
+          "La seconda parte della tesi porta un modello linguistico dentro l'editor, con la chiave di OpenRouter del docente. Può generare la soluzione dal testo, rivederla cercando errori, casi limite, testo ambiguo e test mancanti, correggere una segnalazione mostrando le differenze e proporre esercizi simili nello stile del docente.",
+          "Nessuna proposta arriva così com'è. La soluzione generata viene controllata come quella del docente: Python valido, la funzione attesa, lo stesso main, nessun errore sui test. Se un controllo fallisce, l'errore preciso torna al modello, fino a tre tentativi. Prima di ogni richiesta il docente vede cosa verrà inviato e può aggiungere indicazioni; alla fine decide lui se applicare.",
+        ],
+        codice: {
+          file: "backend/src/tesi/application/generate.py",
+          righe: `MAX_ATTEMPTS = 3
+
+def generate_solution(
+    question: Question, model: LanguageModel, runner: CodeRunner, notes: str = ""
+) -> GeneratedSolution:
+    messages = generate_request(question, notes)
+    # …
+    for attempt in range(1, MAX_ATTEMPTS + 1):
+        reply = ask_json(model, messages)
+        solution = solution_from(reply)
+        explanation = _text(reply.get("spiegazione"))
+        problems, runs = check_solution(solution, question, runner)
+        if not problems:
+            return GeneratedSolution(solution, explanation, attempt, runs, [])
+        if attempt == MAX_ATTEMPTS:
+            break
+        messages = [
+            *messages,
+            Message("assistant", solution),
+            Message(
+                "user",
+                RETRY_MESSAGE.format(problems="\\n".join(f"- {p}" for p in problems[:MAX_PROBLEMS])),
+            ),
+        ]
+    # …`,
+        },
+      },
+    ],
+    numeri: [
+      { v: "500+", k: "test automatici" },
+      { v: "3", k: "sistemi operativi" },
+      { v: "3", k: "tentativi al massimo per la soluzione dell'AI" },
+      { v: "1.4.0", k: "versione attuale" },
+    ],
+  },
+  {
+    slug: "apkit4d",
+    sommario:
+      "Il progetto che apre la magistrale: in otto, con una ricercatrice del Dipartimento di Fisica come Product Owner, costruiamo un'app che apre le acquisizioni 4D di un microscopio Zeiss, le mostra in 3D nel tempo e segue le alghe. La mia parte è la vista: la ricerca sulla libreria grafica, la base della finestra, e la vista 3D che con lo zoom diventava lenta.",
+    ruolo: "Ricerca sulla GUI, base della finestra, vista 3D veloce, pannello di sinistra",
+    architettura: {
+      didascalia:
+        "Il nucleo (lettura dei .czi, preprocessing, rilevamento, tracce, statistiche) è una libreria che si usa anche da riga di comando; l'interfaccia PySide6 la usa senza che il nucleo sappia niente di Qt. La vista 3D è PyVista sopra VTK, dentro la finestra Qt.",
+      livelli: [
+        {
+          nome: "Interfaccia",
+          blocchi: [
+            { nome: "Finestra PySide6", nota: "menu · file_opened · run(path)", mio: true },
+            { nome: "Pannello di sinistra", nota: "aspetto · livelli", mio: true },
+            { nome: "Pipeline", nota: "cinque passi · barra del tempo" },
+          ],
+        },
+        {
+          nome: "Vista 3D",
+          blocchi: [{ nome: "Viewport PyVista", nota: "un disegno per cambio · mezza risoluzione in movimento", mio: true }],
+        },
+        {
+          nome: "Nucleo",
+          blocchi: [
+            { nome: "Preprocessing", nota: "rumore · sfondo" },
+            { nome: "Rilevamento", nota: "blob" },
+            { nome: "Tracce", nota: "collegamento nel tempo" },
+            { nome: "Batching", nota: "riga di comando" },
+          ],
+        },
+        {
+          nome: "Dati",
+          blocchi: [{ nome: "Lettura .czi", nota: "czifile · da 3 a 6 volte più veloce" }],
+        },
+      ],
+    },
+    capitoli: [
+      {
+        titolo: "Prima, il prototipo",
+        testo: [
+          "Il gruppo è partito da un prototipo della ricercatrice. Farlo girare sui file di prova ha mostrato il primo problema: a ogni cambio di frame rifaceva da capo preprocessing e rilevamento.",
+          "Abbiamo anche confrontato due librerie per leggere i .czi: czifile legge gli stessi dati, è da 3 a 6 volte più veloce e funziona con Python 3.14, e il gruppo è passato a quella.",
+        ],
+      },
+      {
+        titolo: "Due demo, stessi dati",
+        testo: [
+          "Per scegliere la libreria della vista 3D ho scritto due demo con le stesse funzioni (volume 3D, slider del tempo, contrasto, blob cliccabili, tracce, regione di interesse) e gli stessi dati, una con napari e una con PyVista, e le ho misurate.",
+          "Sul volume reale sono quasi pari: cambio frame tra 87 e 100 millisecondi, rotazione tra 20 e 24 fotogrammi al secondo; PyVista parte prima e usa meno memoria. Una prima serie di misure era sbagliata, con il portatile a batteria e il trascinamento in napari che selezionava invece di ruotare: l'abbiamo rifatta e l'errore è scritto nel report. Il gruppo ha scelto PyVista.",
+        ],
+      },
+      {
+        titolo: "La vista 3D veloce",
+        testo: [
+          "Con lo zoom la vista diventava lenta, soprattutto sulla scheda video integrata di un compagno. Le cause: ogni scatto della rotella disegnava la vista sei volte, da ferma si ridisegnava dieci volte al secondo, e ogni frame era a qualità piena anche in movimento.",
+          "La correzione: un solo disegno per ogni cambiamento, nessun ridisegno da ferma, mezza risoluzione solo mentre la vista si muove. Lo scatto della rotella è passato da circa 300 a 34–45 millisecondi, il trascinamento da 165–182 a 57–76, il cambio frame da 206 a 106.",
+          "La scoperta: la qualità ridotta di VTK trasformava le alghe in rombi mentre la vista si muoveva. La mezza risoluzione va altrettanto veloce e da ferma l'immagine è identica a prima, pixel per pixel.",
+        ],
+        codice: {
+          file: "src/apkit4d/visualization/viewport.py",
+          righe: `def _request_render(self) -> None:
+    """
+    This function asks Qt to repaint the view, and the repaint draws it once.
+    more requests before the repaint are merged into one, so we can call it after every change.
+
+    we don't use self.plotter.render(): it draws the view right away, and then the repaint that
+    pyvistaqt asks for draws it a second time.
+    """
+    # the plotter has two update(): QWidget.update from Qt and BasePlotter.update from PyVista.
+    # we want the Qt one, so we call it by name instead of relying on the order of the parent classes
+    QWidget.update(self.plotter)
+
+def _set_volume_quality(self, _obj: object, _event: str) -> None:
+    """
+    This function is called by VTK before every redraw: while the view moves the volume is drawn
+    at a lower resolution, when it is still at full resolution.
+    """
+    render_window = self.plotter.render_window
+    if render_window is None or self.plotter.iren is None:
+        return
+    actor = self.plotter.actors.get("volume")
+    if actor is None:
+        return
+
+    moving = render_window.GetDesiredUpdateRate() > self.plotter.iren.interactor.GetStillUpdateRate()
+    actor.mapper.SetImageSampleDistance(MOVING_IMAGE_SAMPLE_DISTANCE if moving else 1.0)`,
+        },
+      },
+      {
+        titolo: "Lavorare in otto",
+        testo: [
+          "Il gruppo lavora in Scrum, con la ricercatrice come Product Owner: backlog su Jira, pull request con review e CI su GitHub con test, linting e controllo dei tipi. La review della vista 3D ha avuto tredici commenti, risolti uno per uno, con test nuovi.",
         ],
       },
     ],
     numeri: [
-      { v: "200+", k: "test automatici" },
-      { v: "3", k: "sistemi operativi" },
-      { v: "3 s", k: "limite per esecuzione" },
-      { v: "1.1.2", k: "versione attuale" },
+      { v: "300 → 45 ms", k: "scatto della rotella con lo zoom, al massimo" },
+      { v: "206 → 106 ms", k: "cambio frame" },
+      { v: "0", k: "ridisegni da ferma" },
+      { v: "8", k: "persone nel gruppo" },
     ],
   },
   {

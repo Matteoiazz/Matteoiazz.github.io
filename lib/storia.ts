@@ -61,12 +61,12 @@ export const capitoli: Capitolo[] = [
     seconda: { it: "Servizi che non si vedono, ma devono reggere.", en: "Services you don't see, that have to hold." },
     testo: {
       it: [
-        "In Tripify, in un gruppo di quattro, ho costruito catalogo e itinerari: due dei sei microservizi Spring Boot, ognuno con il suo database.",
+        "Tripify è il progetto che racchiude la triennale: in un gruppo di quattro ho costruito catalogo e itinerari, due dei sei microservizi Spring Boot, ognuno con il suo database, fino alle schermate dell'app Android.",
         "Il problema più bello: due persone che provano a prenotare l'ultimo posto nello stesso istante. Posti e camere restano bloccati per 15 minuti mentre si paga, e se il pagamento fallisce si liberano da soli.",
         "In GoldenStay le tariffe sono regole che si compongono, con il pattern Strategy; nella tesi il backend in FastAPI è esagonale.",
       ],
       en: [
-        "In Tripify, in a team of four, I built the catalogue and itineraries: two of the six Spring Boot microservices, each with its own database.",
+        "Tripify is the project that sums up my bachelor's: in a team of four I built the catalogue and itineraries, two of the six Spring Boot microservices, each with its own database, all the way to the Android screens.",
         "The best problem: two people trying to book the last seat at the same instant. Seats and rooms stay locked for 15 minutes while you pay, and they free themselves if the payment fails.",
         "In GoldenStay prices are rules that compose, with the Strategy pattern; in my thesis the FastAPI backend is hexagonal.",
       ],
@@ -97,15 +97,15 @@ export const capitoli: Capitolo[] = [
     seconda: { it: "Dove sto andando.", en: "Where I'm going." },
     testo: {
       it: [
-        "La tesi porta l'intelligenza artificiale dentro uno strumento per la didattica: un editor con cui il docente prepara gli esami di programmazione per Moodle, a cui sto aggiungendo un assistente con RAG sul materiale del corso.",
-        "Da ottobre 2026 seguo la magistrale in Artificial Intelligence and Computer Science. Nel primo semestre Deep Learning, e un progetto in otto per il Dipartimento di Fisica che analizza in 3D alghe acquisite al microscopio.",
+        "La tesi porta l'intelligenza artificiale dentro uno strumento per la didattica: l'editor con cui il docente prepara gli esami di programmazione per Moodle genera la soluzione dal testo, la rivede cercando errori e casi limite, propone correzioni ed esercizi simili. Ogni proposta passa dai test, e niente cambia senza conferma.",
+        "ApKit4D apre la magistrale in Artificial Intelligence and Computer Science: in otto, per il Dipartimento di Fisica, un'app che mostra in 3D alghe al microscopio e le segue nel tempo. Mia la ricerca sulla vista 3D e la sua velocità: con lo zoom, uno scatto della rotella è passato da circa 300 a meno di 50 millisecondi.",
       ],
       en: [
-        "My thesis brings AI into a teaching tool: an editor the lecturer uses to prepare programming exams for Moodle, to which I'm adding a RAG assistant built on the course material.",
-        "Since October 2026 I've been attending the master's in Artificial Intelligence and Computer Science. First semester: Deep Learning, and an eight-person project for the Physics Department that analyses algae acquired under the microscope in 3D.",
+        "My thesis brings AI into a teaching tool: the editor the lecturer uses to prepare programming exams for Moodle generates the solution from the text, reviews it for bugs and edge cases, and proposes fixes and similar exercises. Every proposal goes through the tests, and nothing changes without confirmation.",
+        "ApKit4D opens my master's in Artificial Intelligence and Computer Science: eight of us, for the Physics Department, building an app that shows algae under the microscope in 3D and follows them over time. My part is the 3D view and its speed: with zoom, a wheel step went from about 300 to under 50 milliseconds.",
       ],
     },
-    progetti: ["tesi", "alghe-4d"],
+    progetti: ["tesi", "apkit4d"],
   },
   {
     id: "parallelo",

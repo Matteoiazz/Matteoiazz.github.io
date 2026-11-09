@@ -1,4 +1,4 @@
 {
-  "prompt": "Schermata reale del progetto tesi dell'autore, catturata dall'applicazione in esecuzione e convertita in WebP. Non generata.",
-  "createdAt": "2026-10-30T13:03:46.032Z"
+  "prompt": "Schermata dell'app Editor tracce CodeRunner (tesi, versione 1.4.0, repository C:/dev/TESI), catturata il 9 novembre 2026 con Playwright e Chrome a 1440x900. L'interfaccia compilata gira fuori da Electron con un archivio di prova separato in cui sono importati gli XML d'esame pubblicati nel repository (backend/tests/fixtures/moodle); il ponte di Electron è sostituito da uno finto: nessuna chiave reale, nessuna richiesta inviata al modello. Esame del 3 luglio 2026 con i tre esercizi verificati (45 test su 45).",
+  "createdAt": "2026-11-09T11:36:11.967Z"
 }

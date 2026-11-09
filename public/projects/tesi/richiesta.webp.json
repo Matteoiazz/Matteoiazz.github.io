@@ -1,0 +1,4 @@
+{
+  "prompt": "Schermata dell'app Editor tracce CodeRunner (tesi, versione 1.4.0, repository C:/dev/TESI), catturata il 9 novembre 2026 con Playwright e Chrome a 1440x900. L'interfaccia compilata gira fuori da Electron con un archivio di prova separato in cui sono importati gli XML d'esame pubblicati nel repository (backend/tests/fixtures/moodle); il ponte di Electron è sostituito da uno finto: nessuna chiave reale, nessuna richiesta inviata al modello. Finestra della richiesta all'AI mostrata prima dell'invio, per la revisione della soluzione; non inviata.",
+  "createdAt": "2026-11-09T11:36:12.913Z"
+}

@@ -16,7 +16,7 @@ export const progettiEn: Record<string, { kind: string; team: string; squadra: s
     team: "Bachelor's thesis in Computer Science · UniCal · solo project",
     squadra: "Solo",
     tagline:
-      "A desktop app a lecturer uses to prepare programming exams for Moodle: tasks, solutions verified against tests, an export ready to import.",
+      "A desktop app a lecturer uses to prepare programming exams for Moodle: solutions verified against tests, and an AI that generates, reviews and fixes, always with the lecturer's confirmation.",
   },
   goldenstay: {
     kind: "Web app",
@@ -43,12 +43,12 @@ export const progettiEn: Record<string, { kind: string; team: string; squadra: s
     squadra: "Team of 3, rebuilt by me",
     tagline: "A JavaFX desktop music player: playlists, artists, equaliser and themes.",
   },
-  "alghe-4d": {
+  apkit4d: {
     kind: "Desktop app · R&D",
-    team: "Team of eight · Research and Development Methodologies, UniCal master's · for the Physics Department · just started",
+    team: "Team of eight · Research and Development Methodologies, UniCal master's · for the Physics Department · I did the GUI research and the fast 3D view",
     squadra: "Team of 8",
     tagline:
-      "A Python desktop app for a physics lab: it opens microscope acquisitions up to 8 GB, shows them in 3D over time and tracks the algae.",
+      "A Python desktop app for a physics lab: it opens 4D acquisitions from a Zeiss microscope, shows them in 3D over time and follows the algae. My part is the 3D view and its speed.",
   },
 }
 
@@ -58,7 +58,7 @@ export const percorsoEn: Record<string, { tipo: string; role: string; period: st
     role: "MSc in Artificial Intelligence and Computer Science",
     period: "From October 2026",
     description:
-      "First semester: Deep Learning and Research and Development Methodologies, with an eight-person Scrum project for the Physics Department on 3D analysis of algae under the microscope.",
+      "First semester: Deep Learning and Research and Development Methodologies, with an eight-person Scrum project for the Physics Department: ApKit4D, 3D analysis of algae under the microscope.",
   },
   "Laurea Triennale in Informatica": {
     tipo: "Education",
