@@ -16,7 +16,6 @@ export function InBreve() {
     },
     { k: t("Base", "Based in"), v: t("Cosenza, Italia", "Cosenza, Italy") },
     { k: t("Lingue", "Languages"), v: t("Italiano madrelingua, inglese B2", "Italian (native), English B2") },
-    { k: t("Fuori dal codice", "Away from code"), v: t("Palestra e sport", "Gym and sport") },
   ]
   return (
     <section id="in-breve" aria-labelledby="in-breve-titolo" className="pt-28 md:pt-40">

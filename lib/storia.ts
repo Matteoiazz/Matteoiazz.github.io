@@ -111,17 +111,14 @@ export const capitoli: Capitolo[] = [
     id: "parallelo",
     strato: null,
     titolo: { it: "In parallelo.", en: "Alongside." },
-    seconda: { it: "Un anno di servizio civile, e la palestra.", en: "A year of civil service, and the gym." },
+    seconda: { it: "Un anno di servizio civile.", en: "A year of civil service." },
     testo: {
       it: [
         "Da settembre 2025 a settembre 2026 ho fatto il Servizio Civile Universale come operatore volontario, insieme agli studi.",
-        "Fuori dal codice mi alleno. E uno dei miei progetti personali è proprio il sito di una palestra, con area soci, badge QR e certificati medici.",
       ],
       en: [
         "From September 2025 to September 2026 I served in the Italian Universal Civil Service as a volunteer, alongside my studies.",
-        "Away from code, I train. And one of my personal projects is a gym's website, with a members area, QR badges and medical certificates.",
       ],
     },
-    progetti: ["muscle-fitness"],
   },
 ]
