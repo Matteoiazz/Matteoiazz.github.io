@@ -5,7 +5,7 @@ import { ViewTransition, useEffect, useState } from "react"
 import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import { projects } from "@/lib/portfolio-data"
 import { casiStudio } from "@/lib/casi-studio"
-import { progettiEn } from "@/lib/inglese"
+import { casiStudioEn, didascalieEn, progettiEn } from "@/lib/inglese"
 import { useLingua } from "@/components/foglio/lingua"
 import { TechIcon } from "@/components/tech-icon"
 import { Barra } from "./barra"
@@ -56,7 +56,7 @@ export function Progetto({ slug }: { slug: string }) {
     { k: t("Anno", "Year"), v: <span className="cifre">{p.year}</span> },
     { k: t("Tipo", "Type"), v: t(p.kind, en.kind) },
     { k: t("Squadra", "Team"), v: t(p.team, en.team) },
-    ...(caso ? [{ k: t("La mia parte", "My part"), v: caso.ruolo }] : []),
+    ...(caso ? [{ k: t("La mia parte", "My part"), v: t(caso.ruolo, casiStudioEn[slug]?.ruolo ?? caso.ruolo) }] : []),
   ]
 
   return (
@@ -77,17 +77,12 @@ export function Progetto({ slug }: { slug: string }) {
 
           <div className="mt-12 grid grid-cols-4 gap-x-[var(--passo)] gap-y-12 md:mt-16 md:grid-cols-12">
             <div className="col-span-4 md:order-2 md:col-span-7 md:col-start-6">
-              {inglese ? (
-                <>
-                  <p className="lead">{en.tagline}</p>
-                  <p className="mt-5 text-sm text-grigio">
-                    {caso ? "The full case study is written in Italian, and so are the code comments." : "The full description is in Italian."}
-                  </p>
-                  <p className="mt-6 max-w-[65ch] text-pretty leading-relaxed text-grigio">{caso ? caso.sommario : p.description}</p>
-                </>
-              ) : (
-                <p className="lead">{caso ? caso.sommario : p.description}</p>
-              )}
+              <p className="lead">
+                {inglese ? (caso ? (casiStudioEn[slug]?.sommario ?? en.tagline) : en.description) : caso ? caso.sommario : p.description}
+              </p>
+              {inglese && caso ? (
+                <p className="mt-5 text-sm text-grigio">The chapters below are written in Italian, and so are the code comments.</p>
+              ) : null}
             </div>
 
             <div className="col-span-4 md:order-1 md:col-span-4">
@@ -139,7 +134,7 @@ export function Progetto({ slug }: { slug: string }) {
               <Palco shots={schermate} titolo={p.title} telefoni={3} margine="7%" priorita sizes="(min-width: 768px) 80vw, 92vw" />
             </div>
           </ViewTransition>
-          <p className="mt-3 text-sm text-grigio">{p.cover.caption}</p>
+          <p className="mt-3 text-sm text-grigio">{t(p.cover.caption, didascalieEn[p.cover.src] ?? p.cover.caption)}</p>
         </section>
 
         {caso ? (
@@ -228,7 +223,7 @@ export function Progetto({ slug }: { slug: string }) {
           <section className="contenitore mt-20 grid grid-cols-4 gap-x-[var(--passo)] md:mt-28 md:grid-cols-12">
             <h2 className="titolo-2 col-span-4 md:col-span-4">{t("Cosa c'è dentro.", "What's inside.")}</h2>
             <ul className="col-span-4 mt-8 border-t border-riga md:col-span-7 md:col-start-6 md:mt-0">
-              {p.highlights.map((h) => (
+              {(inglese ? en.highlights : p.highlights).map((h) => (
                 <li key={h.slice(0, 40)} className="max-w-[68ch] text-pretty border-b border-riga py-4 leading-relaxed">
                   {h}
                 </li>
@@ -253,7 +248,7 @@ export function Progetto({ slug }: { slug: string }) {
                       <Schermo shot={s} titolo={p.title} sizes={s.frame === "phone" ? "(min-width: 768px) 20vw, 42vw" : "(min-width: 768px) 45vw, 92vw"} />
                     </div>
                   </div>
-                  <figcaption className="mt-3 text-sm text-grigio">{s.caption}</figcaption>
+                  <figcaption className="mt-3 text-sm text-grigio">{t(s.caption, didascalieEn[s.src] ?? s.caption)}</figcaption>
                 </figure>
               ))}
             </div>
