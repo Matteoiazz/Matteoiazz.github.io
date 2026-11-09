@@ -8,9 +8,9 @@ import { apriComandi, useScorciatoia } from "@/components/foglio/comuni"
 
 export const sezioni = [
   { id: "storia", it: "Storia", en: "Story" },
+  { id: "percorso", it: "Percorso", en: "Path" },
   { id: "progetti", it: "Progetti", en: "Work" },
   { id: "stack", it: "Stack", en: "Stack" },
-  { id: "in-breve", it: "In breve", en: "In short" },
   { id: "contatti", it: "Contatti", en: "Contact" },
 ]
 

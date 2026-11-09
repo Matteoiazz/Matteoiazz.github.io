@@ -253,7 +253,7 @@ Contenitore largo fino a 104rem, centrato, con margini laterali clamp(1.125rem, 
 
 In apertura la frase occupa circa otto colonne; da 64rem in su le due azioni stanno a sinistra e la presentazione a destra (colonne 8-12), da 90rem il testo prende nove colonne e il disegno degli strati le ultime tre. Le tre copertine principali si affacciano prima della piega, con larghezze diverse (3, 5 e 4 colonne): stretto per i telefoni, largo per le finestre.
 
-Dopo l'apertura la pagina è una sequenza di scene. Il prologo è alto 240svh con la frase ferma al centro (sticky) per 140svh di scorrimento. I cinque capitoli sono alti almeno uno schermo ciascuno, con il racconto nelle colonne 1-7 e, da 64rem, il disegno degli strati fermo nelle colonne 8-12; sotto quella misura ogni capitolo porta il suo disegno piccolo (8rem). Il binario dei progetti è alto uno schermo più la sua corsa orizzontale: la sezione si ferma e le carte (fino a 30rem) scorrono di lato, partendo allineate al contenuto. Con il movimento ridotto le scene non si fermano: la frase è subito a fuoco e il binario si scorre a mano.
+Dopo l'apertura la pagina è una sequenza di scene. Il prologo è alto 170svh con la frase ferma al centro (sticky) per 70svh di scorrimento. I cinque capitoli sono alti almeno uno schermo ciascuno, con il racconto nelle colonne 1-7 e, da 64rem, il disegno degli strati fermo nelle colonne 8-12; sotto quella misura ogni capitolo porta il suo disegno piccolo (8rem). Dopo i capitoli torna il percorso con date e loghi. Il binario dei progetti è alto uno schermo più metà della sua corsa orizzontale: la sezione si ferma e le carte (fino a 30rem) scorrono di lato al doppio della velocità dello scorrimento, partendo allineate al contenuto. Con il movimento ridotto le scene non si fermano: la frase è subito a fuoco e il binario si scorre a mano.
 
 ## Elevation & Depth
 
@@ -305,8 +305,8 @@ La frase che apre la storia, in Mona Sans 500 a clamp(1.75rem, 1rem + 2.6vw, 3.2
 ### Strati della storia
 Il disegno degli strati con un velo color carta per fascia (AI, interfaccia, server, database): lo strato del capitolo in lettura è acceso, quelli già raccontati restano al 45%, quelli da raccontare al 10%. Lo stack si costruisce dal basso; nell'ultimo capitolo è tutto acceso. Accanto, i nomi degli strati con il filetto che si allunga su quello attivo.
 
-### Tappe
-Le date dei capitoli (diploma, triennale, magistrale, servizio civile) in righe con filetto: il logo ufficiale dell'istituzione in una tessera palco a 12px (48px), in scala di grigi e a colori al passaggio sulla riga, la data in grigio con le cifre tabellari e il titolo in inchiostro.
+### Loghi del percorso
+Ogni voce del percorso ha il logo dell'istituzione (Università della Calabria, Servizio Civile Universale, Liceo Scorza) dentro una tessera palco a 12px, 64px sul desktop e 48px sul telefono, con il logo al 13% dai bordi. In scala di grigi a riposo, a colori al passaggio sulla riga. I file sono quelli ufficiali, presi dai siti delle istituzioni.
 
 ### Binario dei progetti
 Le carte dei sette progetti: palco con la schermata, titolo con la sottolineatura che si disegna, tipo, squadra, anno, "caso di studio" dove c'è e una riga di presentazione in grigio. Sotto il binario un filetto si riempie d'inchiostro man mano che si va avanti. Al clic la copertina diventa la testata della pagina del progetto.

@@ -27,6 +27,7 @@ export function Binario() {
   const [distanza, setDistanza] = useState(0)
 
   // Quanto deve correre il binario: la sua larghezza meno quella dello schermo.
+  // Lo scorrimento verticale è la metà: le carte corrono il doppio veloci.
   useEffect(() => {
     const misura = () => {
       const b = binario.current
@@ -66,7 +67,7 @@ export function Binario() {
   }
 
   return (
-    <section id="progetti" ref={sezione} className="relative" style={{ height: `calc(100svh + ${distanza}px)` }}>
+    <section id="progetti" ref={sezione} className="relative" style={{ height: `calc(100svh + ${Math.round(distanza * 0.5)}px)` }}>
       <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden">
         <div className="contenitore">{titolo}</div>
         <motion.ul ref={binario} style={{ x, paddingInline: ATTACCO }} className="mt-10 flex w-max gap-[var(--passo)] md:mt-14">

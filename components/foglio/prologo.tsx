@@ -23,7 +23,7 @@ export function Prologo() {
       id="storia"
       ref={sezione}
       aria-label={t("La storia", "The story")}
-      className={fermo ? "pt-28 md:pt-40" : "relative h-[240svh]"}
+      className={fermo ? "pt-28 md:pt-40" : "relative h-[170svh]"}
     >
       <div className={fermo ? "" : "sticky top-0 flex h-svh items-center"}>
         <div className="contenitore">

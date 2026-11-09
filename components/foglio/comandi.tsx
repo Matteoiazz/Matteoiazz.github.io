@@ -36,6 +36,7 @@ export function Comandi() {
   const comandi: Comando[] = useMemo(
     () => [
       { id: "storia", gruppo: t("Vai a", "Go to"), testo: t("La storia", "The story"), fai: () => vai("#storia") },
+      { id: "percorso", gruppo: t("Vai a", "Go to"), testo: t("Percorso", "Path"), fai: () => vai("#percorso") },
       { id: "progetti", gruppo: t("Vai a", "Go to"), testo: t("Progetti", "Work"), fai: () => vai("#progetti") },
       { id: "stack", gruppo: t("Vai a", "Go to"), testo: "Stack", fai: () => vai("#stack") },
       { id: "in-breve", gruppo: t("Vai a", "Go to"), testo: t("In breve, con il curriculum", "In short, with the résumé"), fai: () => vai("#in-breve") },

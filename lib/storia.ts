@@ -24,8 +24,6 @@ export const prologo: Testo = {
   en: "I'm Matteo, I'm from Cosenza and I study Computer Science at the University of Calabria. I met programming in high school; since then I've been building whole apps, from the database to what you see on screen. Now I'm learning to make them reason. This is the story, one layer at a time.",
 }
 
-export type Tappa = { quando: Testo; cosa: Testo; logo?: string }
-
 export type Capitolo = {
   id: string
   /** Lo strato che il capitolo accende; null per l'intermezzo, che li mostra tutti. */
@@ -33,7 +31,6 @@ export type Capitolo = {
   titolo: Testo
   seconda: Testo
   testo: { it: string[]; en: string[] }
-  tappe?: Tappa[]
   /** Progetti citati nel capitolo, con il loro link. */
   progetti?: string[]
   /** Schermate da mostrare nel capitolo (slug dei progetti). */
@@ -56,14 +53,6 @@ export const capitoli: Capitolo[] = [
         "Then Computer Science at the University of Calabria: C and C++, Java, databases. It's the layer you don't see, and it holds up everything else.",
       ],
     },
-    tappe: [
-      { quando: { it: "2023", en: "2023" }, cosa: { it: "Diploma scientifico, 97/100", en: "Scientific high school diploma, 97/100" }, logo: "/loghi/scorza.webp" },
-      {
-        quando: { it: "2023 → dic. 2026", en: "2023 → Dec 2026" },
-        cosa: { it: "Laurea triennale in Informatica, UniCal", en: "BSc in Computer Science, UniCal" },
-        logo: "/loghi/unical.svg",
-      },
-    ],
   },
   {
     id: "motore",
@@ -116,13 +105,6 @@ export const capitoli: Capitolo[] = [
         "Since October 2026 I've been attending the master's in Artificial Intelligence and Computer Science. First semester: Deep Learning, and an eight-person project for the Physics Department that analyses algae acquired under the microscope in 3D.",
       ],
     },
-    tappe: [
-      {
-        quando: { it: "Da ottobre 2026", en: "Since October 2026" },
-        cosa: { it: "Magistrale in Artificial Intelligence and Computer Science, UniCal", en: "MSc in Artificial Intelligence and Computer Science, UniCal" },
-        logo: "/loghi/unical.svg",
-      },
-    ],
     progetti: ["tesi", "alghe-4d"],
   },
   {
@@ -140,9 +122,6 @@ export const capitoli: Capitolo[] = [
         "Away from code, I train. And one of my personal projects is a gym's website, with a members area, QR badges and medical certificates.",
       ],
     },
-    tappe: [
-      { quando: { it: "Set 2025 → set 2026", en: "Sep 2025 → Sep 2026" }, cosa: { it: "Servizio Civile Universale", en: "Universal Civil Service" }, logo: "/loghi/servizio-civile.webp" },
-    ],
     progetti: ["muscle-fitness"],
   },
 ]

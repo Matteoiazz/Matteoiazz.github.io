@@ -82,26 +82,6 @@ function Blocco({ c, i }: { c: Capitolo; i: number }) {
           ))}
         </div>
 
-        {c.tappe ? (
-          <ul className="mt-10 max-w-[40rem] border-t border-riga">
-            {c.tappe.map((tappa) => (
-              <li key={tappa.cosa.it} className="group flex items-center gap-4 border-b border-riga py-4">
-                {tappa.logo ? (
-                  <span className="monocromo relative block size-12 shrink-0 rounded-[12px] bg-palco">
-                    <span className="absolute inset-[14%]">
-                      <Image src={tappa.logo} alt="" fill sizes="48px" className="object-contain" />
-                    </span>
-                  </span>
-                ) : null}
-                <span className="min-w-0">
-                  <span className="cifre block text-sm text-grigio">{t(tappa.quando.it, tappa.quando.en)}</span>
-                  <span className="block font-medium">{t(tappa.cosa.it, tappa.cosa.en)}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-
         {c.schermate ? (
           <ul className="mt-10 grid grid-cols-3 gap-[var(--passo)]">
             {c.schermate.map((slug) => {
