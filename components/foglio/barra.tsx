@@ -28,13 +28,19 @@ export function Barra({ home = true }: { home?: boolean }) {
 
   useEffect(() => {
     let ultimo = window.scrollY
+    let tratto = 0
     const scorri = () => {
       const y = window.scrollY
       setStaccata(y > 8)
-      if (Math.abs(y - ultimo) > 6) {
-        setNascosta(y > ultimo && y > 320)
-        ultimo = y
-      }
+      // Si nasconde appena si scende; torna solo dopo una risalita decisa, così
+      // leggendo sul telefono non va e viene a ogni piccolo movimento del dito.
+      const passo = y - ultimo
+      ultimo = y
+      if (passo !== 0 && Math.sign(passo) !== Math.sign(tratto)) tratto = 0
+      tratto += passo
+      if (y <= 320) setNascosta(false)
+      else if (tratto > 12) setNascosta(true)
+      else if (tratto < -64) setNascosta(false)
       // Attiva è l'ultima sezione cominciata sopra la metà dello schermo;
       // in cima alla pagina, nessuna.
       if (home) {
@@ -50,6 +56,12 @@ export function Barra({ home = true }: { home?: boolean }) {
     window.addEventListener("scroll", scorri, { passive: true })
     return () => window.removeEventListener("scroll", scorri)
   }, [home])
+
+  // Quanto spazio occupa la barra in alto: chi resta fermo sotto di lei
+  // (la pila della storia sul telefono) si sposta di conseguenza.
+  useEffect(() => {
+    document.documentElement.style.setProperty("--barra", nascosta ? "0rem" : "4rem")
+  }, [nascosta])
 
   return (
     <header

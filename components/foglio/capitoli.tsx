@@ -5,39 +5,101 @@ import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import { ArrowUpRight } from "lucide-react"
 import { motion, useScroll, useTransform } from "motion/react"
-import { capitoli, type Capitolo } from "@/lib/storia"
+import { capitoli, fasce, stackCompleto, type Capitolo } from "@/lib/storia"
 import { projects } from "@/lib/portfolio-data"
 import { useLingua } from "@/components/foglio/lingua"
 import { useMovimentoRidotto } from "@/components/foglio/comuni"
-import { StratiStoria } from "./strati"
+import { StratiDaVicino, StratiStoria } from "./strati"
 import { Palco } from "./schermo"
 import { segnaOrigine } from "./anteprima"
 
 /**
  * I capitoli della storia: le fondamenta, il motore, quello che si vede, verso
- * l'AI, e in parallelo. A sinistra il racconto scorre, a destra il disegno degli
- * strati resta fermo e si costruisce un capitolo alla volta. Sul telefono ogni
- * capitolo porta con sé il suo disegno, piccolo.
+ * l'AI, e in parallelo. Il racconto scorre e il disegno degli strati resta
+ * fermo, costruendosi un capitolo alla volta: sul desktop a destra del testo,
+ * sul telefono in una barra fissa in alto, da vicino, con la vista che sale di
+ * uno strato a ogni capitolo. Nella barra c'è il nome dello strato; quando il
+ * titolo del capitolo è scorso via compare lì in piccolo (come i titoli grandi
+ * di iOS), e un filetto in basso si riempie man mano che la storia va avanti.
  */
 export function Capitoli() {
-  const { t } = useLingua()
+  const { t, lingua } = useLingua()
+  const sezione = useRef<HTMLElement>(null)
+  const pila = useRef<HTMLDivElement>(null)
   const [attivo, setAttivo] = useState(-1)
+  const [titoloInBarra, setTitoloInBarra] = useState(false)
+  const [titoloFisso, setTitoloFisso] = useState("")
 
-  // Il capitolo in lettura è quello che attraversa il centro dello schermo.
+  // Il capitolo in lettura è l'ultimo cominciato sopra la riga di lettura: metà
+  // schermo sul desktop, poco sopra la metà dello spazio libero sotto la barra sul telefono.
   useEffect(() => {
     const blocchi = [...document.querySelectorAll<HTMLElement>("[data-capitolo-storia]")]
-    const o = new IntersectionObserver(
-      (voci) => voci.forEach((v) => v.isIntersecting && setAttivo(Number(v.target.getAttribute("data-capitolo-storia")))),
-      { rootMargin: "-50% 0px -50% 0px" },
-    )
-    blocchi.forEach((b) => o.observe(b))
-    return () => o.disconnect()
+    let frame = 0
+    const misura = () => {
+      frame = 0
+      const barra = pila.current
+      const fondoBarra = barra && barra.offsetParent !== null ? barra.getBoundingClientRect().bottom : 0
+      const riga = fondoBarra + (window.innerHeight - fondoBarra) * (fondoBarra > 0 ? 0.42 : 0.5)
+      let corrente = -1
+      blocchi.forEach((b, i) => {
+        if (b.getBoundingClientRect().top <= riga) corrente = i
+      })
+      setAttivo(corrente)
+      const titolo = corrente >= 0 ? blocchi[corrente].querySelector("h2") : null
+      setTitoloInBarra(Boolean(titolo && fondoBarra > 0 && titolo.getBoundingClientRect().bottom < fondoBarra))
+    }
+    const scorri = () => {
+      if (!frame) frame = requestAnimationFrame(misura)
+    }
+    misura()
+    window.addEventListener("scroll", scorri, { passive: true })
+    window.addEventListener("resize", scorri)
+    return () => {
+      window.removeEventListener("scroll", scorri)
+      window.removeEventListener("resize", scorri)
+      cancelAnimationFrame(frame)
+    }
   }, [])
 
   const capitolo = attivo >= 0 ? capitoli[attivo] : undefined
+  // Il nome dello strato inquadrato nella barra; all'ultimo capitolo, la pila intera.
+  const fascia = capitolo?.strato ? fasce.find((f) => f.id === capitolo.strato) : undefined
+  const strato = fascia ? t(fascia.nome.it, fascia.nome.en) : capitolo ? t(stackCompleto.it, stackCompleto.en) : ""
+
+  // Il titolo in barra cambia solo quando è visibile: mentre svanisce resta quello di prima.
+  useEffect(() => {
+    if (titoloInBarra && capitolo) setTitoloFisso(lingua === "en" ? capitolo.titolo.en : capitolo.titolo.it)
+  }, [titoloInBarra, capitolo, lingua])
+
+  // Quanta storia è passata, per il filetto della barra (calcolato in JavaScript).
+  const { scrollYProgress } = useScroll({ target: sezione, offset: ["start 20%", "end 60%"] })
+  const avanzamento = useTransform(scrollYProgress, (v) => Math.min(1, Math.max(0, v)))
 
   return (
-    <section aria-label={t("I capitoli", "The chapters")} className="relative">
+    <section ref={sezione} aria-label={t("I capitoli", "The chapters")} className="relative">
+      <div ref={pila} aria-hidden data-no-stampa className="pila-fissa z-30 bg-carta lg:hidden">
+        <div className="contenitore flex h-[clamp(8.5rem,19svh,10rem)] items-stretch justify-between gap-4">
+          <StratiDaVicino attivo={capitolo?.strato ?? null} tutti={capitolo?.strato === null} className="h-full" />
+          <div className="flex min-w-0 flex-col items-end justify-center text-right">
+            {/* Il nome dello strato inquadrato: cambia con il capitolo. */}
+            <p key={strato} className="cambia text-balance text-[1.15rem] font-medium leading-tight tracking-[-0.01em]">
+              {strato}
+            </p>
+            {/* Il titolo del capitolo, quando quello grande è scorso via. */}
+            <p
+              className={`mt-1.5 min-h-5 text-balance text-sm leading-snug text-grigio transition-[opacity,translate] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                titoloInBarra ? "opacity-100" : "translate-y-1 opacity-0"
+              }`}
+            >
+              {titoloFisso}
+            </p>
+          </div>
+        </div>
+        <div className="h-px bg-riga">
+          <motion.div className="h-px origin-left bg-inchiostro" style={{ scaleX: avanzamento }} />
+        </div>
+      </div>
+
       <div className="contenitore grid grid-cols-4 gap-x-[var(--passo)] md:grid-cols-12">
         <div className="col-span-4 md:col-span-12 lg:col-span-7">
           {capitoli.map((c, i) => (
@@ -66,10 +128,13 @@ function Blocco({ c, i }: { c: Capitolo; i: number }) {
   const testo = lingua === "en" ? c.testo.en : c.testo.it
 
   return (
-    <article ref={ref} id={`capitolo-${c.id}`} data-capitolo-storia={i} className="flex min-h-svh flex-col justify-center py-24">
+    <article
+      ref={ref}
+      id={`capitolo-${c.id}`}
+      data-capitolo-storia={i}
+      className="py-14 lg:flex lg:min-h-svh lg:flex-col lg:justify-center lg:py-24"
+    >
       <motion.div style={fermo ? undefined : { opacity: opacita, y }}>
-        <StratiStoria attivo={c.strato} tutti={c.strato === null} etichette={false} className="mb-8 h-32 lg:hidden" />
-
         <h2 className="titolo-2">
           {t(c.titolo.it, c.titolo.en)} <span className="seconda">{t(c.seconda.it, c.seconda.en)}</span>
         </h2>

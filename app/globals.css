@@ -195,6 +195,29 @@ input, textarea { caret-color: var(--inchiostro); }
 /* ---------- Stack ---------- */
 .tecnologia, .voce-progetto { transition: color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease; }
 
+/* ---------- Gli strati della storia ---------- */
+/* Ogni strato è un pezzo del disegno: quelli ancora da raccontare sono appena
+   accennati e sospesi più in alto, poi si posano sulla pila. */
+.strato { transition: opacity 0.7s var(--uscita), translate 0.9s var(--uscita); }
+.strato[data-stato="visto"] { opacity: 0.45; }
+.strato[data-stato="spento"] { opacity: 0.12; translate: 0 -14%; }
+
+/* Sul telefono la pila resta ferma in alto mentre i capitoli scorrono sotto;
+   quando la barra del sito torna, le lascia il posto scendendo con lei. */
+.pila-fissa { position: sticky; top: var(--barra, 4rem); transition: top 0.5s var(--uscita); }
+
+/* La pila da vicino: il riquadro inquadra uno strato per volta e i vicini
+   sfumano ai bordi; a ogni capitolo la vista sale lungo la pila. */
+.quadro-strati {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #0a0a0a 9%, #0a0a0a 91%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #0a0a0a 9%, #0a0a0a 91%, transparent);
+}
+.pila-strati { transform-origin: 50% 50%; transition: translate 1s var(--uscita), scale 1s var(--uscita); }
+
+/* Il nome dello strato nella barra cambia salendo da sotto. */
+@keyframes cambia { from { opacity: 0; transform: translateY(0.4em); } }
+.cambia { animation: cambia 0.6s var(--uscita) both; }
+
 /* ---------- Avvisi e menu dei comandi ---------- */
 @keyframes avviso {
   0% { opacity: 0; transform: translateY(12px); }
@@ -257,7 +280,8 @@ html.progettista main * { outline: 1px dashed rgb(10 10 10 / 0.1); outline-offse
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .sale, .compare { animation: none !important; }
-  .titolo-largo, .traccia, .pillola > svg { transition: none; }
+  .titolo-largo, .traccia, .pillola > svg, .strato, .pila-fissa, .pila-strati { transition: none; }
+  .cambia { animation: none; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
 

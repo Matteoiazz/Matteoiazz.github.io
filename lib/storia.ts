@@ -16,6 +16,9 @@ export const fasce: { id: Strato; nome: Testo; da: number; a: number }[] = [
   { id: "database", nome: { it: "Database", en: "Database" }, da: 73.84, a: 100 },
 ]
 
+/** Il nome della pila intera, quando tutti gli strati sono accesi. */
+export const stackCompleto: Testo = { it: "Lo stack completo", en: "The full stack" }
+
 /** Ordine in cui gli strati si costruiscono, dal basso. */
 export const ordineStrati: Strato[] = ["database", "server", "interfaccia", "ai"]
 

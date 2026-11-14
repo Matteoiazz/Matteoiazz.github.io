@@ -253,7 +253,7 @@ Contenitore largo fino a 104rem, centrato, con margini laterali clamp(1.125rem, 
 
 In apertura la frase occupa circa otto colonne; da 64rem in su le due azioni stanno a sinistra e la presentazione a destra (colonne 8-12), da 90rem il testo prende nove colonne e il disegno degli strati le ultime tre. Le tre copertine principali si affacciano prima della piega, con larghezze diverse (3, 5 e 4 colonne): stretto per i telefoni, largo per le finestre.
 
-Dopo l'apertura la pagina è una sequenza di scene. Il prologo è alto 170svh con la frase ferma al centro (sticky) per 70svh di scorrimento. I cinque capitoli sono alti almeno uno schermo ciascuno, con il racconto nelle colonne 1-7 e, da 64rem, il disegno degli strati fermo nelle colonne 8-12; sotto quella misura ogni capitolo porta il suo disegno piccolo (8rem). Dopo i capitoli torna il percorso con date e loghi. Il binario dei progetti è alto uno schermo più metà della sua corsa orizzontale: la sezione si ferma e le carte (fino a 30rem) scorrono di lato al doppio della velocità dello scorrimento, partendo allineate al contenuto. Con il movimento ridotto le scene non si fermano: la frase è subito a fuoco e il binario si scorre a mano.
+Dopo l'apertura la pagina è una sequenza di scene. Il prologo è alto 170svh con la frase ferma al centro (sticky) per 70svh di scorrimento. Da 64rem i cinque capitoli sono alti almeno uno schermo ciascuno, con il racconto nelle colonne 1-7 e il disegno degli strati fermo nelle colonne 8-12. Sotto quella misura il disegno sta in una barra fissa in alto, alta clamp(8.5rem, 19svh, 10rem), e i capitoli scorrono sotto di lei con 3.5rem di respiro; la barra scende di 4rem quando torna la barra del sito. Dopo i capitoli torna il percorso con date e loghi. Il binario dei progetti è alto uno schermo più metà della sua corsa orizzontale: la sezione si ferma e le carte (fino a 30rem) scorrono di lato al doppio della velocità dello scorrimento, partendo allineate al contenuto. Con il movimento ridotto le scene non si fermano: la frase è subito a fuoco e il binario si scorre a mano.
 
 ## Elevation & Depth
 
@@ -297,13 +297,16 @@ Pillole basse e precise.
 - **Focus:** il cursore di testo in inchiostro; il contorno del focus come per i pulsanti.
 
 ### Navigation
-- **Style:** barra bianca alta 4rem con il nome a sinistra, le sezioni in grigio a destra (quella in corso in inchiostro), IT/EN e la pillola Menu con la scorciatoia. Scendendo si nasconde, risalendo torna; appena la pagina si muove compare un filetto sotto. Sui telefoni restano nome, lingua e Menu, che apre il menu dei comandi.
+- **Style:** barra bianca alta 4rem con il nome a sinistra, le sezioni in grigio a destra (quella in corso in inchiostro), IT/EN e la pillola Menu con la scorciatoia. Scendendo si nasconde subito; torna solo dopo una risalita decisa (64px), così sul telefono non va e viene mentre si legge. Appena la pagina si muove compare un filetto sotto. Sui telefoni restano nome, lingua e Menu, che apre il menu dei comandi.
 
 ### Prologo
 La frase che apre la storia, in Mona Sans 500 a clamp(1.75rem, 1rem + 2.6vw, 3.25rem), ferma al centro dello schermo: ogni parola parte al 16% di opacità e arriva all'inchiostro nel suo tratto di scorrimento, in ordine. Per andare avanti bisogna leggerla.
 
 ### Strati della storia
-Il disegno degli strati con un velo color carta per fascia (AI, interfaccia, server, database): lo strato del capitolo in lettura è acceso, quelli già raccontati restano al 45%, quelli da raccontare al 10%. Lo stack si costruisce dal basso; nell'ultimo capitolo è tutto acceso. Accanto, i nomi degli strati con il filetto che si allunga su quello attivo.
+Il disegno degli strati diviso in quattro fasce (AI, interfaccia, server, database), ognuna un pezzo a sé: lo strato del capitolo in lettura è acceso, quelli già raccontati restano al 45%, quelli da raccontare al 12% e sospesi più in alto del 14% della loro altezza; quando tocca a loro si posano sulla pila (0.9s). Lo stack si costruisce dal basso; nell'ultimo capitolo è tutto acceso. Sul desktop accanto ci sono i nomi degli strati, con il filetto che si allunga su quello attivo.
+
+### Barra della storia (telefono)
+Sotto i 64rem il disegno sta in una barra bianca fissa in alto. A sinistra un riquadro basso inquadra la pila ingrandita 2,3 volte: si vede lo strato del capitolo in lettura, con i vicini che sfumano ai bordi (maschera sul 9% in alto e in basso), e a ogni capitolo la vista sale di uno strato in un secondo, come una cinepresa; prima del primo capitolo e nell'ultimo si allontana e mostra la pila intera. A destra il nome dello strato (1.15rem, 500), che cambia salendo da sotto; sotto di lui, in grigio, il titolo del capitolo quando quello grande è scorso via. Il filetto in basso si riempie d'inchiostro man mano che la storia va avanti.
 
 ### Loghi del percorso
 Ogni voce del percorso ha il logo dell'istituzione (Università della Calabria, Servizio Civile Universale, Liceo Scorza) dentro una tessera palco a 12px, 64px sul desktop e 48px sul telefono, con il logo al 13% dai bordi. In scala di grigi a riposo, a colori al passaggio sulla riga. I file sono quelli ufficiali, presi dai siti delle istituzioni.

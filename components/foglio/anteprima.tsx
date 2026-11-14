@@ -2,8 +2,8 @@
 
 /**
  * La copertina di un progetto passa dalla casa alla sua pagina con una view
- * transition. Può partire da tre posti: la vetrina in alto, l'anteprima che
- * segue il puntatore nell'indice, la miniatura dell'indice sul telefono.
+ * transition. Può partire da due posti: la vetrina in alto e il binario dei
+ * progetti.
  * Ognuno ha il suo nome di transizione, fisso, così due elementi con lo
  * stesso nome non esistono mai; la testata della pagina del progetto prende
  * il nome del posto da cui si è partiti, segnato al momento del clic.
