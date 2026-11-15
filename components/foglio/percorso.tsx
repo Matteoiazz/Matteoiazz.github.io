@@ -38,7 +38,7 @@ export function Percorso() {
                   ) : null}
                   <div className="min-w-0">
                     <h3 className="titolo-3 text-balance">{inglese ? en.role : e.role}</h3>
-                    <p className="mt-1.5 text-grigio">{e.company}</p>
+                    <p className="mt-1.5 text-grigio">{inglese ? en.company : e.company}</p>
                   </div>
                 </div>
                 <p className="col-span-4 max-w-[60ch] text-pretty md:col-span-5">{inglese ? en.description : e.description}</p>

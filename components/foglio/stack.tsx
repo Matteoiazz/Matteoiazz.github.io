@@ -2,17 +2,9 @@
 
 import { useState } from "react"
 import { projects, stack } from "@/lib/portfolio-data"
-import { progettiEn } from "@/lib/inglese"
+import { gruppiEn, progettiEn } from "@/lib/inglese"
 import { useLingua } from "@/components/foglio/lingua"
 import { TechIcon } from "@/components/tech-icon"
-
-const gruppiEn: Record<string, string> = {
-  Linguaggi: "Languages",
-  Frontend: "Frontend",
-  "Backend e database": "Backend and databases",
-  "Mobile e desktop": "Mobile and desktop",
-  Infrastruttura: "Infrastructure",
-}
 
 const usata = (tecnologia: string) => projects.filter((p) => p.stack.includes(tecnologia))
 

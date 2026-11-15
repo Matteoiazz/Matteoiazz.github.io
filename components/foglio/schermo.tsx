@@ -1,5 +1,9 @@
+"use client"
+
 import Image from "next/image"
 import type { Shot } from "@/lib/portfolio-data"
+import { altEn } from "@/lib/inglese"
+import { useLingua } from "@/components/foglio/lingua"
 
 /**
  * Cornice chiara attorno a una schermata: un telefono con un filo
@@ -21,13 +25,16 @@ export function Schermo({
   sizes?: string
   priorita?: boolean
 }) {
+  const { lingua } = useLingua()
+  // Il testo alternativo segue la lingua, come il resto della pagina.
+  const alt = lingua === "en" ? (altEn[shot.src] ?? shot.alt) : shot.alt
   if (shot.frame === "phone") {
     return (
       <div className="schermo-telefono relative rounded-[1.35rem] bg-inchiostro p-[0.28rem] shadow-[0_2px_4px_rgb(0_0_0/0.08),0_24px_40px_-22px_rgb(0_0_0/0.45)]">
         <div className="relative h-full w-full overflow-hidden rounded-[1.08rem]">
           <Image
             src={shot.src}
-            alt={shot.alt}
+            alt={alt}
             fill
             priority={priorita}
             sizes={sizes ?? "(min-width: 768px) 14vw, 40vw"}
@@ -54,7 +61,7 @@ export function Schermo({
       <div className="relative aspect-[16/10]">
         <Image
           src={shot.src}
-          alt={shot.alt}
+          alt={alt}
           fill
           priority={priorita}
           sizes={sizes ?? "(min-width: 768px) 40vw, 90vw"}

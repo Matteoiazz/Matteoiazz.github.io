@@ -64,8 +64,8 @@ export function Comandi() {
         scorciatoia: "G",
         fai: () => document.documentElement.classList.toggle("progettista"),
       },
-      { id: "github", gruppo: "Link", testo: "GitHub", fai: () => window.open(contact.github, "_blank", "noopener") },
-      { id: "linkedin", gruppo: "Link", testo: "LinkedIn", fai: () => window.open(contact.linkedin, "_blank", "noopener") },
+      { id: "github", gruppo: t("Link", "Links"), testo: "GitHub", fai: () => window.open(contact.github, "_blank", "noopener") },
+      { id: "linkedin", gruppo: t("Link", "Links"), testo: "LinkedIn", fai: () => window.open(contact.linkedin, "_blank", "noopener") },
     ],
     [t, cambia],
   )

@@ -15,7 +15,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const progetto = projects.find((p) => p.slug === slug)
   if (!progetto) return {}
   return {
-    title: `${progetto.title} · ${progetto.casoStudio ? "Caso di studio" : "Progetto"} · Matteo Iazzolino`,
+    // Senza parole da tradurre: il titolo della scheda vale in italiano e in inglese.
+    title: `${progetto.title} · Matteo Iazzolino`,
     description: progetto.tagline,
   }
 }

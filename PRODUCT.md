@@ -26,7 +26,7 @@ Il sito si apre da link nel CV, su LinkedIn e nelle candidature, su desktop e su
 
 - Next.js 16 con export statico (output: "export", trailingSlash), pubblicato su Vercel; React 19, Tailwind 4, motion.
 - Contenuti centralizzati in lib/portfolio-data.ts (profilo, progetti, competenze, percorso) e lib/casi-studio.ts (casi di studio con codice reale dai repository).
-- Lingue: italiano principale, inglese come seconda lingua.
+- Lingue: italiano principale, inglese come seconda lingua. Con l'interruttore IT/EN si traduce tutto quello che si legge: casa, pagine dei progetti, capitoli dei casi di studio, schemi, numeri, curriculum in pagina e testi alternativi delle immagini (lib/inglese.ts e lib/casi-studio-en.ts). Il codice mostrato resta quello dei repository: in inglese cambiano solo i commenti, e la pagina lo dice. Restano in italiano il PDF del curriculum, le schermate delle app e la descrizione per i motori di ricerca, che è una sola per tutti.
 - Nessuna foto personale disponibile per ora: non usare volti di altre persone al suo posto.
 
 ## Brand Commitments

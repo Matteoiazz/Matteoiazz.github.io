@@ -19,15 +19,18 @@ function dividi(riga: string): [string, string] {
 /**
  * Estratto di codice sul grigio chiaro della pagina: il file in alto, i
  * numeri di riga, i commenti in grigio (sono la parte da leggere) e il
- * pulsante per copiarlo.
+ * pulsante per copiarlo. Il codice resta quello del repository: in inglese
+ * cambiano solo i commenti, con le coppie (riga italiana, riga inglese)
+ * passate in `commenti`.
  */
-export function Codice({ codice }: { codice: TipoCodice }) {
+export function Codice({ codice, commenti }: { codice: TipoCodice; commenti?: [string, string][] }) {
   const { t } = useLingua()
-  const righe = codice.righe.split("\n")
+  const testo = commenti ? commenti.reduce((s, [it, en]) => s.split(it).join(en), codice.righe) : codice.righe
+  const righe = testo.split("\n")
   const [copiato, setCopiato] = useState(false)
   const copia = async () => {
     try {
-      await navigator.clipboard.writeText(codice.righe)
+      await navigator.clipboard.writeText(testo)
       setCopiato(true)
       setTimeout(() => setCopiato(false), 1800)
     } catch {}

@@ -195,12 +195,30 @@ input, textarea { caret-color: var(--inchiostro); }
 /* ---------- Stack ---------- */
 .tecnologia, .voce-progetto { transition: color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease; }
 
+/* ---------- I capitoli della storia ---------- */
+/* Ogni capitolo prende corpo con lo scorrimento: i due valori li scrive lo
+   script, una volta per fotogramma. Senza script, in stampa o con il movimento
+   ridotto il capitolo resta al suo posto e si legge. */
+@property --fuoco { syntax: "<number>"; inherits: false; initial-value: 1; }
+@property --salita { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@media screen and (prefers-reduced-motion: no-preference) {
+  .corpo-capitolo { opacity: var(--fuoco, 1); translate: 0 var(--salita, 0px); }
+}
+
 /* ---------- Gli strati della storia ---------- */
 /* Ogni strato è un pezzo del disegno: quelli ancora da raccontare sono appena
    accennati e sospesi più in alto, poi si posano sulla pila. */
 .strato { transition: opacity 0.7s var(--uscita), translate 0.9s var(--uscita); }
 .strato[data-stato="visto"] { opacity: 0.45; }
 .strato[data-stato="spento"] { opacity: 0.12; translate: 0 -14%; }
+
+/* Sul desktop il disegno è alto quanto lo schermo permette; lo spazio è quanto
+   si apre la vista esplosa tra uno strato e l'altro. */
+.figura-storia {
+  --alta: min(66svh, 40rem, 40vw);
+  --spazio: calc(var(--alta) * 0.065);
+  height: var(--alta);
+}
 
 /* Sul telefono la pila resta ferma in alto mentre i capitoli scorrono sotto;
    quando la barra del sito torna, le lascia il posto scendendo con lei. */

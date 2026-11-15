@@ -1,7 +1,8 @@
 // -----------------------------------------------------------------------------
 // TESTI IN INGLESE — affiancano quelli italiani di portfolio-data.ts e
 // casi-studio.ts. Le chiavi sono gli slug dei progetti, i ruoli del percorso e
-// i percorsi delle schermate. I capitoli dei casi di studio restano in italiano.
+// i percorsi delle schermate. I capitoli dei casi di studio, con schemi, numeri
+// e commenti del codice, stanno in casi-studio-en.ts.
 // -----------------------------------------------------------------------------
 
 export type ProgettoEn = {
@@ -160,7 +161,7 @@ export const didascalieEn: Record<string, string> = {
   "/projects/wavely/ricerca.webp": "Catalogue search",
 }
 
-/** Apertura dei casi di studio: riassunto e la mia parte. I capitoli restano in italiano. */
+/** Apertura dei casi di studio: riassunto e la mia parte. I capitoli sono in casi-studio-en.ts. */
 export const casiStudioEn: Record<string, { sommario: string; ruolo: string }> = {
   tripify: {
     sommario:
@@ -184,10 +185,11 @@ export const casiStudioEn: Record<string, { sommario: string; ruolo: string }> =
   },
 }
 
-export const percorsoEn: Record<string, { tipo: string; role: string; period: string; description: string }> = {
+export const percorsoEn: Record<string, { tipo: string; role: string; company: string; period: string; description: string }> = {
   "Laurea Magistrale in Artificial Intelligence and Computer Science": {
     tipo: "Education",
     role: "MSc in Artificial Intelligence and Computer Science",
+    company: "University of Calabria",
     period: "From October 2026",
     description:
       "First semester: Deep Learning and Research and Development Methodologies, with an eight-person Scrum project for the Physics Department: ApKit4D, 3D analysis of algae under the microscope.",
@@ -195,18 +197,22 @@ export const percorsoEn: Record<string, { tipo: string; role: string; period: st
   "Laurea Triennale in Informatica": {
     tipo: "Education",
     role: "BSc in Computer Science",
+    company: "University of Calabria",
     period: "In progress · expected Dec 2026",
     description: "Third year. University projects across web, mobile and enterprise architecture, alongside personal projects.",
   },
   "Operatore volontario": {
     tipo: "Experience",
     role: "Volunteer",
+    company: "Italian Universal Civil Service",
     period: "Sep 2025 · Sep 2026",
     description: "A year of Italian Universal Civil Service as a volunteer, alongside my studies.",
   },
   "Diploma Scientifico — Scienze Applicate": {
     tipo: "Education",
     role: "Scientific high school diploma — Applied Sciences",
+    // Il nome della scuola resta quello ufficiale: che scuola è lo dice già il titolo.
+    company: 'Liceo Scientifico "Scorza", Cosenza',
     period: "2023 · 97/100",
     description: "Applied Sciences track, my first structured contact with programming.",
   },
@@ -214,3 +220,65 @@ export const percorsoEn: Record<string, { tipo: string; role: string; period: st
 
 export const introEn =
   "Third-year Computer Science student at the University of Calabria, graduating in December 2026 with a thesis that brings AI into a teaching tool. Since October 2026 I have also been attending the master's in Artificial Intelligence and Computer Science at UniCal, working in a team of eight on a project for the Physics Department. Along the way I have built university and personal projects for web, mobile and desktop: full-stack development, Android apps and microservice architectures."
+
+/** I gruppi dello stack (sezione Stack e pagina del curriculum). */
+export const gruppiEn: Record<string, string> = {
+  Linguaggi: "Languages",
+  Frontend: "Frontend",
+  "Backend e database": "Backend and databases",
+  "Mobile e desktop": "Mobile and desktop",
+  Infrastruttura: "Infrastructure",
+}
+
+/**
+ * Il testo alternativo delle schermate, per percorso dell'immagine: è quello
+ * che legge chi non vede l'immagine. Le scritte che si leggono nella schermata
+ * restano com'è l'app, in italiano, tra virgolette.
+ */
+export const altEn: Record<string, string> = {
+  "/projects/tripify/cover.webp": "Home of the Tripify Android app with search for flights, hotels and experiences, and the most popular",
+  "/projects/tripify/dettaglio.webp": "Page of the Iron & Spa Resort hotel with gallery, rating, stay dates and room types",
+  "/projects/tripify/ricerca.webp": "Results of a search for Milan: flights with route, price, date and seats available",
+  "/projects/tripify/itinerari.webp": 'The most popular public itineraries, such as "Fuga a Venezia" and "Puglia Autentica"',
+  "/projects/tesi/cover.webp":
+    "The exam of 3 July 2026 open in the editor: three exercises ready, 45 of 45 tests passed and the text of exercise 3",
+  "/projects/tesi/ai.webp":
+    "The solution to exercise 3 in the editor with the AI menu open: generate the solution and review the solution",
+  "/projects/tesi/richiesta.webp":
+    "The request-to-the-AI window for reviewing the solution, with room for the lecturer's instructions, before sending",
+  "/projects/tesi/archivio.webp":
+    "The tabbed archive with tracks grouped by year, filters by type, year and date, and the backup section",
+  "/projects/tesi/impostazioni.webp":
+    "Settings with the OpenRouter key masked, the chosen model and the option to see the request before it is sent",
+  "/projects/apkit4d/cover.webp":
+    "ApKit4D with a microscope acquisition open: the 3D volume with the algae, the time bar over the 600 frames and the five pipeline steps on the right",
+  "/projects/apkit4d/scuro.webp": "The same ApKit4D view with the dark theme",
+  "/projects/goldenstay/cover.webp": "GoldenStay home: the property by the sea at sunset and the search form for dates and guests",
+  "/projects/goldenstay/demo.gif":
+    "Recording of a complete booking on GoldenStay: room search, room page, payment and PDF receipt",
+  "/projects/goldenstay/camera.webp": 'Page of the "Suite Vista Mare" with photos, capacity, bed and price per night',
+  "/projects/goldenstay/prezzi.webp":
+    'The "Come si compone il prezzo" section: list price, surcharges for weekends and high season, long-stay discount',
+  "/projects/goldenstay/esperienza.webp": 'The "L\'esperienza" section with photos of a room and of the pool by the sea',
+  "/projects/goldenstay/mobile.webp": "GoldenStay home on a phone with the search form",
+  "/projects/moneymind/cover.webp": "MoneyMind dashboard with total balance, income, expenses and the yearly trend chart",
+  "/projects/moneymind/portafoglio.webp":
+    "Investment portfolio with total value, allocation pie chart and invested capital compared with current value",
+  "/projects/moneymind/wallet.webp": 'The shared wallet "Casa Milano" with invitation code, balance, and the group\'s income and expenses',
+  "/projects/moneymind/mercati.webp": "The Markets section with featured news and quotes for stocks and ETFs",
+  "/projects/moneymind/grafico.webp": "Candlestick chart of Apple stock with key statistics",
+  "/projects/muscle-fitness/cover.webp":
+    'Home of the Muscle & Fitness site: the headline "Allenati quando vuoi tu" over the photo of the weights room',
+  "/projects/muscle-fitness/discipline.webp":
+    "Grid of disciplines with kick-boxing, swimming, cross-training, rehabilitation, weights room and cardio",
+  "/projects/muscle-fitness/attrezzature.webp":
+    'The "Ferro serio, non arredamento" section with Technogym, Panatta and Diamond equipment',
+  "/projects/muscle-fitness/abbonamenti.webp":
+    'The "Un prezzo, tutta la struttura" section with single entry, monthly and yearly plans',
+  "/projects/muscle-fitness/mobile.webp": "Home of the Muscle & Fitness site on a phone",
+  "/projects/wavely/cover.webp": "WAVE.LY home with the greeting to the user, trending albums and the player at the bottom",
+  "/projects/wavely/artista.webp": "Page of the artist Sfera Ebbasta with popular tracks and the one playing highlighted",
+  "/projects/wavely/album.webp": "Page of the album YE by Kanye West with the tracklist",
+  "/projects/wavely/impostazioni.webp": "Settings with autoplay, resume of listening and the 6-band equaliser with presets",
+  "/projects/wavely/ricerca.webp": "Catalogue search with the top result, tracks and artists",
+}

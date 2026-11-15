@@ -68,7 +68,7 @@ export function Barra({ home = true }: { home?: boolean }) {
       data-no-stampa
       className={`fixed inset-x-0 top-0 z-50 bg-carta transition-[translate,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         nascosta ? "-translate-y-full" : ""
-      } ${staccata ? "shadow-[0_1px_0_var(--riga)]" : ""}`}
+      } ${staccata && !nascosta ? "shadow-[0_1px_0_var(--riga)]" : ""}`}
     >
       <nav aria-label={t("Principale", "Main")} className="contenitore flex h-16 items-center justify-between gap-4">
         <Link href="/" className="text-[0.95rem] font-medium tracking-[-0.01em]">

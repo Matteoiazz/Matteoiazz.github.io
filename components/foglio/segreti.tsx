@@ -31,15 +31,28 @@ export function Segreti() {
     }
     window.addEventListener("keydown", tasto)
 
+    // La lingua scelta, letta dal browser: a questo punto la pagina non l'ha ancora applicata.
+    let inglese = false
+    try {
+      inglese = localStorage.getItem("mi-lingua") === "en"
+    } catch {}
     console.log(
-      "%cMatteo Iazzolino%c\nSe stai leggendo qui, il codice ti interessa davvero.\nIl sorgente è su https://github.com/Matteoiazz · scrivimi: matteo.iazzolino@gmail.com\nPremi Ctrl+K per il menu. E prova il codice Konami.",
+      inglese
+        ? "%cMatteo Iazzolino%c\nIf you are reading this, you really care about the code.\nThe source is at https://github.com/Matteoiazz · write to me: matteo.iazzolino@gmail.com\nPress Ctrl+K for the menu. And try the Konami code."
+        : "%cMatteo Iazzolino%c\nSe stai leggendo qui, il codice ti interessa davvero.\nIl sorgente è su https://github.com/Matteoiazz · scrivimi: matteo.iazzolino@gmail.com\nPremi Ctrl+K per il menu. E prova il codice Konami.",
       "font: 800 28px sans-serif; letter-spacing: -0.02em",
       "font: 13px/1.6 monospace",
     )
 
-    const titolo = document.title
+    // Il titolo della scheda si salva quando si va via: cambia da una pagina all'altra.
+    let titolo = document.title
     const visibilita = () => {
-      document.title = document.hidden ? "Torna presto — Matteo Iazzolino" : titolo
+      if (document.hidden) {
+        titolo = document.title
+        document.title = document.documentElement.lang === "en" ? "Come back soon — Matteo Iazzolino" : "Torna presto — Matteo Iazzolino"
+      } else {
+        document.title = titolo
+      }
     }
     document.addEventListener("visibilitychange", visibilita)
     return () => {

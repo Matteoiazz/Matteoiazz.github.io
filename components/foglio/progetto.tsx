@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import { projects } from "@/lib/portfolio-data"
 import { casiStudio } from "@/lib/casi-studio"
 import { casiStudioEn, didascalieEn, progettiEn } from "@/lib/inglese"
+import { capitoliEn, etichetteEn, schemiEn } from "@/lib/casi-studio-en"
 import { useLingua } from "@/components/foglio/lingua"
 import { TechIcon } from "@/components/tech-icon"
 import { Barra } from "./barra"
@@ -18,7 +19,7 @@ import { nomePassaggio, nomeTestata, segnaOrigine } from "./anteprima"
  * La pagina di un progetto, con la stessa pulizia della casa: titolo grande,
  * a sinistra la scheda (anno, tipo, squadra, ruolo, stack, link), a destra il
  * racconto; poi la copertina, arrivata dalla casa con la view transition.
- * Per i tre casi di studio seguono lo schema dell'architettura con la mia
+ * Per i casi di studio seguono lo schema dell'architettura con la mia
  * parte in nero e i capitoli con il codice vero; per gli altri, cosa c'è
  * dentro. In fondo le schermate e il progetto successivo.
  */
@@ -31,11 +32,18 @@ export function Progetto({ slug }: { slug: string }) {
   const prossimo = projects[(indice + 1) % projects.length]
   const schermate = [p.cover, ...p.gallery]
   const inglese = lingua === "en"
+  // In inglese capitoli, schema e numeri vengono da casi-studio-en.ts; quello che manca resta in italiano.
+  const capitoli = (caso?.capitoli ?? []).map((c) => {
+    const e = inglese ? capitoliEn[slug]?.[c.titolo] : undefined
+    return { titolo: e?.titolo ?? c.titolo, testo: e?.testo ?? c.testo, codice: c.codice, commenti: e?.commenti }
+  })
+  const etichetta = (s: string) => (inglese ? (etichetteEn[s] ?? s) : s)
+  const commentiTradotti = capitoli.some((c) => c.commenti?.length)
 
   const voci = caso
     ? [
         { id: "schema", titolo: t("Come è fatto", "How it's built") },
-        ...caso.capitoli.map((c, i) => ({ id: `capitolo-${i + 1}`, titolo: c.titolo })),
+        ...capitoli.map((c, i) => ({ id: `capitolo-${i + 1}`, titolo: c.titolo })),
         { id: "schermate", titolo: t("Schermate", "Screens") },
       ]
     : []
@@ -80,8 +88,8 @@ export function Progetto({ slug }: { slug: string }) {
               <p className="lead">
                 {inglese ? (caso ? (casiStudioEn[slug]?.sommario ?? en.tagline) : en.description) : caso ? caso.sommario : p.description}
               </p>
-              {inglese && caso ? (
-                <p className="mt-5 text-sm text-grigio">The chapters below are written in Italian, and so are the code comments.</p>
+              {commentiTradotti ? (
+                <p className="mt-5 text-sm text-grigio">The code below is taken from the repositories as it is; only its comments are translated here from Italian.</p>
               ) : null}
             </div>
 
@@ -144,7 +152,7 @@ export function Progetto({ slug }: { slug: string }) {
               <dl className="grid grid-cols-1 border-t border-riga sm:grid-cols-2 lg:grid-cols-4 lg:border-b">
                 {caso.numeri.map((n) => (
                   <div key={n.k} className="flex items-baseline gap-3 border-b border-riga py-4 lg:border-b-0 lg:py-5">
-                    <dt className="order-2 text-grigio">{n.k}</dt>
+                    <dt className="order-2 text-grigio">{etichetta(n.k)}</dt>
                     <dd className="cifre order-1 shrink-0 text-[1.25rem] font-medium leading-none tracking-[-0.015em]">{n.v}</dd>
                   </div>
                 ))}
@@ -172,7 +180,9 @@ export function Progetto({ slug }: { slug: string }) {
               <div className="col-span-4 min-w-0 md:col-span-12 lg:col-span-8 lg:col-start-5">
                 <article id="schema" data-capitolo className="scroll-mt-28">
                   <h2 className="titolo-2">{t("Come è fatto.", "How it's built.")}</h2>
-                  <p className="mt-5 max-w-[65ch] text-pretty leading-relaxed text-grigio">{caso.architettura.didascalia}</p>
+                  <p className="mt-5 max-w-[65ch] text-pretty leading-relaxed text-grigio">
+                    {inglese ? (schemiEn[slug] ?? caso.architettura.didascalia) : caso.architettura.didascalia}
+                  </p>
                   <p className="mt-4 flex items-center gap-2 text-sm">
                     <span aria-hidden className="inline-block size-3 rounded-[3px] bg-inchiostro" />
                     {t("In nero, la mia parte", "In black, my part")}
@@ -180,7 +190,7 @@ export function Progetto({ slug }: { slug: string }) {
                   <div className="mt-8 border-t border-riga">
                     {caso.architettura.livelli.map((livello) => (
                       <div key={livello.nome} className="grid grid-cols-[5.5rem_minmax(0,1fr)] items-center gap-4 border-b border-riga py-4 sm:grid-cols-[7.5rem_minmax(0,1fr)]">
-                        <p className="text-sm text-grigio">{livello.nome}</p>
+                        <p className="text-sm text-grigio">{etichetta(livello.nome)}</p>
                         <div className="flex flex-wrap gap-2">
                           {livello.blocchi.map((b) => (
                             <div
@@ -189,8 +199,8 @@ export function Progetto({ slug }: { slug: string }) {
                                 b.mio ? "bg-inchiostro text-carta" : "shadow-[inset_0_0_0_1px_var(--riga-forte)]"
                               }`}
                             >
-                              <p className="text-sm font-medium">{b.nome}</p>
-                              {b.nota ? <p className={`mt-0.5 text-xs ${b.mio ? "text-carta/70" : "text-grigio"}`}>{b.nota}</p> : null}
+                              <p className="text-sm font-medium">{etichetta(b.nome)}</p>
+                              {b.nota ? <p className={`mt-0.5 text-xs ${b.mio ? "text-carta/70" : "text-grigio"}`}>{etichetta(b.nota)}</p> : null}
                             </div>
                           ))}
                         </div>
@@ -199,8 +209,8 @@ export function Progetto({ slug }: { slug: string }) {
                   </div>
                 </article>
 
-                {caso.capitoli.map((cap, i) => (
-                  <article key={cap.titolo} id={`capitolo-${i + 1}`} data-capitolo className="mt-24 scroll-mt-28 md:mt-32">
+                {capitoli.map((cap, i) => (
+                  <article key={i} id={`capitolo-${i + 1}`} data-capitolo className="mt-24 scroll-mt-28 md:mt-32">
                     <h2 className="titolo-2">{cap.titolo}</h2>
                     <div className="mt-6 space-y-4">
                       {cap.testo.map((testo) => (
@@ -211,7 +221,7 @@ export function Progetto({ slug }: { slug: string }) {
                     </div>
                     {cap.codice ? (
                       <div className="mt-8">
-                        <Codice codice={cap.codice} />
+                        <Codice codice={cap.codice} commenti={cap.commenti} />
                       </div>
                     ) : null}
                   </article>
