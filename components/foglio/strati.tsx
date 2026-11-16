@@ -200,7 +200,7 @@ function StratoScorrevole({
   })
   // Profondità: il database sta in fondo, l'AI davanti. Si muovono in versi opposti.
   const profondita = (i - 1.5) / 1.5
-  const x = useTransform(mollaX, (v) => v * profondita * 9)
+  // Solo in altezza: le linee tratteggiate tra gli strati sono verticali e restano allineate.
   const y = useTransform([mollaY, scelto], ([v, s]: number[]) => v * profondita * 5 - (fermo ? 0 : 5 * s))
   const nome = t(f.nome.it, f.nome.en)
   const titolo = t(capitolo.titolo.it, capitolo.titolo.en)
@@ -221,7 +221,7 @@ function StratoScorrevole({
       className="group absolute inset-x-0 block"
       style={{ top: `${f.da}%`, height: `${f.a - f.da}%`, translate: sposta }}
     >
-      <motion.span aria-hidden className="absolute inset-0 block" style={{ opacity: opacita, x, y, ...ritaglio(f.da, f.a) }} />
+      <motion.span aria-hidden className="absolute inset-0 block" style={{ opacity: opacita, y, ...ritaglio(f.da, f.a) }} />
       {/* Il nome accanto: lo spazio fino al disegno fa parte del link, così il puntatore non lo perde. */}
       <span
         className={`absolute left-full top-1/2 flex -translate-y-1/2 items-center gap-2.5 whitespace-nowrap py-2 pl-5 text-sm transition-colors duration-300 group-hover:text-inchiostro group-focus-visible:text-inchiostro ${
